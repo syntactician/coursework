@@ -11,15 +11,76 @@
 
 \usepackage{dirtytalk}
 
-\begin{document} \title{Wittgenstein on Augustine}
+\begin{document} \title{Wittgenstein on Rules}
 \author{Edward Hern\'{a}ndez}
 \date{\today}
 \affiliation{College of William \& Mary}
-\shorttitle{Wittgenstein on Augustine}
+\shorttitle{Wittgenstein on Rules}
 
 \maketitle
 
-\nocite{Wittgenstein53}
+\begin{quote}
+	% On page 80 of her book, Marie McGinn paraphrases the `skeptical solution'
+	% that Saul Kripke sees Wittgenstein to be arguing for in \S 138-242 of
+	% the Investigations: ``All we can say is that in our community we call
+	% `$125$' the correct answer to `$68 + 57 = ?$'; the idea that it is
+	% the correct answer has been shown to be empty''. (This has also been
+	% called ``the community view'' on rule-following.)
+	%
+	From his remarks in 138-242, do you take Wittgenstein to concur that we
+	cannot say of Tom, who regularly gives `$5$' as the answer to `$68 + 57 =
+	?$', that he does not in fact understand the rule for addition --- and that
+	all we are really justified in saying is that his is not the answer we in
+	our community give?  (So, it is not wrong to say that $68 + 57 = 5$; it
+	merely does not conform to our practice.)  Do Wittgenstein's remarks lead
+	to the conclusion that, since there is no criterion (other than community
+	agreement) for distinguishing between understanding and not-understanding a
+	given rule R, the idea of understanding R (or understanding what the word W
+	means) is empty?  Do we not, then, understand any rules or understand the
+	meanings of any words?  (Of course, if this is your conclusion, then there
+	really isn't any point in writing your essay....)
+\end{quote}
+
+It seems natural (to me, at least) to assume that we all generally have the same understanding of the $+$ symbol to denote addition, which is well defined such that for any two integer values, $x$ and $y$ there is a single correct answer to $x + y$. Presumably, this function works, even for values that I have never personally added before. This function theoretically comprises a \emph{rule}, about how $x + y = ?$ ought to be answered truthfully.
+
+Despite the commonsense appeal of such a position, \citeA{Kripke82} holds Wittgenstein (in \S 138-242) to be bound to a skeptical account of meaning and rule-following which precludes this sort of understanding of rules. Let us consider Tom, who has never added a number greater than $56$ before. Kripke claims that, for Tom, $+$ might be used in accordance with a function other than what we call addition. He offers as a possible example of such an operation, \emph{quus} ($\oplus$), defined:
+% Explain Kripke's position.
+% explicate Wright and Crispin --- pick one
+% \citeA{Kripke82} discusses \emph{quus} ($\oplus$), an operation by which:
+\begin{equation}
+\begin{split}
+		x \oplus y = x + y,~\mathrm{if}~x,y <57\\
+		=5~\mathrm{otherwise} \\
+\end{split}
+\end{equation}
+Since Tom has performed the function $+$ a finite number of additions, on a finite set of values of $x$ and $y$. These performances are compatible with an infinite number of functions that $+$ might represent. \emph{Quus} is just one of them.
+
+We might try to escape by defining $+$ in some way which seems extensible to large but previously un-encountered numbers, to limit the functions which $+$ might represent to solely addition, but Kripke anticipates this. If we want to define $+$ as a function such that $x + y$ can be computed by counting $x$ and then counting $y$, Kripke objects that	``count'' raises the same concerns. Tom has only counted a finite number of objects (as have we all). Perhaps he actually \emph{quonts} the items, meaning count in the traditional sense until $56$, then give $5$ for all values afterwards.
+
+If Kripke is to be believed here, these concerns apply not only to Tom but to every actor, who has necessarily only performed any rule finite times on finite operands. Just as for Tom there is no fact which determines whether he means $+$ to mean addition or \emph{quus}, there is no fact which determines that any actor has ever meant any particular function by any particular operator like $+$. Again, there is an infinite number of functions or rules which may explain the finite set of answers the operator has been used to produce.
+
+This seems to be in accordance with what \cite{Wittgenstein53} says in \S 201. Any action can be brought into accordance with a rule, or in conflict with it. Unfortunately, this seems generalizable to not only mathematical functions, but the following of all rules and meanings. If there is no rule governing what I mean by a word, how is it that I can communicate anything with it? Kripke's skeptical account here is terrifyingly far-reaching. To attempt to escape some of it Kripke proposes a view of dispositions and \emph{assertability-conditions}, in contrast with traditional normative and truth-value models. For him, ``to mean addition by `+' is to be disposed, when asked for any sum $x~+~y$ to give the sum of $x$ and $y$ as the answer'' \cite{Kripke82}, \emph{not} accordance with any rule. Since meanings cannot be determined by facts, as he determines from the arguments above, truth-conditions cannot be applied to sentences, but he proposes that something like them, \emph{assertability-conditions}, can. For him the meaning of a sentence is given by the circumstances under which it can be asserted (or denied). So, then, if I understand correctly, to mean addition by $+$ is something like asserting a rule like addition under the particular circumstances of the numbers being added.
+
+Kripke's disposition model is far from the only attempt to escape the skeptical concerns he raises. \S 202 seems to anticipate the account provided by \citeA{Wright01} Wright gives a communitarian reading, but one which is some sense allows for utterances to be correct or incorrect.
+He holds that, while Wittgenstein discredits objective meaning, he still allows for meaning to be understood against the backdrop of a ``community of assent.'' Disagreeing with the community consensus is akin to being wrong; agreeing is akin to being correct.
+
+There is something to be said for the communitarian reading. While I doubt there is a community of people like Tom, whose consensus would line up with Kripke's description of \emph{quus}, there are other real-life examples in which $68 + 57 = ?$ would yield different answers, and indeed different consensuses. If we operate in base 9, the consensus (perhaps excluding Tom) would be that:
+\begin{equation}
+		68 + 57 = 136
+\end{equation}
+This set of rules for expressing and manipulating numbers yield a different answer, one that it seems reasonable to assert would be agreed upon by consensus in some real situations. This is, however, arguably a matter of differently interpreting the addends to the function $+$. To parallel Kripke's \emph{quus} example, which offers different rules for the operator $+$, I offer concatenation. In many programming languages focused on scripting rather than performing numerical math, $+$ represents concatenation rather than addition. With this understanding, 
+\begin{equation}
+		68 + 57 = 6857
+\end{equation}
+In a room full of programmers who work in languages that function this way, the answer $6857$ would be the consensus. These consensuses seem valid, like an account of what it 
+
+Given these possible consensuses, it makes sense to adopt the communitarian account given by \citeA{Wright01} of ``a community of assent.'' A linguistic community of practice who make use of the sign ``$+$'' have a consensus on how it is to be used and which expressions involving it are true. From this consensus, a normative account can be drawn which compares individual utterances applying the sign to the general use of the community to determine correctness. This seems to line up neatly with Wittgenstein's remarks in \S 202, about the impossibility of rule-following privately.
+
+% \citeA{McDowell09} does seem to give a convincing counterargument to this position. He argues (rightly, I think) that Wright's account offers no room for ratification-independent truth. An utterance cannot be evaluated without a community against which to compare it, and even when such comparison is possible, the evaluation of meaning and correctness is not at all what we intuitively think of. As he puts it, ``all that my going wrong can amount to is this: my action does not secure the approval of my fellows''\cite[p.~233]{McDowell98A}.
+
+It is worth noting that Kripke's model of assertibility-conditions can account for these disparate meanings. In the above examples, we might imagine \emph{while in base 9} or \emph{while programming} as conditions to the assertion or denial of interpretations of $+$. I think that this account is also compatible with Wittgenstein and is sufficient to explain how meanings do operate in the world and how rule-following appears to work. 
+
+While Kripke does convince me that Wittgenstein is bound to a rejection of objective meaning and factual accounts of intentional rule-following, there are convincing and robust accounts of how meaning and rule-following might still function. I leave open which of them is correct (if either of them is) and which is nearer to what Wittgenstein's original intentions. Both readings are compelling.\footnote{I'm sure McDowell's is as well, but I'm quite confused by it.}
 
 \clearpage
 
