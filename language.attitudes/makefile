@@ -43,12 +43,12 @@ all :
 	latex hernandez.10.19.15
 	pdflatex hernandez.10.19.15
 	# 8
-	-latex hernandez.10.26.15
-	-bibtex hernandez.10.26.15
-	-bibtex hernandez.10.26.15
-	-latex hernandez.10.26.15
-	-latex hernandez.10.26.15
-	-pdflatex hernandez.10.26.15
+	latex hernandez.10.26.15
+	bibtex hernandez.10.26.15
+	bibtex hernandez.10.26.15
+	latex hernandez.10.26.15
+	latex hernandez.10.26.15
+	pdflatex hernandez.10.26.15
 	# clean-ish
 	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.out *.toc *.fff *.out
 
