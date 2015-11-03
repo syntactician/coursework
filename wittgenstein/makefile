@@ -1,27 +1,4 @@
-all :
-	# propositions
-	latex propositions
-	bibtex propositions
-	bibtex propositions
-	latex propositions
-	latex propositions
-	pdflatex propositions
-	# augustine
-	latex augustine
-	bibtex augustine
-	bibtex augustine
-	latex augustine
-	latex augustine
-	pdflatex augustine
-	# rules
-	latex rules
-	bibtex rules
-	bibtex rules
-	latex rules
-	latex rules
-	pdflatex rules
-	# clean-ish
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
+all : 1 2 3 4 sweep
 
 1 :
 	latex propositions
@@ -77,6 +54,27 @@ rules :
 	pdflatex rules
 	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
 
+4 :
+	latex private.language
+	bibtex private.language
+	bibtex private.language
+	latex private.language
+	latex private.language
+	pdflatex private.language
+	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
+
+private-language :
+	latex private.language
+	bibtex private.language
+	bibtex private.language
+	latex private.language
+	latex private.language
+	pdflatex private.language
+	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
+
+sweep :
+	-rm *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz
+
 clean :
-	-rm *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz *.pdf
+	-rm *.pdf
 
