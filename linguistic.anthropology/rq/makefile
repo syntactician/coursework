@@ -16,7 +16,9 @@ all: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 sweep
 09.10: 3
 
 4:
+	latex 09.15
 	pdflatex 09.15
+	-rm *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz *.fff *.out
 
 09.15: 4
 
