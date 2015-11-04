@@ -6,11 +6,9 @@ syllabus :
 1 :
 	latex hernandez.08.31.15
 	bibtex hernandez.08.31.15
-	bibtex hernandez.08.31.15
-	latex hernandez.08.31.15
 	latex hernandez.08.31.15
 	pdflatex hernandez.08.31.15
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
+	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
 
 08.31 : 1
 
@@ -21,9 +19,8 @@ autobiography : 1
 	bibtex hernandez.09.07.15
 	bibtex hernandez.09.07.15
 	latex hernandez.09.07.15
-	latex hernandez.09.07.15
 	pdflatex hernandez.09.07.15
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
+	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
 
 09.07 : 2
 
@@ -32,9 +29,8 @@ autobiography : 1
 	bibtex hernandez.09.14.15
 	bibtex hernandez.09.14.15
 	latex hernandez.09.14.15
-	latex hernandez.09.14.15
 	pdflatex hernandez.09.14.15
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
+	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
 
 09.14 : 3
 
@@ -43,9 +39,8 @@ autobiography : 1
 	bibtex hernandez.09.28.15
 	bibtex hernandez.09.28.15
 	latex hernandez.09.28.15
-	latex hernandez.09.28.15
 	pdflatex hernandez.09.28.15
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
+	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
 
 09.28 : 5
 
@@ -54,9 +49,8 @@ autobiography : 1
 	bibtex hernandez.10.05.15
 	bibtex hernandez.10.05.15
 	latex hernandez.10.05.15
-	latex hernandez.10.05.15
 	pdflatex hernandez.10.05.15
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
+	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
 
 10.05 : 6 
 
@@ -65,9 +59,8 @@ autobiography : 1
 	bibtex hernandez.10.19.15
 	bibtex hernandez.10.19.15
 	latex hernandez.10.19.15
-	latex hernandez.10.19.15
 	pdflatex hernandez.10.19.15
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
+	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
 
 10.19 : 7
 
@@ -78,16 +71,15 @@ action-plan : 7
 	bibtex hernandez.10.26.15
 	bibtex hernandez.10.26.15
 	latex hernandez.10.26.15
-	latex hernandez.10.26.15
 	pdflatex hernandez.10.26.15
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
+	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
 
 10.26 : 8
 
 midterm : 8
 
 sweep:
-	-rm *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz *.fff *.out
+	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
 
 clean : sweep
-	-rm *.pdf
+	rm -rf *.pdf
