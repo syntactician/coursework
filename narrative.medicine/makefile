@@ -1,4 +1,4 @@
-all : syllabus midterm home sweep
+all : syllabus midterm sweep
 
 syllabus :
 	pdflatex syllabus
@@ -13,14 +13,7 @@ midterm :
 	pdflatex midterm.revised
 	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.out
 
-home :
-	latex midterm.revised
-	biber midterm.revised
-	biber midterm.revised
-	latex midterm.revised
-	latex midterm.revised
-	pdflatex midterm.revised
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.out
+home : midterm
 
 sweep :
 	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.out
