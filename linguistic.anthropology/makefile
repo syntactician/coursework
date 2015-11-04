@@ -11,12 +11,12 @@ response.paper :
 	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
 
 linguistic.relativity :
-	latex linguistic.relativity
-	bibtex linguistic.relativity
-	bibtex linguistic.relativity
-	latex linguistic.relativity
-	latex linguistic.relativity
-	pdflatex linguistic.relativity
+	latex relativity
+	bibtex relativity
+	bibtex relativity
+	latex relativity
+	latex relativity
+	pdflatex relativity
 	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
 
 midterm :
