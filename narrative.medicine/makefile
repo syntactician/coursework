@@ -13,6 +13,9 @@ midterm :
 	pdflatex midterm.revised
 	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.out
 
+wading.home :
+	pandoc wading.home.md -s -o wading.home.pdf
+
 home : midterm
 
 sweep :
