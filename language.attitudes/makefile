@@ -1,4 +1,4 @@
-all: syllabus 1 2 3 5 6 7 8 sweep
+all: 1 2 3 5 6 7 8 9 sweep
 
 syllabus :
 	-pdflatex syllabus
@@ -77,6 +77,16 @@ action-plan : 7
 10.26 : 8
 
 midterm : 8
+
+9 :
+	latex hernandez.11.09.15
+	bibtex hernandez.11.09.15
+	bibtex hernandez.11.09.15
+	latex hernandez.11.09.15
+	pdflatex hernandez.11.09.15
+	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
+
+11.09 : 9
 
 sweep:
 	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
