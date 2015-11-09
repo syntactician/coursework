@@ -1,7 +1,7 @@
-all: 1 2 3 5 6 7 8 9 sweep
+all: syllabus 1 2 3 5 6 7 8 9 sweep
 
 syllabus :
-	-pdflatex syllabus
+	pdflatex syllabus
 
 1 :
 	latex hernandez.08.31.15
