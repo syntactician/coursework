@@ -2,13 +2,15 @@ all : syllabus schedule rq response.paper linguistic.relativity midterm sweep
 
 syllabus :
 	pdflatex syllabus
+	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
+
+schedule :
+	pdflatex schedule
+	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
 
 .PHONY : rq
 rq :
 	$(MAKE) -C rq
-
-schedule :
-	pdflatex schedule
 
 response.paper :
 	pdflatex response.paper
