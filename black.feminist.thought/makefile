@@ -1,3 +1,5 @@
+all : proposal bibliography
+
 proposal :
 	pdflatex proposal
 
@@ -16,5 +18,4 @@ sweep:
 	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
 
 clean : sweep
-	rm -rf *.pdf
-
+	rm -rf bib.pdf proposal.pdf final.pdf
