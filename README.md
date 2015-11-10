@@ -6,7 +6,6 @@ papers, I guess you can.
 
 #### Repo To-Do
 
-* Upload Narrative Medicine blog posts.
-* Build a syllabus and schedule for Language Attitudes.
-* Upload the Black Feminist Thought Syllabus and start work on the final.
-* Upload the readings for other classes.
+* ~~Upload Narrative Medicine blog posts.~~
+* Build a ~~syllabus~~ and schedule for Language Attitudes.
+* ~~Upload the Black Feminist Thought syllabus~~ and start work on the final.
