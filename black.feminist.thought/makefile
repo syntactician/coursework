@@ -1,0 +1,2 @@
+proposal :
+	pdflatex proposal
