@@ -1,3 +1,9 @@
+clean : sweep
+	-rm *.pdf
+
+sweep :
+	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.out
+
 all : syllabus midterm sweep
 
 syllabus :
@@ -20,9 +26,3 @@ wading.home :
 
 terminal.device :
 	pandoc terminal.device.md -s -o terminal.device.pdf
-
-sweep :
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.out
-
-clean : sweep
-	-rm *.pdf

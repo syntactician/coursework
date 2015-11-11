@@ -1,3 +1,9 @@
+clean : sweep
+	rm -rf *.pdf
+
+sweep:
+	rm -rf *.aux *.bbl *.blg *.dvi *.log *.out
+
 all: syllabus 1 2 3 5 6 7 8 9 sweep
 
 syllabus :
@@ -89,9 +95,3 @@ midterm : 8
 	rm -rf *.aux *.bbl *.blg *.dvi *.log *.out
 
 11.09 : 9
-
-sweep:
-	rm -rf *.aux *.bbl *.blg *.dvi *.log *.out
-
-clean : sweep
-	rm -rf *.pdf

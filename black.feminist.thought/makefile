@@ -1,3 +1,9 @@
+clean : sweep
+	rm -rf bib.pdf proposal.pdf final.pdf
+
+sweep:
+	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
+
 all : proposal bibliography
 
 proposal :
@@ -12,9 +18,3 @@ bibliography :
 	latex bibliography
 	pdflatex bibliography
 	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
-
-sweep:
-	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
-
-clean : sweep
-	rm -rf bib.pdf proposal.pdf final.pdf

@@ -1,3 +1,10 @@
+clean : sweep
+	rm -rf *.pdf
+	rm -rf rq/*.pdf
+
+sweep :
+	rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.out
+
 all : syllabus schedule rq response.paper linguistic.relativity midterm sweep
 
 syllabus :
@@ -28,10 +35,3 @@ relativity :
 midterm :
 	pdflatex midterm.tex
 	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.dvi *.out
-
-sweep :
-	rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.out
-
-clean : sweep
-	rm -rf *.pdf
-	rm -rf rq/*.pdf

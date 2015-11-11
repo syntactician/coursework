@@ -1,3 +1,9 @@
+clean : sweep
+	rm -rf *.pdf
+
+sweep :
+	rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz
+
 all : 1 2 3 4 5 sweep
 
 1 :
@@ -53,9 +59,3 @@ private.language : 4
 	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
 
 experience : 5
-
-sweep :
-	rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz
-
-clean :
-	rm -rf *.pdf
