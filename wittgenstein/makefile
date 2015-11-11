@@ -1,4 +1,4 @@
-all : 1 2 3 4 sweep
+all : 1 2 3 4 5 sweep
 
 1 :
 	latex propositions
@@ -7,7 +7,7 @@ all : 1 2 3 4 sweep
 	latex propositions
 	latex propositions
 	pdflatex propositions
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
+	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
 
 propositions : 1
 
@@ -18,7 +18,7 @@ propositions : 1
 	latex augustine
 	latex augustine
 	pdflatex augustine
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
+	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
 
 augustine : 2
 
@@ -29,7 +29,7 @@ augustine : 2
 	latex rules
 	latex rules
 	pdflatex rules
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
+	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
 
 rules : 3
 
@@ -40,13 +40,22 @@ rules : 3
 	latex private.language
 	latex private.language
 	pdflatex private.language
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
+	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
 
 private.language : 4
 
+5 :
+	latex experience
+	bibtex experience
+	bibtex experience
+	latex experience
+	pdflatex experience
+	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
+
+experience : 5
+
 sweep :
-	-rm *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz
+	rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz
 
 clean :
-	-rm *.pdf
-
+	rm -rf *.pdf
