@@ -4,3 +4,6 @@
 *.swp
 ~$*
 test.*
+*.aux
+*.out
+*.dvi
