@@ -4,10 +4,15 @@ clean : sweep
 sweep :
 	rm -rf *.aux *.bbl *.blg *.dvi *.log *.out
 
-narrative.medicine :
-	latex narrative.medicine
-	bibtex narrative.medicine
-	bibtex narrative.medicine
-	latex narrative.medicine
-	pdflatex narrative.medicine
+defense :
+	latex defense
+	bibtex defense
+	bibtex defense
+	latex defense
+	pdflatex defense
+	rm -rf *.aux *.bbl *.blg *.dvi *.log *.out
+
+hope :
+	latex hope
+	pdflatex hope
 	rm -rf *.aux *.bbl *.blg *.dvi *.log *.out
