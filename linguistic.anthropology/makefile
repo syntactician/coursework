@@ -2,11 +2,11 @@ all : syllabus schedule rq response.paper linguistic.relativity midterm sweep
 
 syllabus :
 	pdflatex syllabus
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
+	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.dvi *.out
 
 schedule :
 	pdflatex schedule
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
+	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.dvi *.out
 
 .PHONY : rq
 rq :
@@ -14,7 +14,7 @@ rq :
 
 response.paper :
 	pdflatex response.paper
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
+	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.dvi *.out
 
 relativity :
 	latex relativity
@@ -23,14 +23,15 @@ relativity :
 	latex relativity
 	latex relativity
 	pdflatex relativity
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
+	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.dvi *.out
 
 midterm :
 	pdflatex midterm.tex
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.fff *.out
+	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.dvi *.out
 
 sweep :
-	-rm *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz *.fff *.out
+	rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.out
 
 clean : sweep
-	-rm *.pdf
+	rm -rf *.pdf
+	rm -rf rq/*.pdf

@@ -1,4 +1,4 @@
-all: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 sweep
+all: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 sweep
 
 1:
 	pandoc 09.01.md -s -o 09.01.pdf
@@ -18,7 +18,7 @@ all: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 sweep
 4:
 	latex 09.15
 	pdflatex 09.15
-	-rm *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz *.fff *.out
+	rm -rf *.dvi *.log *.out
 
 09.15: 4
 
@@ -96,15 +96,15 @@ all: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 sweep
 19:
 	-pandoc 11.19.md -s -o 11.19.pdf
 
-11.19: 29
+11.19: 19
 
 20:
 	-pandoc 11.24.md -s -o 11.24.pdf
 
-11.24: 30
+11.24: 20
 
 sweep :
-	-rm *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz *.fff *.out
+	rm -rf *.aux *.dvi *.log *.out
 
 clean: sweep
-	-rm *.pdf
+	rm -rf *.pdf
