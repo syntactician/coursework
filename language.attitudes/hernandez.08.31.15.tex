@@ -1,14 +1,8 @@
 \documentclass[doc,12pt]{apa6}
-\usepackage{lmodern}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript \ifnum 0\ifxetex 1\fi\ifluatex
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-  
-\usepackage[usenames,dvipsnames]{color}
+\usepackage[colorlinks=false]{hyperref}
+\usepackage{lmodern,amssymb,amsmath,graphicx,grffile,apacite}
+\linespread{1.5}
 
-\usepackage{graphicx,grffile}
 \graphicspath{ {.resources/} }
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -17,13 +11,12 @@
 % Scale images if necessary, so that they will not overflow the page margins by
 % default, and it is still possible to overwrite the defaults using explicit
 % options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\setlength{\parindent}{0pt} \setlength{\parskip}{6pt plus 2pt minus 1pt}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}} \setcounter{secnumdepth}{0}
-
-\usepackage[colorlinks=false]{hyperref} \usepackage{apacite}
+%
+% \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% \setlength{\parindent}{0pt} \setlength{\parskip}{6pt plus 2pt minus 1pt}
+% \setlength{\emergencystretch}{3em}  % prevent overfull lines
+% \providecommand{\tightlist}{%
+% \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}} \setcounter{secnumdepth}{0}
 
 \begin{document}
 
@@ -34,9 +27,10 @@
 \affiliation{College of William \& Mary}
 \maketitle
 
-\begin{figure}[htbp] \centering \includegraphics{ngare.clarke.hernandez}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics{ngare.clarke.hernandez}
 \end{figure}
-
 
 My name is Edward Hern\'{a}ndez. Here's a relatively old picture of me (with
 Bishop and Jeffrey), but one of the best I've got, 
@@ -85,11 +79,13 @@ was social, but my standardized English was perfect. It gave me a distinct
 edge, since it made me sound professional and polished to the middle aged
 college educated white judges. I was thrilled, and I made my debate language
 progressively more standardized, arcane, and inaccessible. Eventually I found
-myself spouting nonsense like: \begin{quote} ``Our alternative is queer
-	unintelligibility: This is an enforced invisibility that resists the
-	catachresis of the Symbolic that imposes identity on lack in a neurotic
-	attempt to map out the blind spots in the social order.''
-\cite[p.~19]{Pease11} \end{quote}
+myself spouting nonsense like:
+\begin{quote}
+	``Our alternative is queer unintelligibility: This is an enforced
+	invisibility that resists the catachresis of the Symbolic that imposes
+	identity on lack in a neurotic attempt to map out the blind spots in the
+	social order.'' \cite[p.~19]{Pease11}
+\end{quote}
 % Good to bring up in class
 I thought I was pretty great. Luckily, this didn't last all that long.  Another
 debater, now a friend of mine, came along and crushed my debate case and my
@@ -121,6 +117,7 @@ can. That, and community studies studies are always a party.
 
 \clearpage
 
-\bibliography{cmst}{} \bibliographystyle{apacite}
+\bibliography{cmst}
+\bibliographystyle{apacite}
 
 \end{document}
