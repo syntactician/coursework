@@ -2,17 +2,16 @@ all : proposal bibliography
 
 proposal :
 	pdflatex proposal
+	rm -rf *.aux *.log *.out
 
 bibliography :
-	latex bib
-	latex bib
-	bibtex bib
-	bibtex bib
-	latex bib
-	pdflatex bib
+	latex bibliography
+	latex bibliography
+	bibtex bibliography
+	bibtex bibliography
+	latex bibliography
+	pdflatex bibliography
 	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
-
-bib : bibliography
 
 sweep:
 	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
