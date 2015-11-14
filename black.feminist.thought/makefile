@@ -11,10 +11,10 @@ proposal :
 	rm -rf *.aux *.log *.out
 
 bibliography :
-	latex bibliography
-	latex bibliography
-	bibtex bibliography
-	bibtex bibliography
+	# latex bibliography
+	# latex bibliography
+	# bibtex bibliography
+	# bibtex bibliography
 	latex bibliography
 	pdflatex bibliography
 	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
