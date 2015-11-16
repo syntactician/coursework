@@ -4,7 +4,7 @@ clean : sweep
 sweep:
 	rm -rf *.aux *.bbl *.blg *.dvi *.log *.out
 
-all: syllabus 1 2 3 5 6 7 8 9 sweep
+all: syllabus 1 2 3 5 6 7 8 9 10 sweep
 
 syllabus :
 	latex syllabus
@@ -95,3 +95,15 @@ midterm : 8
 	rm -rf *.aux *.bbl *.blg *.dvi *.log *.out
 
 11.09 : 9
+
+10 :
+	latex hernandez.11.16.15
+	bibtex hernandez.11.16.15
+	bibtex hernandez.11.16.15
+	latex hernandez.11.16.15
+	pdflatex hernandez.11.16.15
+	rm -rf *.aux *.bbl *.blg *.dvi *.log *.out
+
+11.16 : 10
+
+lit.review : 10
