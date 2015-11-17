@@ -1,5 +1,5 @@
 clean : sweep
-	rm -rf *.pdf
+	rm -rf propositions.pdf augustine.pdf rules.pdf private.language.pdf experience.pdf
 
 sweep :
 	rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz
