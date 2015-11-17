@@ -1,14 +1,14 @@
 clean : sweep
-	-rm *.pdf
+	rm -rf *.pdf
 
 sweep :
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.out
+	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.out
 
 all : syllabus midterm sweep
 
 syllabus :
 	pdflatex syllabus
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.out
+	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.out
 
 midterm :
 	latex midterm.revised
@@ -17,7 +17,7 @@ midterm :
 	latex midterm.revised
 	latex midterm.revised
 	pdflatex midterm.revised
-	-rm *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.out
+	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.out
 
 home : midterm
 
