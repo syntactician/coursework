@@ -1,10 +1,10 @@
 clean : sweep
-	rm -rf propositions.pdf augustine.pdf rules.pdf private.language.pdf experience.pdf
+	rm -rf *.pdf
 
 sweep :
 	rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz
 
-all : 1 2 3 4 5 sweep
+all : 1 2 3 4 5 6 sweep
 
 1 :
 	latex propositions
@@ -59,3 +59,13 @@ private.language : 4
 	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
 
 experience : 5
+
+6 :
+	latex certainty
+	bibtex certainty
+	bibtex certainty
+	latex certainty
+	pdflatex certainty
+	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi
+
+certainty : 6
