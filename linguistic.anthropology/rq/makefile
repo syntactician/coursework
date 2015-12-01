@@ -99,9 +99,9 @@ all: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 sweep
 11.19: 19
 
 20:
-	-pandoc 11.24.md -s -o 11.24.pdf
+	-pandoc 12.01.md -s -o 12.01.pdf
 
-11.24: 20
+12.01: 20
 
 sweep :
 	rm -rf *.aux *.dvi *.log *.out
