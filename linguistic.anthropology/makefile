@@ -1,11 +1,11 @@
+all : syllabus schedule rq response.paper relativity midterm | sweep
+
 clean : sweep
 	@rm -rf *.pdf
 	@rm -rf rq/*.pdf
 
 sweep :
 	@rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.out
-
-all : syllabus schedule rq response.paper relativity midterm | sweep
 
 syllabus :
 	@pdflatex syllabus >/dev/null
