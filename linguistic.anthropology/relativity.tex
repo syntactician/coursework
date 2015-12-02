@@ -1,35 +1,9 @@
-\documentclass[doc,12pt]{apa6}
-\usepackage{lmodern}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
+\documentclass[man,12pt,natbib]{apa6}
+\usepackage{amssymb,amsmath,times}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\linespread{1.5}
   
-\usepackage[usenames,dvipsnames]{color}
-
-\usepackage{graphicx,grffile}
-\graphicspath{ {.resources/} }
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{0}
-
-\usepackage[colorlinks=false]{hyperref}
-\usepackage{dirtytalk}
-\usepackage{apacite}
-
 \newcommand\blfootnote[1]{%
   \begingroup
   \renewcommand\thefootnote{}\footnote{#1}%
@@ -40,9 +14,9 @@
 \begin{document}
 
 \title{There Is No Question of Linguistic Relativity}
-\shorttitle{linguistic relativity}
+\shorttitle{There Is No Question of Linguistic Relativity}
 \author{Edward Hern\'{a}ndez}
-\date{2015-09-20}
+\date{20 September 2015}
 \affiliation{College of William \& Mary}
 \maketitle
 
@@ -50,20 +24,19 @@
 \nocite{Crane90}
 
 For clarity, a few key terms will be defined here, and their use throughout
-this paper will not deviate from these definitions. \say{A language} will here
+this paper will not deviate from these definitions. ``A language'' will here
 mean the a particular spoken or signed system of human communication which in
 shared by a group of people who also share a culture.\footnote{By this
 definition, most variations usually described as dialects are languages (e.g.
 African American English is a language distinct from other variations of
-English).} To \say{think} will here mean to form and use concepts or
-categories, and will not concern such primitive cognitive events as sensory
-perception itself. \say{Linguistic Relativity} is the claim that a speaker's
-thought is influenced by the language which she speaks. The \say{weak} form of
-this claim is simply that features of a speaker's particular language is
-correlated
+English).} To ``think'' will here mean to form and use concepts or categories,
+and will not concern such primitive cognitive events as sensory perception
+itself. ``Linguistic Relativity'' is the claim that a speaker's thought is
+influenced by the language which she speaks. The ``weak'' form of this claim is
+simply that features of a speaker's particular language is correlated
 % …features….are correlated
-with her thoughts. Neither of these claims is identical to \say{Linguistic
-Determinism,} the claim that a speaker's language limits or determines her
+with her thoughts. Neither of these claims is identical to ``Linguistic
+Determinism,'' the claim that a speaker's language limits or determines her
 thoughts.
 
 Many linguists make the claim that Linguistic Relativity is true. 
@@ -74,13 +47,13 @@ They offer a variety of evidence. Evidence includes that speakers of Pirah\~{a}
 do not speak of cardinal numbers, and they also have difficulty on tasks
 requiring the transposition or recollection of numerosity \cite{Everett12}.
 Similarly, the Guugu-Yimidhirr do not speak of egocentric directions like
-\say{left} or \say{right,} but rather of cardinal directions like \say{north}
-and \say{south,} regardless of scale \cite{Foley97}.\footnote{I'm not entirely
-		sure this citation is correct, but I did the best I could based on the
-excerpt I had.} Both Pirah\~{a} and Guugu-Yimidhirr appear to limit their
-speakers to these modes of thought. Pirah\~{a} does not have lexical items
-identical to numbers as we commonly understand them, and Guugu-Yimidhirr lacks
-words for left and right. 
+``left'' or ``right,'' but rather of cardinal directions like ``north'' and
+``south,'' regardless of scale \cite{Foley97}.\footnote{I'm not entirely sure
+this citation is correct, but I did the best I could based on the excerpt I
+had.} Both Pirah\~{a} and Guugu-Yimidhirr appear to limit their speakers to
+these modes of thought. Pirah\~{a} does not have lexical items identical to
+numbers as we commonly understand them, and Guugu-Yimidhirr lacks words for
+left and right. 
 % And front and back.
 Less extreme examples can be seen in other languages as well; for instance,
 English lacks formality and number distinctions in the second person, while
@@ -116,9 +89,9 @@ If this is the case, if differences in the language are truly what cause
 differences in thought, then introducing speakers of Pirahã to words for
 numbers might be sufficient to allow them to think of numerosity. Certainly
 Pirah\~{a} who were exposed to Portuguese would have concepts of numbers, and
-be able to employ them. However, \citeA{Gordon04} suggests that Pirah\~{a} who
+be able to employ them. However, \citet{Gordon04} suggests that Pirah\~{a} who
 have contact with Portuguese speakers and understand it to some degree do not
-understand the embedded number words (p. 497), and \citeA{Everett12}, despite
+understand the embedded number words (p. 497), and \citet{Everett12}, despite
 attempting to supplement the Pirah\~{a} language with number words, were
 largely unsuccessful at training the Pirah\~{a} to transpose or remember
 numbers. 
@@ -145,7 +118,7 @@ language and thought, making the influence of language on thought trivial.
 % weakens the interpretation of the experimental results as caused by the
 % influence of language. 
 
-For \citeA{Agar95}, language cannot be separated from culture. This means that
+For \citet{Agar95}, language cannot be separated from culture. This means that
 a difference in the way two groups of people think may be a result of
 differences between their respective languages or differences between their
 respective cultures, but it is impossible to tell which (or, perhaps,
@@ -176,7 +149,7 @@ accurate hypothesis. This does not mean that I accept pre-Boas understandings
 of the world, or think that all humans have practically identical thoughts
 labelled differently by their languages. Instead, I advocate a hypothesis and a
 research agenda what I will, in honor of Agar, call Languacultural
-Relativity.\footnote{Even though it sounds really horrible} That is to say , I
+Relativity.\footnote{Even though it sounds really horrible.} That is to say , I
 acknowledge that different groups of people have vastly different cultures.
 They speak a wide variety of languages which possess dissimilar structures and
 lexicons. I also think that they experience incomparable cultures. Those
@@ -200,6 +173,5 @@ linguistics; she must do anthropology.
 \clearpage
 
 \bibliography{course,extra}
-\bibliographystyle{apacite}
 
 \end{document}
