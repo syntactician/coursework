@@ -24,12 +24,12 @@ response.paper :
 	@$(MAKE) sweep
 
 relativity :
-	@latex relativity #>/dev/null
-	@bibtex relativity #>/dev/null
-	@bibtex relativity #>/dev/null
-	@latex relativity #>/dev/null
-	@latex relativity #>/dev/null
-	@pdflatex relativity #>/dev/null
+	@latex relativity >/dev/null
+	@bibtex relativity >/dev/null
+	@bibtex relativity >/dev/null
+	@latex relativity >/dev/null
+	@latex relativity >/dev/null
+	@pdflatex relativity >/dev/null
 	@$(MAKE) sweep
 
 midterm :
