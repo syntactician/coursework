@@ -10,13 +10,22 @@ syllabus :
 	@pdflatex syllabus
 	@$(MAKE) sweep
 
+midterm.draft :
+	@latex midterm >/dev/null
+	@biber midterm >/dev/null
+	@biber midterm >/dev/null
+	@latex midterm >/dev/null
+	@latex midterm >/dev/null
+	@pdflatex midterm >/dev/null
+	@$(MAKE) sweep
+
 midterm :
-	@latex midterm.revised
-	@biber midterm.revised
-	@biber midterm.revised
-	@latex midterm.revised
-	@latex midterm.revised
-	@pdflatex midterm.revised
+	@latex midterm.revised >/dev/null
+	@biber midterm.revised >/dev/null
+	@biber midterm.revised >/dev/null
+	@latex midterm.revised >/dev/null
+	@latex midterm.revised >/dev/null
+	@pdflatex midterm.revised >/dev/null
 	@$(MAKE) sweep
 
 home : midterm
