@@ -4,9 +4,9 @@ clean : sweep
 sweep :
 	@rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz *.fff *.ttt
 
-all : 1 2 3 4 5 6 sweep
+all : 1 2 3 4 5 6 | sweep
 
-1 : | sweep
+1 :
 	@latex propositions
 	@bibtex propositions
 	@bibtex propositions
