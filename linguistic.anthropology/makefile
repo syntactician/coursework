@@ -1,37 +1,37 @@
 clean : sweep
-	rm -rf *.pdf
-	rm -rf rq/*.pdf
+	@rm -rf *.pdf
+	@rm -rf rq/*.pdf
 
 sweep :
-	rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.out
+	@rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.out
 
-all : syllabus schedule rq response.paper linguistic.relativity midterm sweep
+all : syllabus schedule rq response.paper relativity midterm | sweep
 
 syllabus :
-	pdflatex syllabus
-	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.dvi *.out
+	@pdflatex syllabus >/dev/null
+	@$(MAKE) sweep
 
 schedule :
-	pdflatex schedule
-	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.dvi *.out
+	@pdflatex schedule >/dev/null
+	@$(MAKE) sweep
 
 .PHONY : rq
 rq :
-	$(MAKE) -C rq
+	@$(MAKE) -C rq
 
 response.paper :
-	pdflatex response.paper
-	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.dvi *.out
+	@pdflatex response.paper >/dev/null
+	@$(MAKE) sweep
 
 relativity :
-	latex relativity
-	bibtex relativity
-	bibtex relativity
-	latex relativity
-	latex relativity
-	pdflatex relativity
-	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.dvi *.out
+	@latex relativity #>/dev/null
+	@bibtex relativity #>/dev/null
+	@bibtex relativity #>/dev/null
+	@latex relativity #>/dev/null
+	@latex relativity #>/dev/null
+	@pdflatex relativity #>/dev/null
+	@$(MAKE) sweep
 
 midterm :
-	pdflatex midterm.tex
-	rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.dvi *.out
+	@pdflatex midterm.tex >/dev/null
+	@$(MAKE) sweep
