@@ -1,20 +1,20 @@
-clean : sweep
-	rm -rf bibliography.pdf proposal.pdf final.pdf
-
-sweep:
-	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
-
 all : proposal bibliography
 
+sweep:
+	@rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
+
+clean : sweep
+	@rm -rf bibliography.pdf proposal.pdf final.pdf
+
 proposal :
-	pdflatex proposal
-	rm -rf *.aux *.log *.out
+	@pdflatex proposal >/dev/null
+	$(MAKE) sweep
 
 bibliography :
-	latex bibliography
-	latex bibliography
-	bibtex bibliography
-	bibtex bibliography
-	latex bibliography
-	pdflatex bibliography
-	rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
+	@latex bibliography >/dev/null
+	@latex bibliography >/dev/null
+	@bibtex bibliography >/dev/null
+	@bibtex bibliography >/dev/null
+	@latex bibliography >/dev/null
+	@pdflatex bibliography >/dev/null
+	$(MAKE) sweep
