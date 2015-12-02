@@ -1,5 +1,5 @@
-\documentclass[doc,12pt,apacite,biblatex]{apa6}
-\usepackage{amssymb,amsmath,latexsym,apacite,dirtytalk}
+\documentclass[man,12pt,natbib]{apa6}
+\usepackage{amssymb,amsmath,latexsym,times,mathptmx}
 \linespread{1.5}
 
 % Page length commands go here in the preamble
@@ -19,17 +19,103 @@
 
 \maketitle
 
-\vspace{-20pt}
+% \vspace{-20pt}
 \begin{quote}
 	Wittgenstein rejects both Moore's `common-sense' (or `realist') argument
 	and the sceptical doubt of the idealist which Moore's argument is designed
 	to refute.  Why?  What is Wittgenstein's own (positive) view of certainty,
 	knowing, doubting, justificational grounds, and `the bottom of the language
 	game'?
+
+	% \S 3.  If e.g. someone says ``I don't know if there's a hand here'' he
+	% might be told ``Look closer''.  --- This possibility of satisfying
+	% oneself is part of the language-game.  It is one of its essential
+	% features.
+
+	% \S 10. I know that a sick man is lying here?  Nonsense! (...) So I don't
+	% know, then, that there is a sick man lying here?  Neither the question
+	% nor the assertion makes any sense.
+
+	% \S 24. The idealist's question would be something like: ``What right have
+	% I not to doubt the existence of my hands?'' (And to that the answer can't
+	% be: I know that they exist.) But someone who asks such a question is
+	% overlooking the fact that a doubt about existence only works in a
+	% language-game.  Hence, that we should first have to ask: what would such
+	% a doubt be like?, and don't understand this straight off.
+
+	% \S 56. And everything descriptive of a language-game is part of logic.
+
+	% \S 59.  ``I know'' is here a logical insight.  Only realism can't be
+	% proved by means of it.
+
+	% \S 87. Can't an assertoric sentence, which was capable of functioning as
+	% an hypothesis, also be used as a foundation for research and action?
+	% i.e., can't it simply be isolated from doubt, though not according to any
+	% explicit rule?  It simply gets assumed as a truism, never called in
+	% question, perhaps not even ever formulated?
+
+	% \S 105. All testing, all confirmation and disconfirmation of a hypothesis
+	% takes place already within a system.  And this system is not a more or
+	% less arbitrary and doubtful point of departure for all our arguments: no,
+	% it belongs to the essence of what we call an argument. The system is not
+	% so much the point of departure, as the element in which arguments have
+	% their life.
+
+	% \S 114. If you are not certain of any fact, you cannot be certain ofo the
+	% meaning of your words either.
+
+	% \S 115. If you tried to doubt everything you would not get as far as
+	% doubting anything.  The game of doubting itself presupposes certainty.  
+
+	% \S 127.  For how do I know that someone is in doubt?  How do I know that
+	% he uses the words ``I doubt it'' as I do?
+
+	% \S 151 - 152.  I should like to say: Moore does not know what he asserts
+	% he knows, but it stands fast for him, as also for me; regarding it as
+	% absolutely solid is part of our method of doubt and enquiry.  I do not
+	% explicitly learn the propositions that stand fast for me.  I can discover
+	% them subsequently like the axis around which a body rotates.  This axis
+	% is not fixed in the sense that anything holds it fast, but the movement
+	% around it determines its immobility.  \emph{cf}. \S\S~109, 110, 141, 142,
+	% 213
+
+	% \S 204.  Giving grounds, however, justifying the evidence, comes to an
+	% end;
+	% --- but the end is not certain propositions' striking us immediately as
+	% true, i.e. it is not a kind of seeing on our part; it is our acting,
+	% which lies at the bottom of the language-game.
+
+	% \S 341. [T]he questions that we raise and our doubts depend on the fact
+	% that some propositions are exempt from doubt, are as it were like hinges
+	% on which those turn.
+
+	% \S 358 - 359.  Now I would like to regard this certainty ... as a form of
+	% life.  But that means I want to conceive it as something that lies beyond
+	% being justified or unjustified; as it were, as something animal.
+
+	% \S 166.  The difficulty is to realize the groundlessness of our
+	% believing.  
+
+	% \S 455.  Every language-game is based on words and `objects' being
+	% recognized again.  We learn with the same inexorability that this is a
+	% chair as that $2 \times 2 = 4.$
+
+	% \S 527.  An Englishman who calls this color ``red'' is not `sure it is
+	% called ``red'' in English'. A child who has mastered the use of the word
+	% is not `sure that in his language this color is called...'.  Nor can one
+	% say of him that when he is learning to speak he learns that the color is
+	% called that in English; nor yet: he knows this when he has learned the
+	% use of the word.  (...) And in spite of this ... one child, for example,
+	% will say, of another or of himself, that he already knows what
+	% such-and-such is called.
+
+	% \S 538.  The child, I should like to say, learns to react in
+	% such-and-such a way; and in so reacting doesn't so far know anything.
+	% Knowing only begins at a later level.
 \end{quote}
 \clearpage
 
-\citeA{Moore39} famously claims to prove the existence of an external world on
+\citet{Moore39} famously claims to prove the existence of an external world on
 the basis of his certainty that he has hands. The skeptical argument, to which
 Moore is responding\footnote{I am not entirely clear on how the ``skeptical''
 and ``idealist'' views to which he seems to be responding differ, though I'm
@@ -76,7 +162,7 @@ Or, formally:
 	(P2) Q \\
 	$\therefore$ P
 \end{quote}
-This is the argument to which \citeA{Wittgenstein69} responds in \emph{On
+This is the argument to which \citet{Wittgenstein69} responds in \emph{On
 Certainty}.
 
 Wittgenstein concedes that \emph{if} Moore does know that \emph{here is one
@@ -119,9 +205,9 @@ of knowing, or that ``I know'' is a hypothesis in need of some sort of testing
 
 In his addition to rejecting Moore's argument Wittgenstein admits that the
 skeptical hypothesis is ``not nonsense'' (\S 37), arguably inhabiting the
-position \citeA{Wright91} calls the ``Russellian Retreat,'' of admitting that
+position \citet{Wright91} calls the ``Russellian Retreat,'' of admitting that
 we cannot prove the existence of an external world \cite{Robinson}.  However,
-unlike \citeA{Russell12}, Wittgenstein does not give an account of knowing
+unlike \citet{Russell12}, Wittgenstein does not give an account of knowing
 which appeals to evidence or likelihood.  Instead, Wittgenstein takes as his
 starting point that some propositions are exempt from doubt (\S 341). It is not
 that they are any less worthy of being doubted, or that they are in some way
@@ -160,6 +246,5 @@ skepticism. However, I am not sure how this is a satisfying alternative.
 
 \clearpage
 \bibliography{wittgenstein}
-\bibliographystyle{apacite}
 
 \end{document}

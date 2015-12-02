@@ -1,5 +1,5 @@
-\documentclass[12pt]{apa}
-\usepackage{amssymb,amsmath,latexsym,apacite}
+\documentclass[man,12pt,natbib]{apa6}
+\usepackage{amssymb,amsmath,latexsym,times}
 \linespread{1.5}
 
 % Page length commands go here in the preamble
@@ -11,24 +11,26 @@
 \setlength{\parindent}{0in}
 
 \begin{document}
+
 \title{Wittgenstein on Propositions}
+\shorttitle{Wittgenstein on Propositions}
 \author{Edward Hern\'{a}ndez}
 \date{\today}
 \affiliation{College of William \& Mary}
 
 \maketitle
 
-\vspace{-20pt}
+% \vspace{-20pt}
 \begin{quote}
 	Although what the Tractatus says about the world, facts, and thoughts
 	appears before its discussion of propositions, it is clear that the
 	priority is the other way round.  What the Tractatus says about these other
 	things depends upon what it says about propositions.  Indeed, roughly 90\%
-	of the book is about the nature of the proposition: sections 3.1 through 6.
-	So, what is the book’s account of a proposition?  (Let's leave until next
-	time the book’s remarks about sense and nonsense, saying and showing,
-	tautologies, ethics, aesthetics, religion, philosophical `problems',
-	philosophical method, etc.) 
+	of the book is about the nature of the proposition: \S\S 3.1-6.  So, what
+	is the book's account of a proposition?  (Let's leave until next time the
+	book's remarks about sense and nonsense, saying and showing, tautologies,
+	ethics, aesthetics, religion, philosophical `problems', philosophical
+	method, etc.) 
 
 	In tackling this question, try to make sense of how the concept of a
 	proposition relates to (at least some of) the following concepts: fact,
@@ -38,30 +40,30 @@
 \end{quote}
 \clearpage
 
- \citeA{Wittgenstein22} puts forward in his \emph{Tractatus
+ \citet{Wittgenstein22} puts forward in his \emph{Tractatus
  Logico-Philosophicus} a view of the proposition that is complex and barely
  penetrable. To even discuss the ideas on his terms, we must be clear on what
  his terms are. Since he begins the \emph{Tractatus} with discussion of facts,
  we will begin there as well.
 
  Wittgenstein begins the \emph{Tractatus} by asserting that the world is
- composed of and determined by facts (\S 1, 1.1). These facts are independent
+ composed of and determined by facts (\S\S 1, 1.1). These facts are independent
  of each other, as each could be false without any other consequently being
- false (\S 1.2, 1.21). Facts are, for Wittgenstein, the existence of “atomic
+ false (\S\S 1.2, 1.21). Facts are, for Wittgenstein, the existence of “atomic
  facts,” \footnote{At least, Ogden translates this term as ``atomic fact.''
  Other translations call them ``states of affairs,'' which seems much clearer.}
- and an ``atomic fact''  is a combination of objects (\S 2, 2.01), meaning that
- any particular fact is identical to the existence of a combination of objects.
- This also means that the fact is, itself, composed of atomic facts (\S 2.034).
- Since atomic facts are combinations of objects, and facts are composed of
- atomic facts, the fact must always be nothing more than an elaboration of
- relations of objects. Sets of facts compose reality, and the ``total
- reality,'' which is the world, is then the set of all object relationships (\S
- 2.063), not those objects themselves (\S 1.1).
+ and an ``atomic fact''  is a combination of objects (\S\S 2, 2.01), meaning
+ that any particular fact is identical to the existence of a combination of
+ objects.  This also means that the fact is, itself, composed of atomic facts
+ (\S 2.034).  Since atomic facts are combinations of objects, and facts are
+ composed of atomic facts, the fact must always be nothing more than an
+ elaboration of relations of objects. Sets of facts compose reality, and the
+ ``total reality,'' which is the world, is then the set of all object
+ relationships (\S 2.063), not those objects themselves (\S 1.1).
 
 According to Wittgenstein, the way that we interact with these object
 relationships that make up the world is to ``make ourselves pictures of facts''
-which are models of reality (\S 2.1, 2.12). Such a picture of the facts is a
+which are models of reality (\S\S 2.1, 2.12). Such a picture of the facts is a
 thought (\S 3). The proposition is the (perceptible) expression of such a
 thought (\S 3.1). Thus, propositions are expressions of facts, in that they
 express thoughts, which are representations of the object relations identical
@@ -72,13 +74,13 @@ proposition, mirroring the division of facts into atomic and non-atomic. The
 elementary proposition is the assertion of an atomic fact (4.21), and cannot
 contradict any other elementary proposition (\S 4.211) in the same way that no
 atomic fact determines the existence (or non-existence) of any other atomic
-fact. As \citeA{Speaks07}\footnote{This is a useful handout from the PHIL 43904
+fact. As \citet{Speaks07}\footnote{This is a useful handout from the PHIL 43904
 History of Analytic Philosophy course at the University of Notre Dame,
 available online.} notes, this means that Wittgenstein's elementary
 propositions are nothing like the propositions discussed in the work of other
 philosophers. Other conceptions of propositions, like Russell's allow them to
 be contradictory \cite{Klement15}. Here are two of the example propositions
-from \citeA{Speaks07} which look like the propositions with which we are
+from \citet{Speaks07} which look like the propositions with which we are
 familiar:    
 \begin{equation}
 \text{That is exactly 6 feet tall.}
@@ -110,9 +112,8 @@ all propositions are truth-functions of elementary propositions (\S 5) and can
 be determined from the set of elementary propositions (\S 4.51). A proposition
 has a truth value, which is determined by the truth values of all of the
 elementary propositions of which it is composed (and by nothing else). This
-means that drawing out a truth table, as Wittgenstein discusses in \S 4 through
-\S 5, of elementary propositions can determine the truth value of any
-proposition.
+means that drawing out a truth table, as Wittgenstein discusses in \S\S 4-5, of
+elementary propositions can determine the truth value of any proposition.
 
 Since it is the case that the truth possibilities of all propositions are truth
 functions of elementary propositions, it follows that all propositions can be
@@ -128,7 +129,7 @@ quite confusing to me, and many secondary sources, including \emph{The Stanford
 Encyclopedia of Philosophy} gloss over what the individual components of this
 form represent.} the variable $ \overline{p} $ represents the set of elementary
 propositions, and $ \overline{\xi} $ represents some subset of propositions
-\cite{Speaks07}. The operation $ N( \xi ) $, which \citeA{Geach81} describes as
+\cite{Speaks07}. The operation $ N( \xi ) $, which \citet{Geach81} describes as
 ``joint denial,'' yields the conjunction of the negation of each proposition in
 the set to which it is applied. That is to say, if $\xi$ has only the value
 $p$, then $N(\xi) = \neg p$; applying $N(\overline{\xi})$ yields negation. If
@@ -144,7 +145,6 @@ tells me it is time to be silent (\S 7).
 
 \clearpage
 
-\bibliography{wittgenstein}{}
-\bibliographystyle{apacite}
+\bibliography{wittgenstein}
 
 \end{document}
