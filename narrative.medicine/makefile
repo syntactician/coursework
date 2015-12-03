@@ -29,6 +29,15 @@ midterm :
 	@pdflatex midterm.revised >/dev/null
 	@$(MAKE) sweep
 
+final :
+	@latex final # >/dev/null
+	@biber final # >/dev/null
+	@biber final # >/dev/null
+	@latex final # >/dev/null
+	@latex final # >/dev/null
+	@pdflatex final # >/dev/null
+	@$(MAKE) sweep
+
 wading.home :
 	@pandoc wading.home.md -s -o wading.home.pdf
 
