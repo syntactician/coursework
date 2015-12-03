@@ -4,7 +4,7 @@ clean : sweep
 	@rm -rf Wittgenstein69.pdf *.mobi
 
 sweep :
-	@rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz *.out *.epub
+	@rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz *.out *.html
 
 all : Wittgenstein69
 
