@@ -1,14 +1,16 @@
+SWEEP := rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
+
 all : proposal bibliography
 
 sweep:
-	@rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
+	@$(SWEEP)
 
 clean : sweep
 	@rm -rf bibliography.pdf proposal.pdf final.pdf
 
 proposal :
 	@pdflatex proposal >/dev/null
-	$(MAKE) sweep
+	@$(SWEEP)
 
 bibliography :
 	@latex bibliography >/dev/null
@@ -17,4 +19,13 @@ bibliography :
 	@bibtex bibliography >/dev/null
 	@latex bibliography >/dev/null
 	@pdflatex bibliography >/dev/null
-	$(MAKE) sweep
+	@$(SWEEP)
+
+final:
+	@latex final # >/dev/null
+	@latex final # >/dev/null
+	@bibtex final # >/dev/null
+	@bibtex final # >/dev/null
+	@latex final # >/dev/null
+	@pdflatex final # >/dev/null
+	@$(SWEEP)
