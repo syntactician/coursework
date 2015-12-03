@@ -1,6 +1,6 @@
-SWEEP := rm -rf *.aux *.log *.dvi *.out *.bbl *.blg
+SWEEP := rm -rf *.aux *.log *.dvi *.out *.bbl *.blg *.nav *.snm *.toc
 
-all : proposal bibliography
+all : clean proposal bibliography presentation final | sweep
 
 sweep:
 	@$(SWEEP)
@@ -19,6 +19,15 @@ bibliography :
 	@bibtex bibliography >/dev/null
 	@latex bibliography >/dev/null
 	@pdflatex bibliography >/dev/null
+	@$(SWEEP)
+
+presentation:
+	@latex presentation # >/dev/null
+	@latex presentation # >/dev/null
+	@bibtex presentation # >/dev/null
+	@bibtex presentation # >/dev/null
+	@latex presentation # >/dev/null
+	@pdflatex presentation # >/dev/null
 	@$(SWEEP)
 
 final:
