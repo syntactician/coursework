@@ -1,10 +1,11 @@
+*.aux
 *.docx
+*.dvi
+*.html
+*.mobi
 *.odt
+*.out
 *.pdf
 *.swp
-~$*
 test.*
-*.aux
-*.out
-*.dvi
-*.mobi
+~$*
