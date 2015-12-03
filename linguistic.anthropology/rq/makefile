@@ -1,5 +1,8 @@
 SWEEP := $(MAKE) sweep
 
+KINDLEGEN := -kindlegen -c1
+
+QUIET := >/dev/null
 
 
 all: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 | sweep
@@ -21,7 +24,7 @@ clean: sweep
 09.01.k: 1k
 1k:
 	pandoc 09.01.md -s -o 09.01.html
-	-kindlegen 09.01.html
+	$(KINDLEGEN) 09.01.html
 	$(SWEEP)
 
 
@@ -32,7 +35,7 @@ clean: sweep
 09.08.k: 2k
 2k:
 	pandoc 09.08.md -s -o 09.08.html
-	-kindlegen 09.08.html
+	$(KINDLEGEN) 09.08.html
 	$(SWEEP)
 
 09.10: 3
@@ -42,7 +45,7 @@ clean: sweep
 09.10.k: 3k
 3k:
 	pandoc 09.10.md -s -o 09.10.html
-	-kindlegen 09.10.html
+	$(KINDLEGEN) 09.10.html
 	$(SWEEP)
 
 
@@ -55,7 +58,7 @@ clean: sweep
 09.15.k: 4k
 4k:
 	pandoc 09.15.tex -s -o 09.15.html
-	-kindlegen 09.15.html
+	$(KINDLEGEN) 09.15.html
 	$(SWEEP)
 
 
@@ -66,7 +69,7 @@ clean: sweep
 09.22.k: 5k
 5k:
 	pandoc 09.22.md -s -o 09.22.html
-	-kindlegen 09.22.html
+	$(KINDLEGEN) 09.22.html
 	$(SWEEP)
 
 
@@ -77,7 +80,7 @@ clean: sweep
 09.24.k: 6k
 6k:
 	pandoc 09.24.md -s -o 09.24.html
-	-kindlegen 09.24.html
+	$(KINDLEGEN) 09.24.html
 	$(SWEEP)
 
 
@@ -88,7 +91,7 @@ clean: sweep
 09.29.k: 7k
 7k:
 	pandoc 09.29.md -s -o 09.29.html
-	-kindlegen 09.29.html
+	$(KINDLEGEN) 09.29.html
 	$(SWEEP)
 
 
@@ -99,7 +102,7 @@ clean: sweep
 10.01.k: 8k
 8k:
 	pandoc 10.01.md -s -o 10.01.html
-	-kindlegen 10.01.html
+	$(KINDLEGEN) 10.01.html
 	$(SWEEP)
 
 
@@ -110,7 +113,7 @@ clean: sweep
 10.06.k: 9k
 9k:
 	pandoc 10.06.md -s -o 10.06.html
-	-kindlegen 10.06.html
+	$(KINDLEGEN) 10.06.html
 	$(SWEEP)
 
 
@@ -121,7 +124,7 @@ clean: sweep
 10.15.k: 10k
 10k: 
 	pandoc 10.15.md -s -o 10.15.html
-	-kindlegen 10.15.html
+	$(KINDLEGEN) 10.15.html
 	$(SWEEP)
 
 
@@ -132,7 +135,7 @@ clean: sweep
 10.20.k: 11k
 11k:
 	pandoc 10.20.md -s -o 10.20.html
-	-kindlegen 10.20.html
+	$(KINDLEGEN) 10.20.html
 	$(SWEEP)
 
 
@@ -143,7 +146,7 @@ clean: sweep
 10.27.k: 12k
 12k:
 	pandoc 10.27.md -s -o 10.27.html
-	-kindlegen 10.27.html
+	$(KINDLEGEN) 10.27.html
 	$(SWEEP)
 
 
@@ -154,7 +157,7 @@ clean: sweep
 10.29.k: 13k
 13k:
 	pandoc 10.29.md -s -o 10.29.html
-	-kindlegen 10.29.html
+	$(KINDLEGEN) 10.29.html
 	$(SWEEP)
 
 11.03: 14
@@ -164,7 +167,7 @@ clean: sweep
 11.03.k: 14k
 14k:
 	pandoc 11.03.md -s -o 11.03.html
-	-kindlegen 11.03.html
+	$(KINDLEGEN) 11.03.html
 	$(SWEEP)
 
 
@@ -175,7 +178,7 @@ clean: sweep
 11.05.k: 15k
 15k:
 	pandoc 11.05.md -s -o 11.05.html
-	-kindlegen 11.05.html
+	$(KINDLEGEN) 11.05.html
 	$(SWEEP)
 
 
@@ -186,7 +189,7 @@ clean: sweep
 11.10.k: 16k
 16k:
 	pandoc 11.10.md -s -o 11.10.html
-	-kindlegen 11.10.html
+	$(KINDLEGEN) 11.10.html
 	$(SWEEP)
 
 
@@ -197,7 +200,7 @@ clean: sweep
 11.12.k: 17k
 17k:
 	pandoc 11.12.md -s -o 11.12.html
-	-kindlegen 11.12.html
+	$(KINDLEGEN) 11.12.html
 	$(SWEEP)
 
 
@@ -208,7 +211,7 @@ clean: sweep
 11.17.k: 18k
 18k:
 	pandoc 11.17.md -s -o 11.17.html
-	-kindlegen 11.17.html
+	$(KINDLEGEN) 11.17.html
 	$(SWEEP)
 
 
@@ -219,7 +222,7 @@ clean: sweep
 11.19.k: 19k
 19k:
 	pandoc 11.19.md -s -o 11.19.html
-	-kindlegen 11.19.html
+	$(KINDLEGEN) 11.19.html
 	$(SWEEP)
 
 
@@ -230,7 +233,7 @@ clean: sweep
 12.01.k: 20k
 20k:
 	pandoc 12.01.md -s -o 12.01.html
-	-kindlegen 12.01.html
+	$(KINDLEGEN) 12.01.html
 	$(SWEEP)
 
 
@@ -241,5 +244,5 @@ clean: sweep
 12.03.k: 21k
 21k:
 	pandoc 12.03.md -s -o 12.03.html
-	-kindlegen 12.03.html
+	$(KINDLEGEN) 12.03.html
 	$(SWEEP)
