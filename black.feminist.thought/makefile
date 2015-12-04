@@ -6,7 +6,7 @@ sweep:
 	@$(SWEEP)
 
 clean : sweep
-	@rm -rf bibliography.pdf proposal.pdf final.pdf
+	@rm -rf bibliography.pdf proposal.pdf presentation.pdf final.pdf
 
 proposal :
 	@pdflatex proposal >/dev/null
