@@ -15,29 +15,29 @@ sweep :
 propositions : 1
 1 :
 	@$L propositions
-	@$L -c
+	@$(MAKE) sweep
 
 augustine : 2
 2 :
 	@$L augustine
-	@$L -c
+	@$(MAKE) sweep
 
 rules : 3
 3 :
 	@$L rules
-	@$L -c
+	@$(MAKE) sweep
 
 private.language : 4
 4 :
 	@$L private.language
-	@$L -c
+	@$(MAKE) sweep
 
 experience : 5
 5 :
 	@$L experience
-	@$L -c
+	@$(MAKE) sweep
 
 certainty : 6
 6 :
 	@$L certainty
-	@$L -c
+	@$(MAKE) sweep
