@@ -1,37 +1,48 @@
-all : syllabus schedule rq response.paper relativity midterm | sweep
+# Flags for latexmk
+Q := -quiet
+R := -r ../latexmkrc
 
-clean : sweep
-	@rm -rf *.pdf
-	@rm -rf rq/*.pdf
+L := latexmk $R $Q
+
+all : syllabus schedule rq response.paper relativity midterm Clancy87.critique Nevins04.critique | sweep
 
 sweep :
-	@rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.out
+	@$L -c
+	@$(MAKE) -C rq sweep
+
+clean : sweep
+	@$L -C
+	@$(MAKE) -C rq clean
 
 syllabus :
-	@pdflatex syllabus >/dev/null
+	@$L syllabus
 	@$(MAKE) sweep
 
 schedule :
-	@pdflatex schedule >/dev/null
-	@$(MAKE) sweep
+	@$L schedule
+	@$S
 
 .PHONY : rq
 rq :
 	@$(MAKE) -C rq
+	@$(MAKE) -C rq sweep
 
 response.paper :
-	@pdflatex response.paper >/dev/null
+	@$L response.paper
 	@$(MAKE) sweep
 
 relativity :
-	@latex relativity >/dev/null
-	@bibtex relativity >/dev/null
-	@bibtex relativity >/dev/null
-	@latex relativity >/dev/null
-	@latex relativity >/dev/null
-	@pdflatex relativity >/dev/null
+	@$L relativity
 	@$(MAKE) sweep
 
 midterm :
-	@pdflatex midterm.tex >/dev/null
+	@$L midterm.tex
+	@$(MAKE) sweep
+	
+critiques : Clancy87.critique Nevins04.critique
+Clancy87.critique :
+	@$L Clancy87.critique
+	@$(MAKE) sweep
+Nevins94.critique :
+	@$L Nevins04.critique
 	@$(MAKE) sweep
