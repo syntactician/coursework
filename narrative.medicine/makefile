@@ -1,41 +1,32 @@
+# Flags for latexmk
+Q := -quiet
+R := -r ../latexmkrc
+
+L := latexmk $R $Q
+
 all : syllabus midterm | sweep
 
 clean : sweep
-	@rm -rf *.pdf
+	@$L -c
 
 sweep :
-	@rm -rf *.aux *.bbl *.bcf *.blg *.log *.xml *.gz *.dvi *.out
+	@$L -C
 
 syllabus :
-	@pdflatex syllabus
+	@$L syllabus
 	@$(MAKE) sweep
 
 midterm.draft :
-	@latex midterm >/dev/null
-	@biber midterm >/dev/null
-	@biber midterm >/dev/null
-	@latex midterm >/dev/null
-	@latex midterm >/dev/null
-	@pdflatex midterm >/dev/null
+	@$L midterm
 	@$(MAKE) sweep
 
 home : midterm
 midterm :
-	@latex midterm.revised >/dev/null
-	@biber midterm.revised >/dev/null
-	@biber midterm.revised >/dev/null
-	@latex midterm.revised >/dev/null
-	@latex midterm.revised >/dev/null
-	@pdflatex midterm.revised >/dev/null
+	@$L midterm.revised
 	@$(MAKE) sweep
 
 final :
-	@latex final # >/dev/null
-	@biber final # >/dev/null
-	@biber final # >/dev/null
-	@latex final # >/dev/null
-	@latex final # >/dev/null
-	@pdflatex final # >/dev/null
+	@$L final
 	@$(MAKE) sweep
 
 wading.home :
@@ -45,5 +36,5 @@ terminal.device :
 	@pandoc terminal.device.md -s -o terminal.device.pdf
 
 poem :
-	@pdflatex poem
+	@$L poem
 	@$(MAKE) sweep
