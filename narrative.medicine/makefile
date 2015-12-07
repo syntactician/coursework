@@ -1,8 +1,10 @@
 # Flags for latexmk
 Q := -quiet
 R := -r ../latexmkrc
+S := -s
 
 L := latexmk $R $Q
+P := pandoc $S
 
 all : syllabus midterm | sweep
 
@@ -30,10 +32,10 @@ final :
 	@$(MAKE) sweep
 
 wading.home :
-	@pandoc wading.home.md -s -o wading.home.pdf
+	@$P wading.home.md -o wading.home.pdf
 
 terminal.device :
-	@pandoc terminal.device.md -s -o terminal.device.pdf
+	@$P terminal.device.md -o terminal.device.pdf
 
 poem :
 	@$L poem
