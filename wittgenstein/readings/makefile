@@ -1,23 +1,28 @@
-S := rm -rf *.aux *.dvi *.bbl *.bcf *.blg *.log *.xml *.gz *.out *.html
+R := -r ../../latexmkrc
+Q := -quiet
+
+L := latexmk $R $Q
 K := -kindlegen -c2
 
+all : Wittgenstein69 kindle
+
 clean : sweep
-	@rm -rf Wittgenstein69.pdf *.mobi
+	@$L -C
+	@rm -rf *.mobi
 
 sweep :
-	@$S
-
-all : clean Wittgenstein69
+	@$L -c
+	@rm -rf *.html
 
 kindle : Wittgenstein69.k
 
 certianty : Wittgenstein69
 Wittgenstein69 :
-	@pdflatex Wittgenstein69
-	@$S
+	@$L Wittgenstein69
+	@$(MAKE) sweep
 
 certainty.k : Wittgenstein69.kindle
 Wittgenstein69.k :
 	@pandoc Wittgenstein69.tex -s -o Wittgenstein69.html
 	@$K Wittgenstein69.html
-	@$S
+	@$(MAKE) sweep
