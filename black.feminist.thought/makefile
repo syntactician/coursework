@@ -1,40 +1,29 @@
-SWEEP := rm -rf *.aux *.log *.dvi *.out *.bbl *.blg *.nav *.snm *.toc
+Q := -quiet
+R := -r ../latexmkrc
 
-all : clean proposal bibliography presentation final | sweep
+L := latexmk $R $Q
+
+all : proposal bibliography presentation final | sweep
 
 sweep:
-	@$(SWEEP)
+	@$L -c
+	@rm -rf *.nav *.snm
 
 clean : sweep
-	@rm -rf bibliography.pdf proposal.pdf presentation.pdf final.pdf
+	@$L -C
 
 proposal :
-	@pdflatex proposal >/dev/null
-	@$(SWEEP)
+	@$L proposal
+	@$(MAKE) sweep
 
 bibliography :
-	@latex bibliography >/dev/null
-	@latex bibliography >/dev/null
-	@bibtex bibliography >/dev/null
-	@bibtex bibliography >/dev/null
-	@latex bibliography >/dev/null
-	@pdflatex bibliography >/dev/null
-	@$(SWEEP)
+	@$L bibliography
+	@$(MAKE) sweep
 
 presentation:
-	@latex presentation # >/dev/null
-	@latex presentation # >/dev/null
-	@bibtex presentation # >/dev/null
-	@bibtex presentation # >/dev/null
-	@latex presentation # >/dev/null
-	@pdflatex presentation # >/dev/null
-	@$(SWEEP)
+	@$L presentation
+	@$(MAKE) sweep
 
 final:
-	@latex final # >/dev/null
-	@latex final # >/dev/null
-	@bibtex final # >/dev/null
-	@bibtex final # >/dev/null
-	@latex final # >/dev/null
-	@pdflatex final # >/dev/null
-	@$(SWEEP)
+	@$L final
+	@$(MAKE) sweep
