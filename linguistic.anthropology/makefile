@@ -4,7 +4,7 @@ R := -r ../latexmkrc
 
 L := latexmk $R $Q
 
-all : syllabus schedule rq response.paper relativity midterm Clancy87.critique Nevins04.critique | sweep
+all : syllabus schedule rq response.paper relativity midterm critiques final | sweep
 
 sweep :
 	@$L -c
@@ -45,4 +45,8 @@ Clancy87.critique :
 	@$(MAKE) sweep
 Nevins94.critique :
 	@$L Nevins04.critique
+	@$(MAKE) sweep
+
+final :
+	@$L final
 	@$(MAKE) sweep
