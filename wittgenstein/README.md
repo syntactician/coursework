@@ -1,5 +1,5 @@
 # Independent Study in Wittgenstein — Talbot Taylor
-### Fall 2015 — LING 481
+### Fall 2015 — Linguistics 481
 
 #### Course Description
 During the semester we will work our way, section by section, through the

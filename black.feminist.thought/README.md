@@ -1,6 +1,5 @@
-# Black Feminist Thought
-### GSWS 390 (AFST 306) 
-### Bettina Judd
+# Black Feminist Thought — Bettina Judd
+### Fall 2015 — Gender, Sexuality, and Women's Studies 390 (Africana Studies 306) 
 
 #### Course Description
 In order to understand the growing body of scholarship that is Black feminist

@@ -1,6 +1,5 @@
-# Community Based Research Methods
-### LING 474 (CMST 351, AFST 306, EPPL 760, INTR 480) 
-### Anne Charity Hudley
+# Community Based Research Methods —  Anne Charity Hudley
+### Spring 2015, 2016 — Linguistics 474 (Africana Studies 306, Community Studies 351 Interdisciplinary Studies 480, Education Policy, Planning & Leadership 760)
 
 #### Course Description
 This course is intended to survey a variety of community-based participatory
