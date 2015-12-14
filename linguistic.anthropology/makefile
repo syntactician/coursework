@@ -39,12 +39,8 @@ midterm :
 	@$L midterm.tex
 	@$(MAKE) sweep
 	
-critiques : Clancy87.critique Nevins04.critique
-Clancy87.critique :
-	@$L Clancy87.critique
-	@$(MAKE) sweep
-Nevins94.critique :
-	@$L Nevins04.critique
+critiques :
+	@$L critiques
 	@$(MAKE) sweep
 
 final :
