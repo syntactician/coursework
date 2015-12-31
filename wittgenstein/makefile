@@ -6,11 +6,11 @@ L := latexmk $R $Q
 
 all : 1 2 3 4 5 6 | sweep
 
-clean :
-	@$L -C
-
 sweep :
 	@$L -c
+
+clean :
+	@$L -C
 
 propositions : 1
 1 :

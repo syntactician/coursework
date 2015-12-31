@@ -6,11 +6,11 @@ L := latexmk $R $Q
 
 all : final sweep
 
-clean :
-	@$L -C
-
 sweep :
 	@$L -c
+
+clean :
+	@$L -C
 
 final :
 	@$L final

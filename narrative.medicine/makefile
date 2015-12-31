@@ -10,12 +10,12 @@ P := pandoc $S
 
 all : syllabus midterm | sweep
 
-clean : sweep
-	@$M -C
-
 sweep :
 	@$M -c
 	@rm -rf *.run.xml
+
+clean : sweep
+	@$M -C
 
 syllabus :
 	@$L syllabus

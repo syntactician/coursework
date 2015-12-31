@@ -4,24 +4,25 @@ Q := -quiet
 L := latexmk $R $Q
 K := -kindlegen -c2
 
-all : Wittgenstein69 kindle
+all : Wittgenstein69
 
-clean : sweep
-	@$L -C
-	@rm -rf *.mobi
+kindle : Wittgenstein69.k
 
 sweep :
 	@$L -c
 	@rm -rf *.html
 
-kindle : Wittgenstein69.k
+clean : sweep
+	@$L -C
+	@rm -rf *.mobi
+
 
 certianty : Wittgenstein69
 Wittgenstein69 :
 	@$L Wittgenstein69
 	@$(MAKE) sweep
 
-certainty.k : Wittgenstein69.kindle
+certainty.k : Wittgenstein69.k
 Wittgenstein69.k :
 	@pandoc Wittgenstein69.tex -s -o Wittgenstein69.html
 	@$K Wittgenstein69.html
