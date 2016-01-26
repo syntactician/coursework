@@ -13,11 +13,11 @@ sweep :
 clean : sweep
 	@$L -C
 
-
-
 .PHONY : responses
 responses :
 	@$(MAKE) -C responses
 	@$(MAKE) -C responses sweep
 
 presentation :
+	@$L presentation
+	$(MAKE) sweep
