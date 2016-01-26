@@ -21,13 +21,13 @@ clean: sweep
 
 
 
-01.26: 1
+01.27: 1
 1:
 	@$P Chomsky65.md -o Chomsky65.pdf
 	@$P Marr82.md -o Marr82.pdf
 	@$(MAKE) sweep
 
-01.26.k: 1k
+01.27.k: 1k
 1k:
 	@$P Chomsky65.md -o Chomsky65.html
 	@$P Marr82.md -o Marr82.html
@@ -36,12 +36,12 @@ clean: sweep
 	@$(MAKE) sweep
 
 
-01.28: 2
+01.29: 2
 2:
 	@$P Simonite15.md -o Simonite15.pdf
 	@$(MAKE) sweep
 
-01.28.k: 2k
+01.29.k: 2k
 2k:
 	@$P Simonite15.md -o Simonite15.html
 	@$K Simonite15.html
