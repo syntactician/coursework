@@ -8,5 +8,6 @@
 *.out
 *.pdf
 *.swp
+*.ttt
 test.*
 ~$*
