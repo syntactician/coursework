@@ -1,0 +1,86 @@
+\documentclass[doc]{apa6}
+\usepackage[colorlinks=false]{hyperref}
+\usepackage{amssymb,amsmath,times,tipa,multirow,phonrule}
+\linespread{1.5}
+
+\begin{document}
+
+\title{Homework 3: Segment Inventory of Estonian}
+\shorttitle{Homework 3}
+\author{Edward Hern\'{a}ndez}
+\affiliation{with Sora Edwards-Thro}
+\date{9 February}
+\maketitle
+
+% \begin{table}
+% \begin{tabular}{|c|c|c|} \cline{1-3}
+% 	Spelling & Phoneme(s) & Pronunciation(s) \\ \cline{1-3}
+% 	i & i & i \\ \cline{1-3}
+% 	e & \textipa{E} & \textipa{E} \\ \cline{1-3} % probably actually e
+% 	\"a & \ae & \textlowering{\ae} \\ \cline{1-3} % more open, more low
+% 	\"u &y & y \\ \cline{1-3}
+% 	\"o & \oe & \oe \\ \cline{1-3} % probably actually \o
+% 	\~o & \textipa{7} & \textipa{7} \\ \cline{1-3}
+% 	u & u & \textraising{u} \\ \cline{1-3} %  raised, more rounded
+% 	o & o & \textraising{o} \\ \cline{1-3}
+% 	a & a & \textsubbar{a} \\ \cline{1-3}
+% 	b & p & p \\ \cline{1-3}
+% 	d & t t\textsuperscript{j} & t \textsubbridge{t}\textsuperscript{j} \\ \cline{1-3}
+% 	g & k & k \\ \cline{1-3}
+% 	h & h & h \\ \cline{1-3}
+% 	m & m & m \\ \cline{1-3}
+% 	n & n n\textsuperscript{j} & \textsubbridge{n} \textipa{N} \textsubbridge{n}\textsuperscript{j} \textinvsubbridge{n}\textsuperscript{j} \\ \cline{1-3}
+% 	l & l l\textsuperscript{j} & \textsubbridge{l} \textsubplus{l}\textsuperscript{j} \\ \cline{1-3}
+% 	r & r & r \\ \cline{1-3}
+% 	v & v & v \\ \cline{1-3}
+% 	j & j & j \\ \cline{1-3}
+% 	f & f & f \\ \cline{1-3}
+% 	\v{s} & \textipa{S} & \textipa{S} \\ \cline{1-3}
+% \end{tabular}
+% \caption{Estonian Orthography}
+% \label{table:orthography}
+% \end{table}
+
+\begin{table}
+\begin{tabular}{c|c|c|c|c|} \cline{2-5}
+	& \multicolumn{2}{ |c| }{front} & \multicolumn{2}{ |c| }{back} \\ \cline{2-5}
+	& unrounded & rounded & unrounded & rounded \\ \cline{1-5}
+	\multicolumn{1}{|c|}{close} & i & y & & u \\ \cline{1-5}
+	\multicolumn{1}{|c|}{mid} & e & \o & \textipa{7} & o \\ \cline{1-5}
+	\multicolumn{1}{|c|}{open} & \ae & & \textipa{A} & \multicolumn{1}{|c|}{} \\ \cline{1-5}
+\end{tabular}
+\caption{Estonian Vowel Inventory}
+\label{table:vowels}
+\end{table}
+
+I have chosen to represent the mid front vowels as /e \o/ in light of our class discussion on transcription norms. I expect that they are pronounced somewhere between [e \o] and [\textipa{E} \oe], and are probably best represented with some notation like [\textlowering{e} \textlowering{\o}].
+Likewise, I expect that /\ae/ is pronounced lower, as [\textlowering{\ae}], /u/ is pronounced higher, as [\textraising{u}], and /\textipa{A}/ is pronounced with the tongue retracted, as [\textsubbar{\textipa{A}}]. In all cases, I have opted to represent these sounds with common IPA characters without diacritics.
+
+\begin{table}
+\centering
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|} \cline{2-8}
+	& bilabial & labiodental & alveolar & postalveolar & palatal & velar & glottal \\ \cline{1-8}
+	\multicolumn{1}{|c|}{nasal} & m &&  n \hfill n\textsuperscript{j} &&&& \\ \cline{1-8}
+	\multicolumn{1}{|c|}{plosive} & p && t \hfill t\textsuperscript{j} &&& k & \multicolumn{1}{c|}{} \\ \cline{1-8}
+	\multicolumn{1}{|c|}{fricative} && f \hfill v & s \hfill s\textsuperscript{j} & \textipa{S} &&& h \\ \cline{1-8}
+	\multicolumn{1}{ |c| }{appoximant} &&& l \hfill l\textsuperscript{j} && j && \multicolumn{1}{c|}{} \\ \cline{1-8}
+	\multicolumn{1}{|c|}{trill} &&& r &&&& \multicolumn{1}{c|}{} \\ \cline{1-8}
+\end{tabular}
+}
+\caption{Estonian Consonant Inventory}
+\label{table:consonants}
+\end{table}
+
+Much like the vowels, the consonants differ slightly in their articulation from what is generally indicated by their IPA characters.
+Though the symbol /n/ generally refers to alveolar sounds, the sound is actually realized dentally [\textsubbridge{n}], except before /k/, where it is realized as [\textipa{N}] (\phonb{n}{\textipa{N}}{}{k}).
+Similarly, /n\textsuperscript{j}/ can be realized dentally, but is not always [\textsubbridge{n}\textsuperscript{j} \textinvsubbridge{n}\textsuperscript{j}].
+Other sounds realized dentally include /l/ and /t\textsuperscript{j}/ (realized as [\textsubbridge{l} \textsubbridge{t}\textsuperscript{j}]).
+/l\textsuperscript{j}/ is articulated against the gums, rather than the teeth, and is probably best recorded as [\textsubplus{l}\textsuperscript{j}].
+
+The markedness implication holds true for Estonian. The language has fricatives, but also has stops. It has voiced fricatives, but also voiceless ones. In all cases, it has more sounds of the unmarked class than the marked class. It also lacks voiced stops, but has voiceless ones.
+
+Estonian fits dispersion theory well. especially with regards to vowels. The language contains many vowels, but they are all remarkably distinct from each other. They are spaced out well, with the only vowels close in positions being different in rounding.
+The consonants of Estonian are lest dispersed, with the majority of sounds being articulated in the alveolar region. However, none of the consonants seem difficult to distinguish from one another. Palatalization clearly differentiates half of the alveolar sounds from the other half.
+
+\end{document}

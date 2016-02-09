@@ -7,15 +7,15 @@ L := latexmk $R $Q
 P := pandoc $S
 
 
-all: 1
+all: 1 2 3
 
 sweep :
-	# @$L -c
-	rm -rf *.html
+	@$L -c
+	@rm -rf *.html *.ttt
 
 clean: sweep
-	# @$L -C
-	rm -rf *.pdf *.mobi
+	@$L -C
+	@rm -rf *.pdf *.mobi
 
 
 01.26: 1
@@ -27,4 +27,10 @@ clean: sweep
 1k:
 	@$P 1.md -o 1.html
 	@$K 1.html
+	@$(MAKE) sweep
+
+
+02.09: 3
+3:
+	@$L 3
 	@$(MAKE) sweep
