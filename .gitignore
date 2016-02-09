@@ -2,7 +2,9 @@
 *.doc
 *.docx
 *.dvi
+*.fls
 *.html
+*.log
 *.mobi
 *.odt
 *.out
