@@ -1,6 +1,6 @@
-\documentclass[man,floatsintext,12pt,natbib]{apa6}
+\documentclass[man,12pt,natbib]{apa6}
 \usepackage[colorlinks=false]{hyperref}
-\usepackage{amssymb,amsmath,times,ragged2e,soul,parskip,textcomp,graphicx}
+\usepackage{amssymb,amsmath,times,ragged2e,soul,textcomp,graphicx,parskip}
 \linespread{1.5}
 
 \begin{document}
@@ -77,7 +77,7 @@ intentionality. Brains, he argued, posses special causal capacity, enabling
 them to be intentional in a way which a computer (or, other computers, on his
 view) cannot.
 Another possible explanation of our reticence is that the operations within the
-room are (arguably) exclusively syntactic\citep{Marconi96}. Words are chosen
+room are (arguably) exclusively syntactic \citep{Marconi96}. Words are chosen
 from books, fit together such that they adhere to the rules of Chinese and
 returned. The semantic content of both incoming and outgoing notes is
 completely opaque to the person writing the responses.
@@ -90,7 +90,7 @@ they answer in correct and comprehensible ways, you conclude that they do.
 This means that computers which pass the Turing test \emph{do} understand
 language by our everyday definition of the word understand. I hold that this is
 entirely sufficient to say that they do understand, based on arguments out of
-\citealp{Wittgenstein53,Wittgenstein69}.  There is no language game for
+\citet{Wittgenstein53,Wittgenstein69}.  There is no language game for
 determining understanding which involves assessing the causal effect of that
 language on the brain or whether that brain engages with the semantic content
 rather than solely the words' syntactic information. Obviously this cannot be
@@ -166,21 +166,43 @@ also based on every sort of context available.
 	\caption{A note in a shop window in Antwerp. \textcopyright~Jan Blommaert}
 \end{figure}
 
+Additionally, neither the speech signal nor visual input is clean and in
+formats that computers can understand. The speech signal is never alone. There
+are ambient sounds that must be filtered out or ignored. There is phonetic
+variation which is not semantically relevant. The visual field is perhaps more
+fraught. Language comes in any number of typefaces and even more varieties of
+handwriting. Figure 1 shows language in multiple dialects and multiple forms of
+the same hanzi. Figure 2 shows an advertisement on a crowded bulletin board.
+Most of the language on the board is recycled from older sources, and are,
+apart from being somewhat difficult to read, semantically dependent on their
+having been transplanted. How could a computer take this image and know from
+the appearance of the language that it originates elsewhere (which I firmly
+believe is part of understanding the language present)?
+
+\begin{figure}
+	\resizebox{\columnwidth}{!}{
+		\includegraphics{./.resources/bulletin.jpg}
+	}
+	\caption{An advertisement on a bulletin board}
+\end{figure}
+
 Computers are very far from being able to understand (much less respond
 appropriately to and themselves produce) such variation.
-Additionally, according to the embodied cognition literature, much of human
-language processing is handled by the interaction of the sensorimotor
-capacities of the brain with the body and the environment. This view also holds
-that understanding semantic content may involve sensorimotor processing (e.g.
-the concept of kicking may involve the sensorimotor activity related to
-performing kicking motions; \citealp{Rueschemeyer10}).  This conception of
-understanding is not contradictory with my Wittgensteinian definition above. To
-assess whether someone understands some semantic content, I might ask them to
-demonstrate it.  I might ask someone to kick, etc., and I might judge that a
-person who fails to do so does not understand kicking. If a computer has no
-sensorimotor functions related to kicking, then, it may be judged to not
-understand it.\footnote{But, a robot which could both talk and kick, and could
-talk about kicking, I would judge to understand both kicking and language.}
+All of the above challenges can eventually be overcome with bigger and better
+training sets for conventional computers, but, according to the embodied
+cognition literature, much of human language processing is handled by the
+interaction of the sensorimotor capacities of the brain with the body and the
+environment. This view also holds that understanding semantic content may
+involve sensorimotor processing (e.g.  the concept of kicking may involve the
+sensorimotor activity related to performing kicking motions;
+\citealp{Rueschemeyer10}).  This conception of understanding is not
+contradictory with my Wittgensteinian definition above. To assess whether
+someone understands some semantic content, I might ask them to demonstrate it.
+I might ask someone to kick, etc., and I might judge that a person who fails to
+do so does not understand kicking. If a computer has no sensorimotor functions
+related to kicking, then, it may be judged to not understand it.\footnote{But,
+a robot which could both talk and kick, and could talk about kicking, I would
+judge to understand both kicking and language.}
 
 Quite a lot of language as it is spoken by humans has to do with human
 activities in which a computer cannot (yet) participate. By the above
@@ -190,14 +212,15 @@ proportion of human language which can be understood and produced by computers
 will grow continually, eventually approaching full human competence, but I hold
 that to fully accomplish this task, they will need bodies capable of performing
 all the same sensorimotor activities as humans.\footnote{Eventually, they would
-become full philosophical zombies, as discussed by \citealp{Chalmers}.}
+become full philosophical zombies, as discussed by \citet{Chalmers96}.}
 
 Thus, I argue that computers are only capable of producing and understanding
 human language insofar as they are capable of becoming indistinguishable from
 humans, but that this is fully possible in principle. I despair at computers
 learning language as they are currently taught, however. It is only by being
 embodied and living socially that any being, synthetic or otherwise, can hope
-to be a fully literate being. I, for one, welcome our new android companions.
+to be a fully literate being. I, for one, welcome our new android
+\st{overlords} companions.
 
 \clearpage
 \bibliography{course,extra}
