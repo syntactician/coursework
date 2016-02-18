@@ -11,7 +11,7 @@ all: 1 2 3
 
 sweep :
 	@$L -c
-	@rm -rf *.html *.ttt
+	@rm -rf *.html *.ttt *.fff *.png .Rhistory
 
 clean: sweep
 	@$L -C
@@ -33,4 +33,10 @@ clean: sweep
 02.09: 3
 3:
 	@$L 3
+	@$(MAKE) sweep
+
+02.18: 4
+4:
+	@Rscript 4.R
+	@$L 4
 	@$(MAKE) sweep
