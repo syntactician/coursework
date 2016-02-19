@@ -16,7 +16,7 @@ plot(F2[1:9], F1[1:9],
 text(F2[1:9], F1[1:9],
      labels = name[1:9],
      pos = 3)
-dev.off()
+invisible(dev.off())
 
 png("dipthong.png")
   plot(F2[10:19], F1[10:19],
@@ -34,7 +34,7 @@ png("dipthong.png")
     text(F2[10:19], F1[10:19],
          labels = name[10:19],
          pos = 3)
-dev.off()
+invisible(dev.off())
 
 png("me.png")
   plot(F2, F1,
@@ -52,7 +52,7 @@ png("me.png")
   text(F2, F1,
       labels = name,
       pos = 3)
-dev.off()
+invisible(dev.off())
 
 # Dimitrios' vowels
 F1 <- c(450, 480, 675, 450, 360, 490)
@@ -70,4 +70,4 @@ png("dimitrios.png")
   text(F2, F1,
        labels = name,
        pos = 3)
-dev.off()
+invisible(dev.off())
