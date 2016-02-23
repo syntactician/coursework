@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import nltk
 from nltk.corpus import gutenberg
 alice = gutenberg.raw('carroll-alice.txt')
