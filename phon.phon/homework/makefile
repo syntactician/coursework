@@ -7,7 +7,7 @@ L := latexmk $R $Q
 P := pandoc $S
 
 
-all: 1 2 3
+all: 1 2 3 4 5
 
 sweep :
 	@$L -c
@@ -39,4 +39,9 @@ clean: sweep
 4:
 	@Rscript 4.R
 	@$L 4
+	@$(MAKE) sweep
+
+02.23: 5
+5:
+	@$L 5
 	@$(MAKE) sweep
