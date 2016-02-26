@@ -1,0 +1,51 @@
+\documentclass[doc,12pt]{apa6}
+\usepackage[colorlinks=false]{hyperref}
+\usepackage{amssymb,amsmath,times,gb4e}
+\linespread{1.5}
+
+\begin{document}
+
+\title{Homework 2}
+\shorttitle{Homework 2}
+\author{Edward Hern\'{a}ndez}
+\date{26 February}
+\affiliation{Computational Methods}
+\maketitle
+
+\begin{verbatim}
+[CST*]|who|which [N*]|[P*] [V*]
+[CST*]|who|which [V*] [N*]|[P*]
+\end{verbatim}
+
+The central problem is that COCA simply tags by part of speech. There is
+no way to ensure that a query returns only sets of words which are truly
+in these grammatical structures; we must guess
+
+For instance, this is a concordance line from the corpus, showing a sentence
+from the film Clerks which contains two phrases caught by the query
+\texttt{who\ {[}V*{]}\ {[}N*{]}}:
+\begin{exe}
+	\ex . . . Ass, Play with my Puss, Three on a Dildo, Girls Who Crave Cock, Girls Who Crave Cunt, Men Alone Two-The K.Y. Connection, Pink Pussy Lips . . .
+\end{exe}
+Obviously, neither `Who Crave Cock' or `Who Crave Cunt' are here relative
+clauses (though they usually would be).
+
+WHO MADE IT
+
+\begin{verbatim}
+	which|who [V*]
+	which|who [V*] [N*]|[P*]
+	which|who [V*] [AT*]|[APPGE*] [N*]|[P*]
+	[CST*] [V*]
+	[CST*] [V*] [N*]|[P*]
+	[CST*] [V*] [AT*]|[APPGE*] [N*]|[P*]
+
+	which|who [N*]|[P*] [V*]
+	which|who [AT*]|[APPGE*] [N*]|[P*] [V*]
+	[CST*] [N*]|[P*] [V*]
+	[CST*] [AT*|[APPGE*] [N*]|[P*] [V*]
+	
+	[N*]|[P*] [N*]|[*P] [V*]   ********
+\end{verbatim}
+
+\end{document}
