@@ -4,6 +4,7 @@ import nltk
 from nltk import FreqDist
 from nltk.corpus import gutenberg
 from nltk.corpus import inaugural
+from nltk.corpus import brown
 import matplotlib
 
 # just to be safe!!
@@ -29,7 +30,7 @@ nltk.Text(alice_words).count("Alice")
 obama       = inaugural.raw('2009-Obama.txt')
 obama_words = inaugural.words('2009-Obama.txt')
 obama_sents = inaugural.sents('2009-Obama.txt')
-obama_FD    = FeqDist(obama_words)
+obama_FD    = FreqDist(obama_words)
 
 # some illustrative functions w/ the Inaugural Adress
 
