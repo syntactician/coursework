@@ -5,7 +5,7 @@ R := -r ../latexmkrc
 
 L := latexmk $R $Q
 
-all : responses presentation
+all : responses 1 2 presentation
 
 sweep :
 	@$L -c
@@ -19,8 +19,14 @@ responses :
 	@$(MAKE) -C responses
 	@$(MAKE) -C responses sweep
 
+1: hw1
 hw1:
 	@$L hw1
+	@$(MAKE) sweep
+
+2: hw2
+hw2:
+	@$L hw2
 	@$(MAKE) sweep
 
 presentation :

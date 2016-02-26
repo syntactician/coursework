@@ -12,40 +12,116 @@
 \affiliation{Computational Methods}
 \maketitle
 
-\begin{verbatim}
-[CST*]|who|which [N*]|[P*] [V*]
-[CST*]|who|which [V*] [N*]|[P*]
-\end{verbatim}
+To understand the differences between subject and object relative clauses, we
+might want to begin by determining the (relative) frequencies of these
+structures. If it is the case that subject relative clauses are less frequent
+in the input, that might begin to explain why they are harder for us to
+process.
 
-The central problem is that COCA simply tags by part of speech. There is
-no way to ensure that a query returns only sets of words which are truly
-in these grammatical structures; we must guess
-
-For instance, this is a concordance line from the corpus, showing a sentence
-from the film Clerks which contains two phrases caught by the query
-\texttt{who\ {[}V*{]}\ {[}N*{]}}:
+Unfortunately, COCA tags only parts of speech. There is no way to search
+explicitly for a particular grammatical construction, or even to ensure that a
+query returns only sets of words which are truly in these grammatical
+structures. 
+To illustrate the problem, let's form some initial queries and see what they
+return. Consider the following sentence:
 \begin{exe}
-	\ex . . . Ass, Play with my Puss, Three on a Dildo, Girls Who Crave Cock, Girls Who Crave Cunt, Men Alone Two-The K.Y. Connection, Pink Pussy Lips . . .
+	\ex The employee \textbf{that liked the manager} was promoted.
 \end{exe}
-Obviously, neither `Who Crave Cock' or `Who Crave Cunt' are here relative
-clauses (though they usually would be).
+How should we construct a query to catch phrases like this one? Maybe
+\texttt{that {[}v*{]} {[}at*{]} {[}n*{]}}? Though this seems right, if you check the concordance lines, it produces mostly results which are not relative clauses:
+\begin{exe}
+	\ex Megan (ph) she stood on her head afterwards... OK. \textbf{That 's the way} you get a boy. Swear to God.
+	\ex You see them two little ratty-ass dudes standing behind him? \textbf{That 's the problem}. Those two little ratty-ass dudes
+\end{exe}
+Most of these are common phrases starting with \emph{demonstrative} `that'.
 
-WHO MADE IT
+Luckily, we can restrict \texttt{that} down to only its uses as a conjunction
+using the tag \texttt{{[}cst*{]}}. This does not by any means solve the
+problem, but it certainly makes the results more relevant. Most of the results
+are, in fact, relative clauses.
 
+However, relative clauses can also begin with other complementizers:
+\texttt{that which who}. While these do not seem to have the same problem as
+\texttt{that}, of being used as demonstratives, they are used to ask questions,
+which may often begin \texttt{who|which {[}v*{]} {[}at*{]} {[}n*{]}}:
+\begin{exe}
+	\ex And when people commuted back with her, they said, Who 's the father?' She said, I will never tell.'
+\end{exe}
+It's not clear to me how to eliminate these results, or whether they constitute
+a meaningful fraction of results.\footnote{I opt to include them in my count
+since they seemed from the first several hundred concordance lines to be
+relatively low percentages.} Relative clauses can also occur with or without an
+article \texttt{{[}at*{]}}, with a pronoun \texttt{{[}p*{]}} instead of a noun,
+with or without a complementizer (in the case of object relative clauses), or
+even without a noun (in the case of subject relative clauses).
+
+In light of this variation, it is hard to decide what queries to run, and
+absolutely impossible to run a single query to catch all relative clauses of a
+particular type. These clauses can be a variable number of words, which COCA is
+very bad about supporting. I think to begin we'll have to try to catch the
+patterns we expect to be simplest or most common.  To catch the simplest
+relative clauses of each type, I'd like to run the following queries:
 \begin{verbatim}
-	which|who [V*]
-	which|who [V*] [N*]|[P*]
-	which|who [V*] [AT*]|[APPGE*] [N*]|[P*]
-	[CST*] [V*]
-	[CST*] [V*] [N*]|[P*]
-	[CST*] [V*] [AT*]|[APPGE*] [N*]|[P*]
+[cst*]|who|which [n*]|[p*] [v*]
 
-	which|who [N*]|[P*] [V*]
-	which|who [AT*]|[APPGE*] [N*]|[P*] [V*]
-	[CST*] [N*]|[P*] [V*]
-	[CST*] [AT*|[APPGE*] [N*]|[P*] [V*]
-	
-	[N*]|[P*] [N*]|[*P] [V*]   ********
+[cst*]|who|which [v*] [n*]|[p*]
 \end{verbatim}
+COCA returns nothing for these queries. This is not because nothing matches,
+but rather because \texttt{{[}cst*{]}{|}which{|}who} is not a legal slot, since
+it combines determinate words with a tag.
+
+Finally in the list of problems, the complementizer can be omitted for object 
+relative clauses. This is the hardest thing to search for. The simplest should
+be simply \texttt{{[}n*{]}|{[}p*{]} {[}v*{]}}, but clearly this will return
+subjects and matrix verbs in sentences as well. Additionally, every slot in
+this query occurs more than 30,000,000 times in COCA, which is the upper limit
+for searchable queries. I attempted to add context (the preceding subject noun
+or matrix verb), but that neither conceptually limited results to only relative
+clauses nor lowered a slot below 30,000,000 occurrences.
+
+% For instance, this is a concordance line from the corpus, showing a sentence
+% from the film Clerks which contains two phrases caught by the query
+% \texttt{who\ {[}V*{]}\ {[}N*{]}}:
+% \begin{exe}
+% 	\ex . . . Ass, Play with my Puss, Three on a Dildo, Girls Who Crave Cock, Girls Who Crave Cunt, Men Alone Two-The K.Y. Connection, Pink Pussy Lips . . .
+% \end{exe}
+% Obviously, neither `Who Crave Cock' or `Who Crave Cunt' are here relative
+% clauses (though they usually would be).
+
+% WHO MADE IT
+
+In the end, this is what I searched:
+\begin{verbatim}
+	[cst*] [v*]
+	which|who [v*]
+
+	[cst*] [n*]|[p*] [v*]
+	[cst*] [at*]|[appge*] [n*]|[p*] [v*]
+	which|who [n*]|[p*] [v*]
+	which|who [at*]|[appge*] [n*]|[p*] [v*]
+\end{verbatim}
+I only issued two queries for subject relative clauses, because all of the
+other queries I could think of returned subsets of the above two, and I didn't
+want to count data twice. The results of these queries seemed to be
+overwhelmingly composed of relative clauses, as expected.
+
+If my numbers are anything to go by, subject relative clauses are \textit{much}
+more common than object relative clauses. My queries returned 3,069,821 subject
+relative clauses and 1,604,332 object relative clauses. Certainly, this
+distribution cannot explain our difficulty in processing subject relative
+clauses.
+
+The reason that this search was difficult is the same reason our results cannot
+explain our processing difficulties: we rely on hierarchical grammar. The
+difficulty with subject relative clauses is not processing an unusual construct,
+but rather forming a correct hierarchical representation of the sentence. If the
+corpus could parse these grammatical structures, it would be possible to easily
+and correctly return this data.
+
+	% * [CST*] [V*] [N*]|[P*]
+	% * [CST*] [V*] [AT*]|[APPGE*] [N*]|[P*]
+	% * which|who [V*] [N*]|[P*]
+	% * which|who [V*] [AT*]|[APPGE*] [N*]|[P*]
+
 
 \end{document}
