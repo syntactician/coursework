@@ -1,0 +1,55 @@
+\documentclass[doc,12pt]{apa6}
+\usepackage[colorlinks=false]{hyperref}
+\usepackage{amssymb,amsmath,times,tipa,phonrule,gb4e}
+\linespread{1.5}
+\renewcommand{\labelenumi}{\alph{enumi}.}
+
+\begin{document}
+
+\title{Homework 6: Distinctive Features}
+\shorttitle{Homework 5}
+\author{Edward Hern\'{a}ndez}
+\date{23 February}
+\affiliation{with Sora Edwards-Thro}
+\maketitle
+
+\section{1. Distinctive Features}
+\begin{enumerate}
+	\item high, low, back
+	\item high, low, back, round
+	\item high, low, back, round, ATR
+\end{enumerate}
+
+\section{2. Turkish Suffixes}
+
+In Turkish, the genative case is produced by adding a suffix to the nominative
+form of the noun. That affix has four allomorphs:
+\begin{exe}
+	\ex -in
+	\ex -{\textbari}n
+	\ex -yn
+	\ex -un
+\end{exe}
+The allomorphs differ only in which vowel is produced. Which allomorph is
+produced is not predictable based on the preceding phoneme, but it is
+predictable by the previous vowel. In all cases, the affix is produced such
+that it contains a high vowel with the same backness and roundness as the
+preceding vowel.
+The rule governing which allomorph is produced can be formalized: \\
+\phonl{\phonfeat{+ high}n}{{\phonfeat{{$\alpha$}  back\\{$\beta$} back}}n}{\phonfeat{{$\alpha$}  back\\{$\beta$} back}...}
+
+The plural suffix also assimilates to information from the preceding vowel. It
+has two allophones:
+\begin{exe}
+	\ex -lar
+	\ex -ler
+\end{exe}
+The vowel is always unrounded, but varies in backness and height. This
+information is picked up from (and is therefore predictable by) the preceding
+vowel. If the preceding vowel is back or central, the suffix is produced with a
+low back vowel. If the preceding vowel is front, the suffix is produced with a
+mid front vowel.  This can be formalized: \\
+\phonl{l\phonfeat{- high\\-round}r}{l\phonfeat{$\alpha$ back}r}{\phonfeat{$\alpha$ back}...}
+
+
+\end{document}
