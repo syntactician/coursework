@@ -45,3 +45,9 @@ clean: sweep
 5:
 	@$L 5
 	@$(MAKE) sweep
+
+03.01: 6
+6:
+	@$L 6
+	@$(MAKE) sweep
+
