@@ -11,7 +11,7 @@ all : responses 1 2 presentation
 
 sweep :
 	@$L -c
-	@rm -rf *.fff 3.*.tex _minted*/ # figures/
+	@rm -rf *.fff 3.tex matplotlibrc _minted*/ figures/
 
 clean : sweep
 	@$L -C
@@ -33,10 +33,8 @@ hw2:
 
 3: hw3
 hw3:
-	@$W 3.i.mdw
-	@$W 3.1.mdw
-	@$W 3.2a.mdw
-	@$W 3.2b.mdw
+	@echo 'figure.autolayout : True' > matplotlibrc
+	@$W 3.mdw
 	@$S 3
 	@$(MAKE) sweep
 

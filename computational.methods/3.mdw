@@ -1,10 +1,64 @@
-<<import, echo=False>>=
+\documentclass[man,12pt]{apa6}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{amssymb,amsmath,times,minted}
+\linespread{1.5}
+
+\begin{document}
+
+\title{Homework 3}
+\shorttitle{Homework 3}
+\author{Edward Hern\'{a}ndez}
+\date{23 March 2016}
+\affiliation{College of William \& Mary}
+\maketitle
+
+\section{Introduction}
+
+To start, I'm going to import the modules and data that I need.  I'm importing
+the nltk tools individually for two reasons: to reduce load times, and to give
+me access to these functions directly, instead of calling them as, for example
+\texttt{nltk.ConditionalFreqDist()}, which gets quite unwieldy.
+
+<<import>>=
 from nltk import FreqDist
 from nltk import ConditionalFreqDist
 from nltk import RegexpTagger
 from nltk.corpus import brown
 import re
 @
+
+\section{Question 1}
+
+I'll start out by comparing the use of days of the week in the news and in
+romance novels. I'll make tuples of the genres and target words I'm examining:
+<<q1_objects>>=
+genres = ('news','romance')
+days = ('Monday', 'Tuesday', 'Wednesday', 'Thursday',
+        'Friday', 'Saturday', 'Sunday')
+@
+I'll then make a conditional frequency distribution by genre for those words:
+<<q1_freqdist>>=
+brown_cfd = ConditionalFreqDist(
+    (genre, word)
+    for genre in brown.categories()
+    for word in brown.words(categories=genre))
+@
+Then we'll print that in a table:
+<<q1_table>>=
+brown_cfd.tabulate(conditions=genres, samples=days)
+brown_cfd.plot(conditions=genres, samples=days)
+@
+
+\section{Question 2A}
+
+<<q2A>>=
+brown_news_tagged = brown.tagged_words(categories='news',
+                                       tagset='universal')
+tag_fd = FreqDist(tag for (word, tag) in brown_news_tagged)
+tag_fd.plot(cumulative=True)
+@
+
+\section{Question 2B}
 
 The NLTK book \href{http://www.nltk.org/book/ch05.html}{provides} a toy example of
 regular expressions to tag parts of speech:
@@ -114,3 +168,5 @@ regexp_tagger = RegexpTagger(patterns)
 
 print(regexp_tagger.tag(brown_sents[3]))
 @
+
+\end{document}
