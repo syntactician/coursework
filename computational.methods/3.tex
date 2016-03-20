@@ -22,66 +22,90 @@ the nltk tools individually for two reasons: to reduce load times, and to give
 me access to these functions directly, instead of calling them as, for example
 \texttt{nltk.ConditionalFreqDist()}, which gets quite unwieldy.
 
-<<import>>=
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
 from nltk import FreqDist
 from nltk import ConditionalFreqDist
 from nltk import RegexpTagger
 from nltk.corpus import brown
 import re
-@
+\end{minted}
+
 
 \section{Question 1}
 
 I'll start out by comparing the use of days of the week in the news and in
 romance novels. I'll make tuples of the genres and target words I'm examining:
-<<q1_objects>>=
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
 genres = ('news','romance')
 days = ('Monday', 'Tuesday', 'Wednesday', 'Thursday',
         'Friday', 'Saturday', 'Sunday')
-@
+\end{minted}
+
 I'll then make a conditional frequency distribution by genre for those words:
-<<q1_freqdist>>=
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
 brown_cfd = ConditionalFreqDist(
     (genre, word)
     for genre in brown.categories()
     for word in brown.words(categories=genre))
-@
+\end{minted}
+
 Then we'll print that in a table:
-<<q1_table>>=
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
 brown_cfd.tabulate(conditions=genres, samples=days)
 brown_cfd.plot(conditions=genres, samples=days)
-@
+\end{minted}
+\begin{minted}[fontsize=\scriptsize, xleftmargin=0.5em, mathescape, frame = leftline]{text}
+           Monday   Tuesday Wednesday  Thursday    Friday  Saturday
+Sunday
+   news        54        43        22        20        41        33
+51
+romance         2         3         3         1         3         4
+5
+
+\end{minted}
+\includegraphics[width= \linewidth]{figures/3_q1_table_1.pdf}
+
 
 \section{Question 2A}
 
-<<q2A>>=
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
 brown_news_tagged = brown.tagged_words(categories='news',
                                        tagset='universal')
 tag_fd = FreqDist(tag for (word, tag) in brown_news_tagged)
 tag_fd.plot(cumulative=True)
-@
+\end{minted}
+\includegraphics[width= \linewidth]{figures/3_q2A_1.pdf}
+
 
 \section{Question 2B}
 
 The NLTK book \href{http://www.nltk.org/book/ch05.html}{provides} a toy example of
 regular expressions to tag parts of speech:
-<<nltk_example>>=
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
 patterns = [
-	(r'.*ing$',               'VBG'),
-	(r'.*ed$',                'VBD'),
-	(r'.*.s$',                'VBZ'),
-	(r'.*ould$',               'MD'),
-	(r'.*\'s$',               'NN$'),
-	(r'.*s$',                 'NNS'),
-	(r'^-?[0-9]+(.[0-9]+)?$',  'CD'),
-	(r'.*',                    'NN')
+        (r'.*ing$',               'VBG'),
+        (r'.*ed$',                'VBD'),
+        (r'.*.s$',                'VBZ'),
+        (r'.*ould$',               'MD'),
+        (r'.*\'s$',               'NN$'),
+        (r'.*s$',                 'NNS'),
+        (r'^-?[0-9]+(.[0-9]+)?$',  'CD'),
+        (r'.*',                    'NN')
     ]
-@
+\end{minted}
+
 
 There are some issues in the example.
 
 So here's my effort:
-<<q2>>=
+
+\begin{minted}[mathescape, fontsize=\small, xleftmargin=0.5em]{python}
 patterns = [
     (r'^[\.,\'`;:-]+$',       '.'),     # punctuation
     (r'^[a-zA-Z]$',           'ZZ1'),   # single letter
@@ -170,6 +194,19 @@ brown_sents = brown.sents()
 regexp_tagger = RegexpTagger(patterns)
 
 print(regexp_tagger.tag(brown_sents[3]))
-@
+\end{minted}
+\begin{minted}[fontsize=\scriptsize, xleftmargin=0.5em, mathescape, frame = leftline]{text}
+[('``', '.'), ('Only', 'REX'), ('a', 'ZZ1'), ('relative', 'JJ'),
+('handful', 'JJ'), ('of', 'IO'), ('such', 'NN'), ('reports', 'NN2'),
+('was', 'VBDZ'), ('received', 'VBD'), ("''", '.'), (',', '.'), ('the',
+'AT'), ('jury', 'NN'), ('said', 'VBD'), (',', '.'), ('``', '.'),
+('considering', 'VBG'), ('the', 'AT'), ('widespread', 'NN'),
+('interest', 'JJT'), ('in', 'II'), ('the', 'AT'), ('election', 'NN'),
+(',', '.'), ('the', 'AT'), ('number', 'NN'), ('of', 'IO'), ('voters',
+'NN2'), ('and', 'CC'), ('the', 'AT'), ('size', 'VV0'), ('of', 'IO'),
+('this', 'DD1'), ('city', 'NN'), ("''", '.'), ('.', '.')]
+
+\end{minted}
+
 
 \end{document}
