@@ -1,0 +1,134 @@
+\documentclass[doc,12pt]{apa6}
+\usepackage[colorlinks=false]{hyperref}
+\usepackage{amssymb,amsmath,times,tipa,phonrule,gb4e}
+\linespread{1.5}
+\renewcommand{\labelenumi}{\alph{enumi}.}
+
+\begin{document}
+
+\title{Homework 8: Somali}
+\shorttitle{Homework 8}
+\author{Edward Hern\'{a}ndez}
+\date{22 March 2016}
+\affiliation{with Sora Edwards-Thro}
+\maketitle
+
+\section{Part 1: Obstruents}
+
+Somali has several phonological rules affecting obstruent consonants.  In our
+data, /lt/ becomes \textipa{S}, stops become fricatives
+intervocalically\footnote{Below, I call this process lenition just to have
+	something short to call it. I'm not sure whether spirantization is more
+accurate.}, and /dt/ clusters are reduced to /d/.
+
+All of the data we have is on nouns. These nouns seem to have as their root the
+singular form, and are derived via affixes into the singular definite and
+plural forms. Some of these roots have word-final stops, which are realized as 
+fricatives in the plural form. This appears to happen because the plural affix /-o/ is a vowel, which makes these previously word-final stops intervocalic.
+
+The singular definite forms of the nouns in our data end in /-ta/, with a few
+notable exceptions. When adding /-ta/ would produce /lt/, it is changed to /\textipa{S}/, and when it would produce /dt/, it is changed to /d/.
+It would be easy to write a rule \phon{dt}{d}, of course, but I think that
+there is no reason to think that such a change would not happen in phonetically
+similar cases (which our data does not provide).  Since /dt/ is the only
+cluster of coronal sounds in the data, I've opted to write the rule as a
+deletion of the second sound in any cluster of two coronals. I realize that
+this is the broadest way that I could write the rule, but I feel that it is
+true to the phonetic motivation of reducing back-to-back sounds articulated
+with the same part of the tongue.\footnote{It is just as reasonable to write a
+more focused rule, two stops in a row at the same place of articulation become
+a single stop. I wasn't sure how to write such a rule without an $\alpha$ for
+each possible place of articulation.}
+
+\begin{exe}
+	\ex \begin{tabbing}
+		coronal cluster reduction (CCR) \= \kill
+		intervocalic lenition (IR) \>
+		\phonb{\phonfeat{-son}}{
+	           \phonfeat{+cont}}{
+	           \phonfeat{+syl}}{
+	           \phonfeat{+syl}}
+		\end{tabbing}
+
+	\ex \begin{tabbing}
+		coronal cluster reduction (CCR) \= \kill
+		coronal cluster reduction (CCR) \>
+		\phonl{\phonfeat{+cor\\-son}}{
+	           $\emptyset$}{
+	           \phonfeat{+cor\\-son}}
+		\end{tabbing}
+
+	\ex \begin{tabbing}
+		coronal cluster reduction (CCR) \= \kill
+		lt to \textipa{S} \>
+		\phon{lt}{\textipa{S}}
+	\end{tabbing}
+
+\end{exe}
+
+As you can see in the derivation below, coronal cluster reduction
+\emph{counterfeeds} intervocalic lenition, resulting in intervocalic stops.
+If the rules were in a different order (i.e. coronal cluster reduction fed
+intervocalic lenition) {[}bada{]} would instead be produced
+{[}ba\textipa{D}a{]}.
+
+\begin{exe}
+	\ex \begin{tabbing}
+		CCR \hspace{2em} \= /bad/ \hspace{2em}
+		\= /bad-ta/ \hspace{2em} \= /bad-o/ \kill
+		UR  \> /bad/ \> /bad-ta/ \> /bad-o/          \\
+		IL  \> /bad/ \> /badta/  \> /ba\textipa{D}o/ \\
+		CR \> /bad/ \> /bada/   \> /ba\textipa{D}o/ \\
+		SR  \> {[}bad{]} \> {[}bada{]} \> {[}ba\textipa{D}o{]}
+		\end{tabbing}
+\end{exe}
+
+\section{Part 2: Nasals}
+
+Somali appears to have two nasal sounds, {[}m{]} and {[}n{]}. While there are
+no minimal pairs in the data, it does not appear that these two sounds could be
+allomorphs of the same phoneme, because when each occurs is not fully
+predictable by rule. Since it is not predictable by rule, there must be two 
+nasal phonemes in the underlying representation of the words.
+
+Given that /m/ and /n/ are distinct phonemes in the UR, it is still difficult
+to write up a rule that predicts when each will be realized. Words whose UR
+contains /m/ are still realized with /n/ in some cases.  In our data, /m/
+appears to become /n/ word finally nad before /t/ (the only consonant it
+appears before in our data. While it is relatively intuitive for the place to
+assimilate before an alveolar stop, the change word-finally does not seem to
+have a phonetic motivation. Instead of writing two rules, only one of which is
+motivated, I opted to write a single rule: /m/ becomes /n/ when it is a
+syllable coda.\footnote{I still don't understand the phonetic motivation here,
+but it's the only way I see to handle it in a single rule.} Assuming that
+Somali breaks up consonant clusters between syllables (\phon{VCCV}{VC.CV}), this
+captures the change occurring in the data:
+
+\begin{exe}
+	\ex \begin{tabbing}
+		coronal cluster reduction (CCR) \= \kill
+		nasal movement \>
+		\phonr{\phonfeat{+nas\\-syl}}{
+	           \phonfeat{-lab\\+cor}}{
+	           {]}_\sigma}
+		\end{tabbing}
+\end{exe}
+
+Here are the derivations of two singular nouns, /laam/ `branch' and /sim/
+`hide', into their definite /-ta/ and plural /-o/ forms to show how the rule
+acts:
+
+\begin{exe}
+	\ex \begin{tabbing}
+		UR \hspace{2em} \= /laam/ \= /laam.ta/ \= /laa.mo/ \\
+		NM \> /laan/ \> /laan.ta/ \> /laa.mo/ \\
+		SR \> {[}laan{]} \> {[}laan.ta{]} \> {[}laa.mo{]}
+	    \end{tabbing}
+	\ex \begin{tabbing}
+		UR \hspace{2em} \= /sim/ \= /sim.ta/ \= /si.mo/ \\
+		NM \> /sin/ \> /sin.ta/ \> /si.mo/ \\
+		SR \> {[}sin{]} \> {[}sin.ta{]} \> {[}si.mo{]}
+		\end{tabbing}
+\end{exe}
+
+\end{document}
