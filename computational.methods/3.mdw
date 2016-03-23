@@ -80,6 +80,8 @@ labels, this code should be run in a directory containing a
 cfd.plot(conditions=genres, samples=days)
 @
 
+It looks like talking about the days of the week is newsworthy, but not so romantic.
+
 \section{Question 2A}
 
 I'm also interested in the relative frequencies of different parts of speech in
@@ -106,6 +108,8 @@ blue_line  = lines.Line2D([], [], color='blue',  label='frequency')
 green_line = lines.Line2D([], [], color='green', label='cumulative freq.')
 pyplot.legend(handles=[blue_line, green_line])
 @
+
+From the plot, it looks like 80\% of ``words'' are nouns, verbs, prepositions, determiners, or punctuation.
 
 \section{Question 2B}
 
@@ -137,8 +141,13 @@ ratings provided below are calculated and printed inline using this function.}
 <<accuracy>>=
 def evaluate(tagger):
     """evaluate a tagger against the Brown corpus"""
-    # acc = tagger.evaluate(brown.tagged_sents())
-    acc = tagger.evaluate(brown.tagged_sents(categories='news'))
+    acc = tagger.evaluate(brown.tagged_sents())
+    return (round((acc * 100), 2))
+@
+<<accuracy_crutch, echo=False, evaluate=False>>=
+def evaluate(tagger):
+    """evaluate a tagger against the Brown corpus"""
+    acc = tagger.evaluate(brown.tagged_sents(categories=['news','romance']))
     return (round((acc * 100), 2))
 @
 <<toy_acc, echo=False>>=
@@ -377,7 +386,7 @@ of <%= final_acc %>\%, which is pretty nearly the best I can do. Here is the
 final tagger that I used to get that accuracy:
 
 % final_display {{{
-<<final_display>>=
+<<final_display, evaluate=False>>=
 patterns = [
     (r'^\.$|^\?$|^:$|^;$',              '. '),
     (r'^,$',                            ','),
