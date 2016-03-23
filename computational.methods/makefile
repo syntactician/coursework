@@ -1,17 +1,18 @@
 # Flags for latexmk
-P := pandoc
 Q := -quiet
 R := -r ../latexmkrc
-S := pdflatex -shell-escape
-W := pweave -f texminted
+S := -shell-escape
+T := -f texminted
 
-L := latexmk $R $Q
+L := latexmk $Q $R
+P := pdflatex $S
+W := pweave $T
 
 all : responses 1 2 presentation
 
 sweep :
 	@$L -c
-	@rm -rf *.fff 3.tex matplotlibrc _minted*/ figures/
+	@rm -rf *.fff matplotlibrc _minted*/ figures/ 3.py
 
 clean : sweep
 	@$L -C
@@ -35,7 +36,9 @@ hw2:
 hw3:
 	@echo 'figure.autolayout : True' > matplotlibrc
 	@$W 3.mdw
-	@$S 3
+	@sed -e '/frame =/s/small/scriptsize/' -i 3.tex
+	@$P 3
+	@$P 3
 	@$(MAKE) sweep
 
 presentation :

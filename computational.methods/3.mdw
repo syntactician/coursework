@@ -31,8 +31,8 @@ import re
 @
 
 <<sneaky_import, echo=False>>=
-import matplotlib.lines as mlines
-import matplotlib.pyplot as plt
+from matplotlib import lines
+from matplotlib import pyplot
 @
 
 \section{Question 1}
@@ -83,104 +83,126 @@ cfd.plot(conditions=genres, samples=days)
 \section{Question 2A}
 
 I'm also interested in the relative frequencies of different parts of speech in
-English.
+English. I'll make a frequency distribution of tagged words (according to the `universal' tagset) in the news genre of the Brown corpus.
 
-<<q2A>>=
-brown_news_tagged = brown.tagged_words(categories='news',
-                                       tagset='universal')
-tag_fd = FreqDist(tag for (word, tag) in brown_news_tagged)
+<<q2A_objects>>=
+news_tagged = brown.tagged_words(categories='news',
+                                 tagset='universal')
+tag_fd      = FreqDist(tag for (word, tag) in news_tagged)
+@
+
+\noindent
+I'll then plot the frequencies and cumulative frequencies of those parts
+of speech:
+
+<<q2A_display, evaluate=False>>=
 tag_fd.plot()
 tag_fd.plot(cumulative=True)
-
-blue_line = mlines.Line2D([], [], color='blue', label='frequency')
-green_line = mlines.Line2D([], [], color='green', label='cumulative freq.')
-plt.legend(handles=[blue_line, green_line])
+@
+<<q2A_evaluate, echo=False>>=
+tag_fd.plot()
+tag_fd.plot(cumulative=True)
+blue_line  = lines.Line2D([], [], color='blue',  label='frequency')
+green_line = lines.Line2D([], [], color='green', label='cumulative freq.')
+pyplot.legend(handles=[blue_line, green_line])
 @
 
 \section{Question 2B}
 
-The NLTK book \href{http://www.nltk.org/book/ch05.html}{provides} a toy example of
-regular expressions to tag parts of speech:
-<<nltk_example>>=
+<<test_set, echo=False>>=
+brown_tagged_sents = brown.tagged_sents(categories='news')
+# brown_tagged_sents = brown.tagged_sents()
+@
+
+The NLTK book \href{http://www.nltk.org/book/ch05.html}{provides} a toy example
+of building a part-of-speech tagger using regular expressions:
+
+% toy {{{
+<<toy>>=
 patterns = [
 	(r'.*ing$',               'VBG'),
 	(r'.*ed$',                'VBD'),
-	(r'.*.s$',                'VBZ'),
+	(r'.*es$',                'VBZ'),
 	(r'.*ould$',               'MD'),
 	(r'.*\'s$',               'NN$'),
 	(r'.*s$',                 'NNS'),
 	(r'^-?[0-9]+(.[0-9]+)?$',  'CD'),
 	(r'.*',                    'NN')
-    ]
-
-
-brown_tagged_sents = brown.tagged_sents(categories='news')
-# brown_tagged_sents = brown.tagged_sents()
+]
 
 toy_tagger = RegexpTagger(patterns)
-print(toy_tagger.evaluate(brown_tagged_sents))
 @
+% }}}
 
-There are some issues in the example.
-
-Conceptual issues asside, it's not all that accurate. Here's a quick function
-to check the accuracy of the tagger against the tags that ship with the Brown
-Corpus:\footnote{All accuracy ratings provided below are calculated and printed
-inline using this function.}
+Though this seems like a perfectly reasonable way to tag text on first glance,
+this example is not all that accurate. Here's a quick function to check the
+accuracy of the tagger against the entire Brown Corpus:\footnote{All accuracy
+ratings provided below are calculated and printed inline using this function.}
 
 <<accuracy>>=
-def evaluate(tagger, test_set):
-    """evaluate an nltk tagger on pre-tagged data"""
-    acc = tagger.evaluate(test_set)
+def evaluate(tagger):
+    """evaluate a tagger against the Brown corpus"""
+    # acc = tagger.evaluate(brown.tagged_sents())
+    acc = tagger.evaluate(brown.tagged_sents(categories='news'))
     return (round((acc * 100), 2))
 @
-
 <<toy_acc, echo=False>>=
-toy_acc = evaluate(toy_tagger, brown_tagged_sents)
+toy_acc = evaluate(toy_tagger)
 @
 
 The toy example is only <%= toy_acc %>\% accurate when run over the whole Brown
-corpus.
+corpus.  I initially figured that this was due to its size, and that adding
+more regular affixes as expressions, I could achieve a reasonably high
+accuracy. Here's my attempt:
 
-So here is my effort:
-<<q2>>=
+% pattern {{{
+<<pattern>>=
 patterns = [
-    (r'.*[ai]ble$',                     'JJ'),
-    (r'.*al$',                          'JJ'),
-    (r'.*esque$',                       'JJ'),
-    (r'.*ful$',                         'JJ'),
-    (r'.*less$',                        'JJ'),
-    (r'.*ic$|.*ical$',                  'JJ'),
-    (r'.*ish$',                         'JJ'),
-    (r'.*ive$',                         'JJ'),
-    (r'.*ous$',                         'JJ'),
-    (r'.*er$',                          'JJR'),
-    (r'.*est$',                         'JJT'),
-    (r'.*s',                            'NNS'),
-    (r'.*self$',                        'PPL'),
-    (r'.*selves$',                      'PPLS'),
-    (r'.*ly',                           'RB'),
-    (r'.*ate$',                         'VB'),
-    (r'.*fy$$',                         'VB'),
-    (r'.*i[sz]es?$',                    'VB'),
-    (r'.*ed',                           'VBD'),
-    (r'.*ing$',                         'VBG'),
-    (r'.*es',                           'VBZ'),
-    (r'.*',                             'NN')
+    (r'.*[ai]ble$',           'JJ'),
+    (r'.*al$',                'JJ'),
+    (r'.*esque$',             'JJ'),
+    (r'.*ful$',               'JJ'),
+    (r'.*less$',              'JJ'),
+    (r'.*ic$|.*ical$',        'JJ'),
+    (r'.*ish$',               'JJ'),
+    (r'.*ive$',               'JJ'),
+    (r'.*ous$',               'JJ'),
+    (r'.*er$',                'JJR'),
+    (r'.*est$',               'JJT'),
+    (r'.*ould$',              'MD'),
+    (r'.*self$',              'PPL'),
+    (r'.*selves$',            'PPLS'),
+    (r'.*ly',                 'RB'),
+    (r'.*ate$',               'VB'),
+    (r'.*fy$$',               'VB'),
+    (r'.*i[sz]es?$',          'VB'),
+    (r'.*ed',                 'VBD'),
+    (r'.*ing$',               'VBG'),
+    (r'.*ing$',               'VBG'),
+    (r'.*ed$',                'VBD'),
+    (r'.*es$',                'VBZ'),
+    (r'.*\'s$',               'NN$'),
+    (r'.*s$',                 'NNS'),
+    (r'^-?[0-9]+(.[0-9]+)?$', 'CD'),
+    (r'.*',                   'NN'),
     ]
 
 pattern_tagger = RegexpTagger(patterns)
-# print(regexp_tagger.evaluate(brown_tagged_sents))
-print(evaluate(pattern_tagger, brown_tagged_sents))
 @
+<<pattern_acc, echo=False>>=
+pattern_acc = evaluate(pattern_tagger)
+@
+% }}}
 
-This still isn't all that accurate. Unfortunately, English words are not
-especially regular. It's very difficult to guess a part of speech by strings
-of characters in words (or even from knowing the whole word out of context).
-Critically, many of the most common words do not fit these patterns: `a', `in', `for', `the', etc.
+This is still only <%= pattern_acc %>\% accurate. Unfortunately, this is
+largely because English words are not especially regular. It's very difficult
+to guess a part of speech by strings of characters in words (or even from
+knowing the whole word out of context).  Critically, many of the most common
+words do not fit these patterns: `a', `in', `for', `the', etc.
 
 Here is a numerically better regex tagger:
 
+% cheating {{{
 <<cheating>>=
 patterns = [
     (r'^\.$|^\?$|^:$|^;$',              '. '),
@@ -247,20 +269,14 @@ patterns = [
 ]
 
 cheating_tagger = RegexpTagger(patterns)
-# print(round((regexp_tagger.evaluate(brown_tagged_sents) * 100), 2))
-print(evaluate(cheating_tagger, brown_tagged_sents))
 @
+<<cheating_acc, echo=False>>=
+cheating_acc = evaluate(cheating_tagger)
+@
+% }}}
 
-Obviously this is not in the spirit of a regex tagger. All it does is account
-for approximately one hundred of the most common English words (which are
-almost all irregular). To optimize the regex tagger in English, I've had to
-crudely approximate a lookup tagger.\footnote{Lookup taggers still have issues
-(such as not considering context), but they seem to systematically outperform
-regex taggers.} In fact, when I added the regular expressions from above the
-tagger only becomes FUCK\% approximately two percent
-more accurate:
-
-<<finished, echo=False>>=
+% final_eval {{{
+<<final_eval, echo=False>>=
 patterns = [
     (r'^\.$|^\?$|^:$|^;$',              '. '),
     (r'^,$',                            ','),
@@ -347,9 +363,113 @@ patterns = [
 ]
 
 final_tagger = RegexpTagger(patterns)
-# print(regexp_tagger.evaluate(brown_tagged_sents))
-# print(round((regexp_tagger.evaluate(brown_tagged_sents) * 100), 2)
-print(evaluate(final_tagger, brown_tagged_sents))
+
+final_acc = evaluate(final_tagger)
 @
+%"}}}
+
+This is <%= cheating_acc %>\% accurate, but obviously it is not in the spirit
+of a regex tagger. All it does is account for approximately one hundred of the
+most common English words (which are almost all irregular). To optimize the
+regex tagger in English, I've had to crudely approximate a lookup
+tagger.\footnote{Lookup taggers still have issues (such as not considering
+context), but they seem to systematically outperform regex taggers.} In fact,
+when I added the regular expressions from above the tagger only becomes
+<%= final_acc - cheating_acc %>\% more accurate.
+
+Combining the faux-lookup tagger and the affix expressions gives me an accuracy
+of <%= final_acc %>\%, which is pretty nearly the best I can do. Here is the
+final tagger that I used to get that accuracy:
+
+% final_display {{{
+<<final_display, echo=False>>=
+patterns = [
+    (r'^\.$|^\?$|^:$|^;$',              '. '),
+    (r'^,$',                            ','),
+    (r'^``$',                           '``'),
+    (r'^\'\'$',                         "''"),
+    (r'^--$',                           '--'),
+    (r'^\($',                           '('),
+    (r'^\)$',                           ')'),
+    (r'^[Nn][o\']t$',                   '*'),
+    (r'^[Aa]ll$',                       'ABN'),
+    (r'^[Tt]he$|^[Aa]n?$|^[Nn]o$',      'AT'),
+    (r'^[Ll]ast$|^[Oo]ther$|^[Mm]ore$', 'AP'),
+    (r'^[Mm]any$',                      'AP'),
+    (r'^[Bb]e$',                        'BE'),
+    (r'^[Ww]ere$',                      'BED'),
+    (r'^[Bb]een$',                      'BEN'),
+    (r'^[Aa]re$',                       'BER'),
+    (r'^[Ii]s$',                        'BEZ'),
+    (r'^[Ww]as$',                       'BEDZ'),
+    (r'^[Aa]nd$|^[Oo]r$|^[Bb]ut$',      'CC'),
+    (r'^[Oo]ne$|^[Tt]wo$|^[Tt]hree$',   'CD'),
+    (r'^[Tt]hat$|^[Aa]s$|^[Ii]f$',      'CS'),
+    (r'^[Ll]ike$',                      'CS'),
+    (r'^[Tt]his$',                      'DET'),
+    (r'^[Dd]o$',                        'DO'),
+    (r'^[Dd]on\'t',                     'DO*'),
+    (r'^[Dd]id$',                       'DOD'),
+    (r'^[Dd]idn\'t',                    'DOD*'),
+    (r'^[Dd]oes$',                      'DOZ'),
+    (r'^[Ee]ach$',                      'DT'),
+    (r'^[Ss]ome$|^[Aa]ny$',             'DTI'),
+    (r'^[Tt]h[eo]se$',                  'DTS'),
+    (r'^[Tt]here$',                     'EX'),
+    (r'^have$',                         'HV'),
+    (r'^[Hh]as$',                       'HVZ'),
+    (r'^[Hh]ad$',                       'HVD'),
+    (r'^[Oo]f*$|^[Ff]or$|^[Ww]ith$',    'IN'),
+    (r'^[Oo]n$|^[Ff]rom$|^[Oo]ver$',    'IN'),
+    (r'^[Bb]y$|^[Aat]$|^[Aa]bout$',     'IN'),
+    (r'^[Ii]nto$|^[Tt]hrough$|^[Ii]n$', 'IN'),
+    (r'^[Tt]o$',                        'TO'),
+    (r'^[Nn]ew$|^[Ss]uch$',             'JJ'),
+    (r'^[Ww]ill$|.*ould$|^[Cc]an$',     'MD'),
+    (r'^[Mm]ay$|^[Mm]ust$',             'MD'),
+    (r'^Mrs?\.$',                       'NP'),
+    (r'^[Pp]eople$',                    'NNS'),
+    (r'^[Ff]irst$|^[Ss]econd$',         'OD'),
+    (r'^him$|^her$|^them$',             'PPO'),
+    (r'^[Hh]e$|^[Ss]he$|^[Ii]t$',       'PPS'),
+    (r'^I$|^[Tt]hey$|^[Ww]e$|^[Yy]ou$', 'PPSS'),
+    (r'^[Hh]is$|^[Tt]heir$|^[Yy]our$',  'PP$'),
+    (r'^[Ii]ts$|^[Mm]y$|^[Oo]ur$',      'PP$'),
+    (r'^[Mm]ore$',                      'QL'),
+    (r'^[Aa]lso$|^[Nn]ow$|^[Tt]hen$',   'RB'),
+    (r'^[Ee]ven$',                      'RB'),
+    (r'^[Uu]p$|^[Oo]ut$',               'RP'),
+    (r'^[Ww]ho$',                       'WPS'),
+    (r'^[Ww]here',                      'WRB'),
+    (r'^[Ww]hen$',                      'WRD'),
+    (r'^[Ww]hich$|^[Ww]hat$',           'WDT'),
+    (r'^[Mm]ake$',                      'VB'),
+    (r'.*ed',                           'VBD'),
+    (r'.*ly',                           'RB'),
+    (r'.*s',                            'NNS'),
+    (r'.*ate$',                         'VB'),
+    (r'.*fy$$',                         'VB'),
+    (r'.*i[sz]es?$',                    'VB'),
+    (r'.*ing$',                         'VBG'),
+    (r'.*es',                           'VBZ'),
+    (r'.*self$',                        'PPL'),
+    (r'.*selves$',                      'PPLS'),
+    (r'.*[ai]ble$',                     'JJ'),
+    (r'.*al$',                          'JJ'),
+    (r'.*esque$',                       'JJ'),
+    (r'.*ful$',                         'JJ'),
+    (r'.*ic$|.*ical$',                  'JJ'),
+    (r'.*ive$',                         'JJ'),
+    (r'.*ous$',                         'JJ'),
+    (r'.*ish$',                         'JJ'),
+    (r'.*less$',                        'JJ'),
+    (r'.*er$',                          'JJR'),
+    (r'.*est$',                         'JJT'),
+    (r'.*',                             'NN')
+]
+
+final_tagger = RegexpTagger(patterns)
+@
+% }}}
 
 \end{document}
