@@ -14,13 +14,13 @@
 
 \section{Introduction}
 
-To execute and display code, I'll be using
-\href{http://mpastell.com/pweave}{pweave} and \LaTeX.
+% This document was created using \href{http://mpastell.com/pweave}{pweave} to
+% run and integrate python code within a \LaTeX document.
 
 To start, I'm going to import the modules and data that I need.  I'm importing
 the nltk tools individually for two reasons: to reduce load times, and to give
 me access to these functions directly, instead of calling them as, for example
-\texttt{nltk.ConditionalFreqDist()}, which gets quite unwieldy.
+\texttt{nltk.ConditionalFreqDist()}, which gets unwieldy.
 
 <<import>>=
 from nltk import FreqDist
@@ -32,24 +32,44 @@ import re
 
 \section{Question 1}
 
-I'll start out by comparing the use of days of the week in the news and in
-romance novels. I'll make tuples of the genres and target words I'm examining:
+I'll start out by comparing the use of days of the week in the
+news and in romance novels. I'll make tuples\footnote{Using
+tuples over lists here is not just a matter of preference
+(though it is my preference to pass immutable objects to
+functions I do not fully understand, where possible).  When I
+tried to call \texttt{ConditionalFreqDist()} with list
+arguments I inconsistently received an error
+``\texttt{unhashable type: list}''.} of the genres and target
+words I'm examining:
+
 <<q1_objects>>=
 genres = ('news','romance')
-days = ('Monday', 'Tuesday', 'Wednesday', 'Thursday',
-        'Friday', 'Saturday', 'Sunday')
+days   = ('Monday', 'Tuesday', 'Wednesday', 'Thursday',
+          'Friday', 'Saturday', 'Sunday')
 @
+
+\noindent
 I'll then make a conditional frequency distribution by genre for those words:
+
 <<q1_freqdist>>=
-brown_cfd = ConditionalFreqDist(
+cfd = ConditionalFreqDist(
     (genre, word)
     for genre in brown.categories()
     for word in brown.words(categories=genre))
 @
+
+\noindent
 Then we'll print that in a table:
+
 <<q1_table>>=
-brown_cfd.tabulate(conditions=genres, samples=days)
-brown_cfd.plot(conditions=genres, samples=days)
+cfd.tabulate(conditions=genres, samples=days)
+@
+
+\noindent
+And plot it:\footnote{\texttt{matplotlib} is finicky about the length of words in x-labels. To properly format the plot with fully visible labels, this code should be run in a directory containing a \texttt{matplotlibrc} containing ``\texttt{figure.autolayout : True}''.}
+
+<<q1_plot>>=
+cfd.plot(conditions=genres, samples=days)
 @
 
 \section{Question 2A}
@@ -58,6 +78,7 @@ brown_cfd.plot(conditions=genres, samples=days)
 brown_news_tagged = brown.tagged_words(categories='news',
                                        tagset='universal')
 tag_fd = FreqDist(tag for (word, tag) in brown_news_tagged)
+tag_fd.plot()
 tag_fd.plot(cumulative=True)
 @
 
@@ -76,100 +97,244 @@ patterns = [
 	(r'^-?[0-9]+(.[0-9]+)?$',  'CD'),
 	(r'.*',                    'NN')
     ]
+
+
+brown_tagged_sents = brown.tagged_sents(categories='news')
+# brown_tagged_sents = brown.tagged_sents()
+
+toy_tagger = RegexpTagger(patterns)
+print(toy_tagger.evaluate(brown_tagged_sents))
 @
 
 There are some issues in the example.
 
-So here's my effort:
+Conceptual issues asside, it's not all that accurate. Here's a quick function
+to check the accuracy of the tagger against the tags that ship with the Brown
+Corpus:\footnote{All accuracy ratings provided below are calculated and printed
+inline using this function.}
+
+<<accuracy>>=
+def evaluate(tagger, test_set):
+    """evaluate an nltk tagger on pre-tagged data"""
+    acc = tagger.evaluate(test_set)
+    return (round((acc * 100), 2))
+@
+
+<<toy_acc, echo=False>>=
+toy_acc = evaluate(toy_tagger, brown_tagged_sents)
+@
+
+The toy example is only <%= toy_acc %>\% accurate when run over the whole Brown
+corpus.
+
+So here is my effort:
 <<q2>>=
 patterns = [
-    (r'^[\.,\'`;:-]+$',       '.'),     # punctuation
-    (r'^[a-zA-Z]$',           'ZZ1'),   # single letter
-    (r'^my$|.*our$',          'APPGE'), # possessive pronoun
-    (r'^the$|^no$',           'AT'),    # articles
-    (r'^a$|^an$|^every$',     'AT1'),   # singular article
-    (r'^and$|^or$',           'CC'),    # coordinating conj.
-    (r'^-?[0-9]+(.[0-9]+)?$', 'CD'),    # cardinal numbers
-    (r'^any$|^some$',         'DD'),    # determiner
-    (r'^this$|^that$',        'DD1'),   # singular determiner
-    (r'^for$',                'IF'),    # for
-    (r'^in$',                 'II'),    # a preposition... add more?
-    (r'^of$',                 'IO'),    # of
-    (r'.*[ai]ble$',           'JJ'),    # -ble adj.
-    (r'.*al$',                'JJ'),    # -al adj.
-    (r'.*esque$',             'JJ'),    # -esque adj.
-    (r'.*ful$',               'JJ'),    # -ful adj.
-    (r'.*ic$|.*ical$',        'JJ'),    # -ic(al) adj.
-    (r'.*ive$',               'JJ'),    # -ive adj.
-    (r'.*ous$',               'JJ'),    # -(i)ous adj.
-    (r'.*ish$',               'JJ'),    # -ish adj.
-    (r'.*ive$',               'JJ'),    # -ive adj.
-    (r'.*less$',              'JJ'),    # -less adj.
-    (r'.*er#',                'JJR'),   # comparative adj.
-    (r'.*est$',               'JJT'),   # superlative adj.
-    (r'.*ould$',              'MD'),    # modals
-    (r'.*acy$',               'NN'),    # -acy nouns
-    (r'.*[ae]nc[ey]$',        'NN'),    # -ance nouns
-    (r'.*dom$',               'NN'),    # -dom nouns
-    (r'.*[eo]r$',             'NN'),    # -er nouns
-    (r'.*is[mt]$',            'NN'),    # -ism/ist nouns
-    (r'.*ment$',              'NN'),    # -ment nouns
-    (r'.*ness$',              'NN'),    # -ness nouns
-    (r'.*ship$',              'NN'),    # -ship nouns
-    (r'.*[st]ion$',           'NN'),    # -tion nouns
-    (r'^it$',                 'PPH1'),  # it
-    (r'^him$|^her$',          'PPHO1'), # 3.SG.O
-    (r'^them$',               'PPHO2'), # 3.PL.O
-    (r'^he$|^she$',           'PPHS1'), # 3.SG.S
-    (r'^they$',               'PPHS2'), # 3.PL.S
-    (r'^me$',                 'PPIO1'), # 1.SG.O
-    (r'^us$',                 'PPIO2'), # 1.PL.O
-    (r'^I$',                  'PPIS1'), # 1.SG.S
-    (r'^we$',                 'PPIS2'), # 1.PL.S
-    (r'.*self$',              'PPX1'),  # singular reflexive
-    (r'.*selves$',            'PPX2'),  # plural reflexive
-    (r'^you$',                'PPY'),   # you
-    (r'.*ly$',                'REX'),   # -ly adverbs
-    (r'^wh.*',                'RRQ'),   # wh- general adverb
-    (r'^be$',                 'VB'),    # be
-    (r'^were$',               'VBDR'),  # were
-    (r'^was$',                'VBDZ'),  # was
-    (r'^being$',              'VBG'),   # being
-    (r'^am$',                 'VBM'),   # am
-    (r'^been$',               'VBN'),   # been
-    (r'^are$',                'VBR'),   # are
-    (r'^is$',                 'VBZ'),   # is
-    (r'^do$',                 'VD'),    # do
-    (r'^did$',                'VDD'),   # did
-    (r'^doing$',              'VDG'),   # doing
-    (r'^done$',               'VDN'),   # done
-    (r'^does$',               'VDZ'),   # does
-    (r'^have$',               'VH'),    # have
-    (r'^had$',                'VHD'),   #  had (past tense)
-    (r'^having$',             'VHG'),   # having
-    (r'^has$',                'VHZ'),   # has
-    (r'.*ate$',               'VV0'),   # -ate verbs
-    (r'.*ates$',              'VVZ'),   # -ates verbs
-    (r'.*fy$',                'VV0'),   # -fy verbs
-    (r'.*fies$',              'VVZ'),   # -fies verbs
-    (r'.*i[sz]e$',            'VV0'),   # -ize verbs
-    (r'.*i[sz]es$',           'VVZ'),   # -izes verbs
-    (r'.*ing$',               'VBG'),   # gerunds
-    (r'.*ed$|.*id$',          'VBD'),   # simple past
-    (r'.*es$',                'VBZ'),   # 3rd singular present
-    (r'^not$|^n\'t$',         'XX'),    # not
-    (r'^[A-Z].*s$',           'NP2'),   # plural proper nouns
-    (r'^[A-Z].*',             'NP'),    # proper nouns
-    (r'.*\'s$',               'NN$'),   # possessive nouns
-    (r'.*s$',                 'NN2'),   # plural nouns
-    (r'.*',                   'NN'),    # nouns (default)
-    (r'.*',                   'FU')     # unclassified word (default)
+    (r'.*[ai]ble$',                     'JJ'),
+    (r'.*al$',                          'JJ'),
+    (r'.*esque$',                       'JJ'),
+    (r'.*ful$',                         'JJ'),
+    (r'.*less$',                        'JJ'),
+    (r'.*ic$|.*ical$',                  'JJ'),
+    (r'.*ish$',                         'JJ'),
+    (r'.*ive$',                         'JJ'),
+    (r'.*ous$',                         'JJ'),
+    (r'.*er$',                          'JJR'),
+    (r'.*est$',                         'JJT'),
+    (r'.*s',                            'NNS'),
+    (r'.*self$',                        'PPL'),
+    (r'.*selves$',                      'PPLS'),
+    (r'.*ly',                           'RB'),
+    (r'.*ate$',                         'VB'),
+    (r'.*fy$$',                         'VB'),
+    (r'.*i[sz]es?$',                    'VB'),
+    (r'.*ed',                           'VBD'),
+    (r'.*ing$',                         'VBG'),
+    (r'.*es',                           'VBZ'),
+    (r'.*',                             'NN')
+    ]
+
+pattern_tagger = RegexpTagger(patterns)
+# print(regexp_tagger.evaluate(brown_tagged_sents))
+print(evaluate(pattern_tagger, brown_tagged_sents))
+@
+
+This still isn't all that accurate. Unfortunately, English words are not
+especially regular. It's very difficult to guess a part of speech by strings
+of characters in words (or even from knowing the whole word out of context).
+Critically, many of the most common words do not fit these patterns: `a', `in', `for', `the', etc.
+
+Here is a numerically better regex tagger:
+
+<<cheating>>=
+patterns = [
+    (r'^\.$|^\?$|^:$|^;$',              '. '),
+    (r'^,$',                            ','),
+    (r'^``$',                           '``'),
+    (r'^\'\'$',                         "''"),
+    (r'^--$',                           '--'),
+    (r'^\($',                           '('),
+    (r'^\)$',                           ')'),
+    (r'^[Nn][o\']t$',                   '*'),
+    (r'^[Aa]ll$',                       'ABN'),
+    (r'^[Tt]he$|^[Aa]n?$|^[Nn]o$',      'AT'),
+    (r'^[Ll]ast$|^[Oo]ther$|^[Mm]ore$', 'AP'),
+    (r'^[Mm]any$',                      'AP'),
+    (r'^[Bb]e$',                        'BE'),
+    (r'^[Ww]ere$',                      'BED'),
+    (r'^[Bb]een$',                      'BEN'),
+    (r'^[Aa]re$',                       'BER'),
+    (r'^[Ii]s$',                        'BEZ'),
+    (r'^[Ww]as$',                       'BEDZ'),
+    (r'^[Aa]nd$|^[Oo]r$|^[Bb]ut$',      'CC'),
+    (r'^[Oo]ne$|^[Tt]wo$|^[Tt]hree$',   'CD'),
+    (r'^[Tt]hat$|^[Aa]s$|^[Ii]f$',      'CS'),
+    (r'^[Ll]ike$',                      'CS'),
+    (r'^[Tt]his$',                      'DET'),
+    (r'^[Dd]o$',                        'DO'),
+    (r'^[Dd]on\'t',                     'DO*'),
+    (r'^[Dd]id$',                       'DOD'),
+    (r'^[Dd]idn\'t',                    'DOD*'),
+    (r'^[Dd]oes$',                      'DOZ'),
+    (r'^[Ee]ach$',                      'DT'),
+    (r'^[Ss]ome$|^[Aa]ny$',             'DTI'),
+    (r'^[Tt]h[eo]se$',                  'DTS'),
+    (r'^[Tt]here$',                     'EX'),
+    (r'^have$',                         'HV'),
+    (r'^[Hh]as$',                       'HVZ'),
+    (r'^[Hh]ad$',                       'HVD'),
+    (r'^[Oo]f*$|^[Ff]or$|^[Ww]ith$',    'IN'),
+    (r'^[Oo]n$|^[Ff]rom$|^[Oo]ver$',    'IN'),
+    (r'^[Bb]y$|^[Aat]$|^[Aa]bout$',     'IN'),
+    (r'^[Ii]nto$|^[Tt]hrough$|^[Ii]n$', 'IN'),
+    (r'^[Tt]o$',                        'TO'),
+    (r'^[Nn]ew$|^[Ss]uch$',             'JJ'),
+    (r'^[Ww]ill$|.*ould$|^[Cc]an$',     'MD'),
+    (r'^[Mm]ay$|^[Mm]ust$',             'MD'),
+    (r'^Mrs?\.$',                       'NP'),
+    (r'^[Pp]eople$',                    'NNS'),
+    (r'^[Ff]irst$|^[Ss]econd$',         'OD'),
+    (r'^him$|^her$|^them$',             'PPO'),
+    (r'^[Hh]e$|^[Ss]he$|^[Ii]t$',       'PPS'),
+    (r'^I$|^[Tt]hey$|^[Ww]e$|^[Yy]ou$', 'PPSS'),
+    (r'^[Hh]is$|^[Tt]heir$|^[Yy]our$',  'PP$'),
+    (r'^[Ii]ts$|^[Mm]y$|^[Oo]ur$',      'PP$'),
+    (r'^[Mm]ore$',                      'QL'),
+    (r'^[Aa]lso$|^[Nn]ow$|^[Tt]hen$',   'RB'),
+    (r'^[Ee]ven$',                      'RB'),
+    (r'^[Uu]p$|^[Oo]ut$',               'RP'),
+    (r'^[Ww]ho$',                       'WPS'),
+    (r'^[Ww]here',                      'WRB'),
+    (r'^[Ww]hen$',                      'WRD'),
+    (r'^[Ww]hich$|^[Ww]hat$',           'WDT'),
+    (r'^[Mm]ake$',                      'VB'),
+    (r'.*',                             'NN')
 ]
 
-brown_sents = brown.sents()
-regexp_tagger = RegexpTagger(patterns)
+cheating_tagger = RegexpTagger(patterns)
+# print(round((regexp_tagger.evaluate(brown_tagged_sents) * 100), 2))
+print(evaluate(cheating_tagger, brown_tagged_sents))
+@
 
-print(regexp_tagger.tag(brown_sents[3]))
+Obviously this is not in the spirit of a regex tagger. All it does is account
+for approximately one hundred of the most common English words (which are
+almost all irregular). To optimize the regex tagger in English, I've had to
+crudely approximate a lookup tagger.\footnote{Lookup taggers still have issues
+(such as not considering context), but they seem to systematically outperform
+regex taggers.} In fact, when I added the regular expressions from above (which
+is the best I can do), the tagger only becomes approximately two percent more
+accurate:
+
+<<finished, echo=False>>=
+patterns = [
+    (r'^\.$|^\?$|^:$|^;$',              '. '),
+    (r'^,$',                            ','),
+    (r'^``$',                           '``'),
+    (r'^\'\'$',                         "''"),
+    (r'^--$',                           '--'),
+    (r'^\($',                           '('),
+    (r'^\)$',                           ')'),
+    (r'^[Nn][o\']t$',                   '*'),
+    (r'^[Aa]ll$',                       'ABN'),
+    (r'^[Tt]he$|^[Aa]n?$|^[Nn]o$',      'AT'),
+    (r'^[Ll]ast$|^[Oo]ther$|^[Mm]ore$', 'AP'),
+    (r'^[Mm]any$',                      'AP'),
+    (r'^[Bb]e$',                        'BE'),
+    (r'^[Ww]ere$',                      'BED'),
+    (r'^[Bb]een$',                      'BEN'),
+    (r'^[Aa]re$',                       'BER'),
+    (r'^[Ii]s$',                        'BEZ'),
+    (r'^[Ww]as$',                       'BEDZ'),
+    (r'^[Aa]nd$|^[Oo]r$|^[Bb]ut$',      'CC'),
+    (r'^[Oo]ne$|^[Tt]wo$|^[Tt]hree$',   'CD'),
+    (r'^[Tt]hat$|^[Aa]s$|^[Ii]f$',      'CS'),
+    (r'^[Ll]ike$',                      'CS'),
+    (r'^[Tt]his$',                      'DET'),
+    (r'^[Dd]o$',                        'DO'),
+    (r'^[Dd]on\'t',                     'DO*'),
+    (r'^[Dd]id$',                       'DOD'),
+    (r'^[Dd]idn\'t',                    'DOD*'),
+    (r'^[Dd]oes$',                      'DOZ'),
+    (r'^[Ee]ach$',                      'DT'),
+    (r'^[Ss]ome$|^[Aa]ny$',             'DTI'),
+    (r'^[Tt]h[eo]se$',                  'DTS'),
+    (r'^[Tt]here$',                     'EX'),
+    (r'^have$',                         'HV'),
+    (r'^[Hh]as$',                       'HVZ'),
+    (r'^[Hh]ad$',                       'HVD'),
+    (r'^[Oo]f*$|^[Ff]or$|^[Ww]ith$',    'IN'),
+    (r'^[Oo]n$|^[Ff]rom$|^[Oo]ver$',    'IN'),
+    (r'^[Bb]y$|^[Aat]$|^[Aa]bout$',     'IN'),
+    (r'^[Ii]nto$|^[Tt]hrough$|^[Ii]n$', 'IN'),
+    (r'^[Tt]o$',                        'TO'),
+    (r'^[Nn]ew$|^[Ss]uch$',             'JJ'),
+    (r'^[Ww]ill$|.*ould$|^[Cc]an$',     'MD'),
+    (r'^[Mm]ay$|^[Mm]ust$',             'MD'),
+    (r'^Mrs?\.$',                       'NP'),
+    (r'^[Pp]eople$',                    'NNS'),
+    (r'^[Ff]irst$|^[Ss]econd$',         'OD'),
+    (r'^him$|^her$|^them$',             'PPO'),
+    (r'^[Hh]e$|^[Ss]he$|^[Ii]t$',       'PPS'),
+    (r'^I$|^[Tt]hey$|^[Ww]e$|^[Yy]ou$', 'PPSS'),
+    (r'^[Hh]is$|^[Tt]heir$|^[Yy]our$',  'PP$'),
+    (r'^[Ii]ts$|^[Mm]y$|^[Oo]ur$',      'PP$'),
+    (r'^[Mm]ore$',                      'QL'),
+    (r'^[Aa]lso$|^[Nn]ow$|^[Tt]hen$',   'RB'),
+    (r'^[Ee]ven$',                      'RB'),
+    (r'^[Uu]p$|^[Oo]ut$',               'RP'),
+    (r'^[Ww]ho$',                       'WPS'),
+    (r'^[Ww]here',                      'WRB'),
+    (r'^[Ww]hen$',                      'WRD'),
+    (r'^[Ww]hich$|^[Ww]hat$',           'WDT'),
+    (r'^[Mm]ake$',                      'VB'),
+    (r'.*ed',                           'VBD'),
+    (r'.*ly',                           'RB'),
+    (r'.*s',                            'NNS'),
+    (r'.*ate$',                         'VB'),
+    (r'.*fy$$',                         'VB'),
+    (r'.*i[sz]es?$',                    'VB'),
+    (r'.*ing$',                         'VBG'),
+    (r'.*es',                           'VBZ'),
+    (r'.*self$',                        'PPL'),
+    (r'.*selves$',                      'PPLS'),
+    (r'.*[ai]ble$',                     'JJ'),
+    (r'.*al$',                          'JJ'),
+    (r'.*esque$',                       'JJ'),
+    (r'.*ful$',                         'JJ'),
+    (r'.*ic$|.*ical$',                  'JJ'),
+    (r'.*ive$',                         'JJ'),
+    (r'.*ous$',                         'JJ'),
+    (r'.*ish$',                         'JJ'),
+    (r'.*less$',                        'JJ'),
+    (r'.*er$',                          'JJR'),
+    (r'.*est$',                         'JJT'),
+    (r'.*',                             'NN')
+]
+
+final_tagger = RegexpTagger(patterns)
+# print(regexp_tagger.evaluate(brown_tagged_sents))
+# print(round((regexp_tagger.evaluate(brown_tagged_sents) * 100), 2)
+print(evaluate(final_tagger, brown_tagged_sents))
 @
 
 \end{document}
