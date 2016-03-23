@@ -120,14 +120,14 @@ of building a part-of-speech tagger using regular expressions:
 % toy {{{
 <<toy>>=
 patterns = [
-	(r'.*ing$',               'VBG'),
-	(r'.*ed$',                'VBD'),
-	(r'.*es$',                'VBZ'),
-	(r'.*ould$',               'MD'),
-	(r'.*\'s$',               'NN$'),
-	(r'.*s$',                 'NNS'),
-	(r'^-?[0-9]+(.[0-9]+)?$',  'CD'),
-	(r'.*',                    'NN')
+    (r'.*ing$',               'VBG'),
+    (r'.*ed$',                'VBD'),
+    (r'.*es$',                'VBZ'),
+    (r'.*ould$',               'MD'),
+    (r'.*\'s$',               'NN$'),
+    (r'.*s$',                 'NNS'),
+    (r'^-?[0-9]+(.[0-9]+)?$',  'CD'),
+    (r'.*',                    'NN')
 ]
 
 toy_tagger = RegexpTagger(patterns)
