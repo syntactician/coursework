@@ -109,11 +109,6 @@ pyplot.legend(handles=[blue_line, green_line])
 
 \section{Question 2B}
 
-<<test_set, echo=False>>=
-brown_tagged_sents = brown.tagged_sents(categories='news')
-# brown_tagged_sents = brown.tagged_sents()
-@
-
 The NLTK book \href{http://www.nltk.org/book/ch05.html}{provides} a toy example
 of building a part-of-speech tagger using regular expressions:
 
