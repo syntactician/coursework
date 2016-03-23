@@ -375,14 +375,14 @@ regex tagger in English, I've had to crudely approximate a lookup
 tagger.\footnote{Lookup taggers still have issues (such as not considering
 context), but they seem to systematically outperform regex taggers.} In fact,
 when I added the regular expressions from above the tagger only becomes
-<%= final_acc - cheating_acc %>\% more accurate.
+<%= round((final_acc - cheating_acc), 2) %>\% more accurate.
 
 Combining the faux-lookup tagger and the affix expressions gives me an accuracy
 of <%= final_acc %>\%, which is pretty nearly the best I can do. Here is the
 final tagger that I used to get that accuracy:
 
 % final_display {{{
-<<final_display, echo=False>>=
+<<final_display>>=
 patterns = [
     (r'^\.$|^\?$|^:$|^;$',              '. '),
     (r'^,$',                            ','),
