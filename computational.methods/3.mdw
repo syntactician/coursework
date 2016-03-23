@@ -30,6 +30,11 @@ from nltk.corpus import brown
 import re
 @
 
+<<sneaky_import, echo=False>>=
+import matplotlib.lines as mlines
+import matplotlib.pyplot as plt
+@
+
 \section{Question 1}
 
 I'll start out by comparing the use of days of the week in the
@@ -66,7 +71,10 @@ cfd.tabulate(conditions=genres, samples=days)
 @
 
 \noindent
-And plot it:\footnote{\texttt{matplotlib} is finicky about the length of words in x-labels. To properly format the plot with fully visible labels, this code should be run in a directory containing a \texttt{matplotlibrc} containing ``\texttt{figure.autolayout : True}''.}
+And plot it:\footnote{\href{http://matplotlib.org}{matplotlib} is finicky about
+the length of words in x-labels. To properly format the plot with fully visible
+labels, this code should be run in a directory containing a
+\texttt{matplotlibrc} containing ``\texttt{figure.autolayout : True}''.}
 
 <<q1_plot>>=
 cfd.plot(conditions=genres, samples=days)
@@ -74,12 +82,19 @@ cfd.plot(conditions=genres, samples=days)
 
 \section{Question 2A}
 
+I'm also interested in the relative frequencies of different parts of speech in
+English.
+
 <<q2A>>=
 brown_news_tagged = brown.tagged_words(categories='news',
                                        tagset='universal')
 tag_fd = FreqDist(tag for (word, tag) in brown_news_tagged)
 tag_fd.plot()
 tag_fd.plot(cumulative=True)
+
+blue_line = mlines.Line2D([], [], color='blue', label='frequency')
+green_line = mlines.Line2D([], [], color='green', label='cumulative freq.')
+plt.legend(handles=[blue_line, green_line])
 @
 
 \section{Question 2B}
@@ -241,9 +256,9 @@ for approximately one hundred of the most common English words (which are
 almost all irregular). To optimize the regex tagger in English, I've had to
 crudely approximate a lookup tagger.\footnote{Lookup taggers still have issues
 (such as not considering context), but they seem to systematically outperform
-regex taggers.} In fact, when I added the regular expressions from above (which
-is the best I can do), the tagger only becomes approximately two percent more
-accurate:
+regex taggers.} In fact, when I added the regular expressions from above the
+tagger only becomes FUCK\% approximately two percent
+more accurate:
 
 <<finished, echo=False>>=
 patterns = [
