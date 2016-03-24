@@ -16,7 +16,7 @@ applications, focusing on the  technological  ideas  behind  them, through
 a  combination  of  seminar-style  discussions  and practical hands-on
 projects.
 
-Since this course is a linguisti cs course, we take seriously the goals of
+Since this course is a linguistics course, we take seriously the goals of
 linguistic inquiry – to uncover the structures of human language and the
 mental mechanisms for language understanding. In this course, w e will
 achieve this goal in a novel way, by taking a reflective, analytic, an
