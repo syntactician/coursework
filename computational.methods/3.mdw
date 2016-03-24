@@ -80,12 +80,14 @@ labels, this code should be run in a directory containing a
 cfd.plot(conditions=genres, samples=days)
 @
 
-It looks like talking about the days of the week is newsworthy, but not so romantic.
+It looks like talking about the days of the week is newsworthy, but not so
+romantic.
 
 \section{Question 2A}
 
 I'm also interested in the relative frequencies of different parts of speech in
-English. I'll make a frequency distribution of tagged words (according to the `universal' tagset) in the news genre of the Brown corpus.
+English. I'll make a frequency distribution of tagged words (according to the
+`universal' tagset) in the news genre of the Brown corpus.
 
 <<q2A_objects>>=
 news_tagged = brown.tagged_words(categories='news',
@@ -109,7 +111,8 @@ green_line = lines.Line2D([], [], color='green', label='cumulative freq.')
 pyplot.legend(handles=[blue_line, green_line])
 @
 
-From the plot, it looks like 80\% of ``words'' are nouns, verbs, prepositions, determiners, or punctuation.
+From the plot, it looks like 80\% of ``words'' are nouns, verbs, prepositions,
+determiners, or punctuation.
 
 \section{Question 2B}
 
