@@ -36,7 +36,6 @@ hw2:
 hw3:
 	@echo 'figure.autolayout : True' > matplotlibrc
 	@$W 3.mdw
-	@sed -e '/frame =/s/small/scriptsize/' -i 3.tex
 	@$P 3
 	@$P 3
 	@$(MAKE) sweep
