@@ -147,12 +147,6 @@ def evaluate(tagger):
     acc = tagger.evaluate(brown.tagged_sents())
     return (round((acc * 100), 2))
 @
-<<accuracy_crutch, echo=False, evaluate=False>>=
-def evaluate(tagger):
-    """evaluate a tagger against the Brown corpus"""
-    acc = tagger.evaluate(brown.tagged_sents(categories=['news','romance']))
-    return (round((acc * 100), 2))
-@
 <<toy_acc, echo=False>>=
 toy_acc = evaluate(toy_tagger)
 @
