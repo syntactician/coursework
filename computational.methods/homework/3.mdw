@@ -474,3 +474,4 @@ final_tagger = RegexpTagger(patterns)
 % }}}
 
 \end{document}
+% vim: set fdm=marker fdl=0 ft=tex :
