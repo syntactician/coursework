@@ -145,7 +145,7 @@ ratings provided below are calculated and printed inline using this function.}
 def evaluate(tagger):
     """evaluate a tagger against the Brown corpus"""
     acc = tagger.evaluate(brown.tagged_sents())
-    return (round((acc * 100), 2))
+    return (round((acc * 100), 1))
 @
 <<toy_acc, echo=False>>=
 toy_acc = evaluate(toy_tagger)
@@ -376,7 +376,7 @@ regex tagger in English, I've had to crudely approximate a lookup
 tagger.\footnote{Lookup taggers still have issues (such as not considering
 context), but they seem to systematically outperform regex taggers.} In fact,
 when I added the regular expressions from above the tagger only becomes
-<%= round((final_acc - cheating_acc), 2) %>\% more accurate.
+<%= round((final_acc - cheating_acc), 1) %>\% more accurate.
 
 Combining the faux-lookup tagger and the affix expressions gives me an accuracy
 of <%= final_acc %>\%, which is pretty nearly the best I can do. Here is the
