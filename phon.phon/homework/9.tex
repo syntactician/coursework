@@ -1,0 +1,61 @@
+\documentclass[doc,12pt]{apa6}
+\usepackage[colorlinks=false]{hyperref}
+\usepackage{amssymb,amsmath,times,tipa,phonrule,gb4e}
+\linespread{1.5}
+\renewcommand{\labelenumi}{\alph{enumi}.}
+
+\begin{document}
+
+\title{Homework 9: Feature Organization}
+\shorttitle{Homework 9}
+\author{Edward Hern\'{a}ndez}
+\date{29 March 2016}
+\affiliation{College of William \& Mary}
+\maketitle
+
+\section{Part 1: Greek}
+
+\section{Part 2: Sanskrit}
+
+
+Trying to express this process without feature geometry, we are left with truly
+unwieldy rules:\footnote{Properly, there should be two for laryngeal features
+	and one for every place of stops in Sanskrit. I guessed about place
+	features based on a gestural account at
+	\url{http://www.sanskritweb.net/deutsch/ipa_sans.pdf}.}
+
+\begin{exe}
+	\ex \phonr{
+			\phonfeat{- syllabic\\
+				      - sonorant\\
+					  -contuant}}{
+			\phonfeat{$\alpha$ voice\\
+				      $\beta$ aspiration}}{
+			\phonfeat{- syllabic\\
+				      - sonorant\\
+					  - continuant\\
+					  $\alpha$ voice\\
+					  $\beta$ aspiration}}
+	\ex \phonr{
+			\phonfeat{- syllabic\\
+				      - sonorant\\
+					  - continuant}}{
+			\phonfeat{$\alpha$ labial\\
+				      $\beta$ coronal\\
+					  $\gamma$ distributed\\
+					  $\delta$ anterior\\
+				      $\epsilon$ dorsal\\
+				      $\zeta$ back}}{
+			\phonfeat{- syllabic\\
+				      - sonorant\\
+					  - continuant\\
+					  $\alpha$ labial\\
+				      $\beta$ coronal\\
+					  $\gamma$ distributed\\
+					  $\delta$ anterior\\
+				      $\epsilon$ dorsal\\
+				      $\zeta$ back}}
+				      
+\end{exe}
+
+\end{document}
