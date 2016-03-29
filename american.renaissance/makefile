@@ -4,15 +4,20 @@ R := -r ../latexmkrc
 
 L := latexmk $R $Q
 
-all : 1 | sweep
+all: 1 2 | sweep
 
-sweep :
+sweep:
 	@$L -c
 
-clean :
+clean:
 	@$L -C
 
-machine : 1
-1 :
+machine: 1
+1:
 	@$L 1
+	@$(MAKE) sweep
+
+midterm: 2
+2:
+	@$L 2
 	@$(MAKE) sweep
