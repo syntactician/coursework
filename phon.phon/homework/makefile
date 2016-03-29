@@ -60,3 +60,8 @@ clean: sweep
 8:
 	@$L 8
 	@$(MAKE) sweep
+
+03.29: 9
+9:
+	@$L 9
+	@$(MAKE) sweep
