@@ -364,7 +364,6 @@ patterns = [
 ]
 
 final_tagger = RegexpTagger(patterns)
-
 final_acc = evaluate(final_tagger)
 @
 %"}}}
