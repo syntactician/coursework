@@ -12,11 +12,11 @@ all: 1 2 3 4 5
 kindle: 1k 2k 3k 4k 5k
 
 sweep :
-	# @$L -c
+	@# @$L -c
 	@rm -rf *.html
 
 clean: sweep
-	# @$L -C
+	@# @$L -C
 	@rm -rf *.pdf *.mobi
 
 
@@ -118,67 +118,79 @@ Brustein10: 7
 	@$K Brustein10.html
 	@$(MAKE) sweep
 
-
-Abney94: 8
-04.04: 8
+Kraft15: 8
+04.01: 8
 8:
+	@$P Kraft15.md -o Kraft15.pdf
+	@$(MAKE) sweep
+
+04.01.k: 8k
+8k:
+	@$P Kraft15.md -o Kraft15.html
+	@$K Kraft15.html
+	@$(MAKE) sweep
+
+
+Abney94: 9
+04.04: 9
+9:
 	@$P Abney94.md -o Abney94.pdf
 	@$(MAKE) sweep
 
-04.04.k: 8k
-8k:
+04.04.k: 9k
+9k:
 	@$P Abney94.md -o Abney94.html
 	@$K Abney94.html
 	@$(MAKE) sweep
 
 
-LewisKraus15: 9
-04.11: 9
-9:
+LewisKraus15: 10
+04.11: 10
+10:
 	@$P LewisKraus15.md -o LewisKraus15.pdf
 	@$(MAKE) sweep
 
-04.11.k: 9k
-9k:
+04.11.k: 10k
+10k:
 	@$P LewisKraus15.md -o LewisKraus15.html
 	@$K LewisKraus15.html
 	@$(MAKE) sweep
 
 
-Jurafsky99: 10
-04.13: 10
-10:
+Jurafsky99: 11
+04.13: 11
+11:
 	@$P Jurafsky99.md -o Jurafsky99.pdf
 	@$(MAKE) sweep
 
-04.13.k: 10k
-10k:
+04.13.k: 11k
+11k:
 	@$P Jurafsky99.md -o Jurafsky99.html
 	@$K Jurafsky99.html
 	@$(MAKE) sweep
 
 
-Baraniuk14: 11
-04.15: 11
-11:
+Baraniuk14: 12
+04.15: 12
+12:
 	@$P Baraniuk14.md -o Baraniuk14.pdf
 	@$(MAKE) sweep
 
-04.15.k: 11k
-11k:
+04.15.k: 12k
+12k:
 	@$P Baraniuk14.md -o Baraniuk14.html
 	@$K Baraniuk14.html
 	@$(MAKE) sweep
 
 
-BigData: 12
-04.18: 12
-12:
+BigData: 13
+04.18: 13
+13:
 	@$P BigData.md -o BigData.pdf
 	@$(MAKE) sweep
 
-04.18.k: 12k
-12k:
+04.18.k: 13k
+13k:
 	@$P BigData.md -o BigData.html
 	@$K BigData.html
 	@$(MAKE) sweep
@@ -192,11 +204,11 @@ Marcus14:
 	@$P Marcus14.md -o Marcus14.pdf
 	@$(MAKE) sweep
 
-04.20: 13
-13: Yang16 Marcus14
+04.20: 14
+14: Yang16 Marcus14
 
-04.20.k: 13k
-13k:
+04.20.k: 14k
+14k:
 	@$P Yang16.md -o Yang16.html
 	@$P Marcus14.md -o Marcus14.html
 	@$K Yang16.html
