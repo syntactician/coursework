@@ -11,7 +11,7 @@ all : 1 2 3
 
 sweep:
 	@$L -c
-	@rm -rf *.fff matplotlibrc _minted*/ figures/ 3.py 3.tex
+	@rm -rf *.fff matplotlibrc _minted*/ figures/ 3.py 3.tex 4.py 4.tex
 
 clean: sweep
 	@$L -C
