@@ -1,0 +1,110 @@
+\documentclass[man,12pt]{apa6}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{amssymb,amsmath,times,minted,gb4e}
+\linespread{1.5}
+
+\begin{document}
+
+\title{Homework 4}
+\shorttitle{Homework 4}
+\author{Edward Hern\'{a}ndez}
+\date{23 March 2016}
+\affiliation{College of William \& Mary}
+\maketitle
+
+\section{Introduction}
+
+% This document was created using \href{http://mpastell.com/pweave}{pweave} to
+% run and integrate python code within a \LaTeX document.
+
+I attempted to write a Context Free Grammar to capture the multiple possible
+parses of these syntacticially ambiguous sentences (via chart parsing):
+
+\begin{exe}
+	\ex The woman held the baby in the green blanket.
+	\ex The woman said the baby shouted yesterday.
+	\ex The woman said the man claimed that the baby shouted yesterday.
+	\ex The woman put the block in the box on the table.
+	\ex The woman put the block in the box on the table in the kitchen.
+\end{exe}
+
+<<sents>>=
+sents = (
+    "the woman held the baby in the green blanket",
+    "the woman said the baby shouted yesterday",
+    "the woman said the man claimed that the baby shouted yesterday",
+    "the woman put the block in the box on the table",
+    "the woman put the block in the box on the table in the kitchen"
+)
+@
+
+I'll import the necessary tools:
+
+<<import>>=
+from nltk import CFG, ChartParser
+@
+
+For this, I will be specifying the grammar in a string via the
+\texttt{CFG.fromstring()} method:
+
+<<grammar>>=
+grammar = CFG.fromstring("""
+S -> NP VP
+NP -> N | Det N | Adj N | Det Adj N
+NP -> N PP | Det N PP | Adj N PP | Det Adj N PP
+PP -> P NP
+VP -> V | V NP | VP PP | VP Adv | VP S | VP C S
+
+Adj -> 'green'
+Adv -> 'yesterday'
+Det -> 'the'
+N -> 'woman' | 'baby' | 'blanket' | 'man'
+N -> 'block' | 'box' | 'table' | 'kitchen'
+V -> 'held' | 'said' | 'shouted' | 'claimed' | 'put'
+P -> 'in' | 'on'
+C -> 'that'
+""")
+@
+
+This grammar says that all sentences (S) are composed of a noun phrase (NP)
+followed by a verb phrase (VP).  The NP can be composed of just a noun (N), a N
+preceded by a determiner (Det) and/or an adjective (Adj),\footnote{I only
+    allowed for a single adjective, because the data in question here did not
+    necessitate that I allow more than one. I could not think of an elegant way
+    to allow $n$ adjectives without either also allowing multiple determiners
+    (e.g. \texttt{NP -> Adj NP | Det NP}) or including the Adj within the N
+    (e.g. \texttt{N -> Adj N}).} and any of those configurations followed by a
+prepositional phrase (PP). A PP consists of a preposition (P) followed by a NP.
+This allows for NPs to contain PPs which themselves contain NPs (which contain
+PPs, etc.).  A VP is composed of a verb (V) or a V and a NP (as a direct
+object). A VP can also be composed of a VP followed by a PP, an adverb (Adv), a
+S, or a complemetizer (C) and a S. This allows VPs to contain nested NPs as
+described above, nested NPs in PPs, or whole dependent clauses.
+
+This grammar should create multiple parses of ambiguous sentences primarily by
+assigning PPs either to NPs or VPs (like the famous Groucho Marx ambiguity).
+Similarly, it generates multiple parses of (2) by assigning the Adv
+\texttt{yesterday} either directly to the VP of the first verb \texttt{said} or
+to the VP of the imbedded sentence \texttt{the baby shouted}.
+
+I think this grammar succeeds on both counts. I do not think that there are any
+additional parses possible that this grammar misses. I am concerned that
+specifically it generates extraneous parses for sentence (3), but I have not 
+taken a course in syntax, and I am not completely sure whether all the parses 
+are valid. I could not establish with any certainty that they were not, so I 
+did not alter the grammar to avoid them.
+
+Without further ado, here are some trees:
+
+<<parser>>=
+parser = ChartParser(grammar)
+
+for sent in sents:
+    print("\n\n%s\n" % sent)
+    for tree in parser.parse(sent.split()):
+        print(tree)
+        tree.draw()
+@
+
+\end{document}
+% vim: set fdm=marker fdl=0 ft=tex :

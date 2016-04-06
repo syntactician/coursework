@@ -33,3 +33,10 @@ hw3:
 	@$P 3
 	@$P 3
 	@$(MAKE) sweep
+
+4: hw4
+hw4:
+	@$W 4.mdw
+	@$P 4
+	@$P 4
+	@$(MAKE) sweep
