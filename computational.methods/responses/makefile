@@ -7,9 +7,9 @@ L := latexmk $R $Q
 P := pandoc $S
 
 
-all: 1 2 3 4 5
+all: 1 2 3 4 5 7 8
 
-kindle: 1k 2k 3k 4k 5k
+kindle: 1k 2k 3k 4k 5k 7k 8k
 
 sweep :
 	@# @$L -c
