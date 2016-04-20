@@ -7,7 +7,7 @@ L := latexmk $Q $R
 P := pdflatex $S
 W := pweave $T
 
-all : 1 2 3
+all : 1 2 3 4 5
 
 sweep:
 	@$L -c
@@ -39,4 +39,11 @@ hw4:
 	@$W 4.mdw
 	@$P 4
 	@$P 4
+	@$(MAKE) sweep
+
+5: hw5
+hw5:
+	@$W 5.mdw
+	@$P 5
+	@$P 5
 	@$(MAKE) sweep

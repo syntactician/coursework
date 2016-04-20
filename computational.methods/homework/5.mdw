@@ -1,0 +1,113 @@
+\documentclass[man,12pt,floatsintext]{apa6}
+\usepackage[colorlinks=true]{hyperref}
+\usepackage{amssymb,amsmath,times,minted,graphicx,gb4e}
+\linespread{1.5}
+
+\graphicspath{./trees/}
+
+\begin{document}
+
+\title{Homework 4}
+\shorttitle{Homework 4}
+\author{Edward Hern\'{a}ndez}
+\date{23 March 2016}
+\affiliation{College of William \& Mary}
+\maketitle
+
+\section{Problem 1}
+
+% This document was created using \href{http://mpastell.com/pweave}{pweave} to
+% run and integrate python code within a \LaTeX document.
+
+We will consider the following sentence:
+
+\begin{exe}
+	\ex My dog saw a man in the park with a statue.
+\end{exe}
+
+I'll import the necessary tools:
+
+<<import>>=
+from nltk import CFG, ShiftReduceParser
+from nltk.app import srparser
+@
+
+Here's a possible parse:
+
+\begin{figure}
+	\includegraphics[width=0.5\textwidth]{trees/{5.1.1}.png}
+	\caption{One possible parse}
+\end{figure}
+
+\section{Problem 2}
+
+By default, the parser follows a reduce > shift strategy to a fault. If a the
+stack can be reduced, it is, and only after the stack can no longer be reduced
+is another word shifted to the stack. This is the only strategy the parser
+appears to utilize, and thus it fails to produce an acceptable parse for most
+complex sentences. For instance, here are the parser's efforts for each of the
+sentences from the last homework:
+
+<<parser>>=
+sents = (
+    "the woman held the baby in the green blanket",
+    "the woman said the baby shouted yesterday",
+    "the woman said the man claimed that the baby shouted yesterday",
+    "the woman put the block in the box on the table",
+    "the woman put the block in the box on the table in the kitchen"
+)
+
+grammar = CFG.fromstring("""
+S -> NP VP
+NP -> N | Det N | Adj N | Det Adj N
+NP -> N PP | Det N PP | Adj N PP | Det Adj N PP
+PP -> P NP
+VP -> V | V NP | VP PP | VP Adv | VP S | VP C S
+
+Adj -> 'green'
+Adv -> 'yesterday'
+Det -> 'the'
+N -> 'woman' | 'baby' | 'blanket' | 'man'
+N -> 'block' | 'box' | 'table' | 'kitchen'
+V -> 'held' | 'said' | 'shouted' | 'claimed' | 'put'
+P -> 'in' | 'on'
+C -> 'that'
+""")
+
+parser = ShiftReduceParser(grammar, trace=2)
+
+for sent in sents:
+    for tree in parser.parse(sent.split()):
+        print(tree)
+@
+
+\section{Problem 3}
+
+A shift > reduce strategy would result in straggly, while a reduce > shift
+strategy would result in bushy trees.
+
+A shift > reduce strategy requires for structures (VP, NP, etc.) which can
+encompass other structures recursively to do so, even when other reasonable
+parses exist, which yields deeply branching trees.
+
+\section{Problem 4}
+
+\begin{figure}
+	\includegraphics[width=0.5\textwidth]{trees/{5.4.1}.png}
+	\caption{A straggly parse.}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=0.5\textwidth]{trees/{5.4.2}.png}
+	\caption{A bushy parse.}
+\end{figure}
+
+\section{Problem 5}
+
+Upon introspection, I think I have a general preference for the straggly parse.
+This makes sense, at least when listening to speech, since we do not have the
+option of pausing the speech signal to fully reduce before we have more data
+pushed onto our stack.
+
+\end{document}
+% vim: set fdm=marker fdl=0 ft=tex :
