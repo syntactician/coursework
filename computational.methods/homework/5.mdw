@@ -94,12 +94,12 @@ parses exist, which yields deeply branching trees.
 
 \begin{figure}
 	\includegraphics[width=0.5\textwidth]{trees/{5.4.1}.png}
-	\caption{A straggly parse.}
+	\caption{A bushy parse.}
 \end{figure}
 
 \begin{figure}
 	\includegraphics[width=0.5\textwidth]{trees/{5.4.2}.png}
-	\caption{A bushy parse.}
+	\caption{A straggly parse.}
 \end{figure}
 
 \section{Problem 5}
