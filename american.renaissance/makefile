@@ -21,3 +21,8 @@ midterm: 2
 2:
 	@$L 2
 	@$(MAKE) sweep
+
+quiz: 3
+3:
+	@$L 3
+	@$(MAKE) sweep
