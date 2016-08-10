@@ -1,29 +1,27 @@
-R := -r ../../latexmkrc
-Q := -quiet
+LMAKE := latexmk -r ../../latexmkrc -silent
+QUIET := >/dev/null 2>/dev/null
 
-L := latexmk $R $Q
-K := -kindlegen -c2
+%.mobi : %.tex
+	@pandoc $< -s -o $*.html
+	@kindlegen -c2 $*.html $(QUIET) ||:
+	@rm $*.html
 
-all : Wittgenstein69
+%.pdf : %.tex
+	@$(LMAKE) $* $(QUIET)
+	@$(LMAKE) -c $(QUIET)
 
-kindle : Wittgenstein69.k
-
-sweep :
-	@$L -c
-	@rm -rf *.html
+all: pdf kindle
 
 clean : sweep
-	@$L -C
+	@$(LMAKE) -C $(QUIET)
 	@rm -rf *.mobi
 
+sweep :
+	@$(LMAKE) -c $(QUIET)
+	@rm -rf *.html
 
-certianty : Wittgenstein69
-Wittgenstein69 :
-	@$L Wittgenstein69
-	@$(MAKE) sweep
+pdf: certainty
+certainty: Wittgenstein69.pdf
 
-certainty.k : Wittgenstein69.k
-Wittgenstein69.k :
-	@pandoc Wittgenstein69.tex -s -o Wittgenstein69.html
-	@$K Wittgenstein69.html
-	@$(MAKE) sweep
+kindle: certainty.k
+certainty.k: Wittgenstein69.mobi
