@@ -1,29 +1,20 @@
-Q := -quiet
-R := -r ../latexmkrc
+LMAKE := latexmk -r ../latexmkrc -silent
+QUIET := >/dev/null 2>/dev/null
 
-L := latexmk $R $Q
+%.pdf : %.tex
+	@$(LMAKE) $* $(QUIET)
+	@$(MAKE) sweep
 
 all : proposal bibliography presentation final | sweep
 
-sweep:
-	@$L -c
-	@rm -rf *.nav *.snm
-
 clean : sweep
-	@$L -C
+	@$(LMAKE) -C
 
-proposal :
-	@$L proposal
-	@$(MAKE) sweep
+sweep:
+	@$(LMAKE) -c
+	@rm -f *.nav *.snm
 
-bibliography :
-	@$L bibliography
-	@$(MAKE) sweep
-
-presentation:
-	@$L presentation
-	@$(MAKE) sweep
-
-final:
-	@$L final
-	@$(MAKE) sweep
+proposal: proposal.pdf
+bibliography: bibliography.pdf
+presentation: presentation.pdf
+final: final.pdf
