@@ -1,43 +1,32 @@
-# Flags for latexmk
-Q := -quiet
-R := -r ../latexmkrc
+LMAKE := latexmk -r ../latexmkrc -silent
+QUIET := >/dev/null 2>/dev/null
 
-L := latexmk $R $Q
-
-all : 1 2 3 4 5 6 | sweep
-
-sweep :
-	@$L -c
-
-clean :
-	@$L -C
-
-propositions : 1
-1 :
-	@$L propositions
+%.pdf : %.tex
+	@$(LMAKE) $< $(QUIET)
 	@$(MAKE) sweep
 
-augustine : 2
-2 :
-	@$L augustine
-	@$(MAKE) sweep
+all: 1 2 3 4 5 6 | sweep
 
-rules : 3
-3 :
-	@$L rules
-	@$(MAKE) sweep
+clean: sweep
+	@$(LMAKE) -C
 
-private.language : 4
-4 :
-	@$L private.language
-	@$(MAKE) sweep
+sweep:
+	@$(LMAKE) -c
 
-experience : 5
-5 :
-	@$L experience
-	@$(MAKE) sweep
+1: propositions
+propositions: propositions.pdf
 
-certainty : 6
-6 :
-	@$L certainty
-	@$(MAKE) sweep
+2: augustine
+augustine: augustine.pdf
+
+3: rules
+rules: rules.pdf
+
+4: private.language
+private.language: private.language.pdf
+
+5: experience
+experience: experience.pdf
+
+6: certainty
+certainty: certainty.pdf
