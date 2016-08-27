@@ -1,0 +1,457 @@
+\documentclass[doc,12pt]{apa6}
+\usepackage[colorlinks=false]{hyperref}
+\usepackage[open]{OTtablx}
+\usepackage{soul,times,textcomp,tipa,phonrule,gb4e}
+\linespread{1.5}
+\renewcommand{\labelenumi}{\alph{enumi}.}
+
+\begin{document}
+
+\title{Final}
+\shorttitle{Final}
+\author{Edward Hern\'{a}ndez}
+\date{11 May 2016}
+\affiliation{with Sora Edwards-Thro \\ \& Connor Symons}
+\maketitle
+
+\section{I}
+
+\subsection{A. Obstruent Alternations}
+
+At first glance, it appears that Dutch devoices all obstruent consonants in
+syllable codas, neutralizing an otherwise contrastive difference in voicing.
+For example two words, 'cheese' and 'cash', whose inflected forms, [kaze] and
+[kase], contrast, do not contrast in their root forms, [kas] and [kas].  This
+sort of neutralization is a relatively common process, and simple to capture in
+either rules or OT constraints. Under a rule-based formalism, we would need a
+single rule which devoices non-syllabic sounds in syllable codas. Under we
+would need either of two sets of three constraints. We could adopt a Positional
+Faithfulness account consisting of a context free faithfulness constraint
+protecting obstruent voicing generally (\textsc{Ident[Voi]}), a markedness
+constraint discouraging voiced obstruents (\textsc{*VoiObs}), and a positional
+faithfulness constraint specifically protecting the voicing of obstruents in
+onsets (\textsc{Ident[Voi]Onset}), ranked such that they do not allow voiced
+obstruents (\textsc{*VoiObs {\OTdom} Ident[Voi]}) \emph{except} in syllable
+onsets (\textsc{Ident[Voi]Onset {\OTdom} *VoiObs}), or we could adopt a
+Positional Markedness account consisting of a context-free markedness
+constraint discouraging voiced obstruents (\textsc{*VoiObs}), a faithfulness
+constraint preserving voicing (\textsc{Ident[Voi]}), and a context-sensitive
+markedness constraint prohibiting voiced obstruents in syllable codas
+(\textsc{*VoiObsCoda}), ranked such that they allow both voiced and voiceless
+obstruents (\textsc{Ident[Voi] {\OTdom} *VoiObs}) \emph{except} in syllable
+codas (\textsc{*VoiObsCoda {\OTdom} Ident[Voi]}).
+
+\begin{exe}
+	\ex Coda Obstruent Devoicing (COD) \\
+		\phonr{\phonfeat{- syl\\- son}}{\phonfeat{- voi}}{$]_\sigma$}
+	\ex \textsc{*VoiObsCoda {\OTdom} Ident[Voi] {\OTdom} *VoiObs}
+\end{exe}
+
+For simple data (i.e. without consonant clusters spanning syllable boundaries),
+each of these solutions correctly predicts the behavior of obstruents in
+Dutch.
+
+\begin{minipage}{\textwidth}
+\begin{exe}
+	\ex \begin{tabbing}
+		COD \= /ron\=d/ \kill
+		UR \> /ron\>d/ \\
+		COD \> \>t \\
+		SR \>[ront]
+		\end{tabbing}
+\end{exe}
+\end{minipage}
+
+\begin{center}
+% \resizebox{\columnwidth}{!}{
+% \centering
+\begin{OTtableau}{3}
+	% \OTdashes{1}
+	\OTsolids{1,2}
+	\OTtoprow[rond]{
+		% \textsc{Ident[Voi]StopOnset},
+		% \textsc{Agree[Voi]},
+		\textsc{*VoiObsCoda},
+		\textsc{Ident[Voi]},
+		\textsc{*VoiObs}}
+	\OTcandrow           {rond} {*!, ,*}
+	\OTcandrow [\OThand] {ront} {  ,*, }
+\end{OTtableau}
+% }
+
+% \resizebox{\columnwidth}{!}{
+% \centering
+\begin{OTtableau}{3}
+	% \OTdashes{1}
+	\OTsolids{1,2}
+	\OTtoprow[rond]{
+		% \textsc{Ident[Voi]StopOnset},
+		% \textsc{Agree[Voi]},
+		\textsc{Ident[Voi]Onset},
+		\textsc{*VoiObs},
+		\textsc{Ident[Voi]}}
+	\OTcandrow           {rond} { ,*!, }
+	\OTcandrow [\OThand] {ront} { ,  ,*}
+\end{OTtableau}
+% }
+\end{center}
+
+\noindent
+
+\subsection{B. Obstruent Codas with Proceeding Fricatives}
+
+There is, of course, more going on. Words which underlyingly contain voiced
+fricatives in syllable onsets appear to be losing them. /kaz-vorm/ is realized
+as [kasform] rather than [kasvorm]. This appears to happen when these obstruent
+onsets follow voiceless obstruents in the coda of the previous syllable. This
+seems phonetically reasonable; we might expect that it should be difficult to
+make a clear distinction in voicing between two immediately adjacent obstruent
+consonants, and matching them is a reasonable compromise (especially given that
+we have already seen that Dutch is willing to neutralize obstruent consonant
+voicing). Although this appears to predict progressive assimilation, which is
+cross-linguistically unusual, there does not appear to be another equivalently
+good explanation. This behavior is easily captured with an additional rule
+assimilating voicing:
+
+\begin{exe}
+	\ex Obstruent Voicing Assimilation (OVA) \\
+		\phonl{\phonfeat{- syl\\- son}}{\phonfeat{$\alpha$ voi}}{\phonfeat{- syl\\- son\\$\alpha$ voi}}
+\end{exe}
+
+\noindent
+
+With this additional rule, forms like [kasform] are consistently correctly
+predicted:
+
+\begin{minipage}{\textwidth}
+\begin{exe}
+	\ex \begin{tabbing}
+		COD \= /ka\=z-\=vorm/ \kill
+		UR  \> /kaz-vorm/ \\
+		COD \> \>s \\
+		OVA \> \> \>f \\
+		SR  \> [kasform]
+	\end{tabbing}
+\end{exe}
+\end{minipage}
+
+\noindent
+
+This behavior is somewhat more difficult to capture in OT. I propose that we
+need a new constraint, \textsc{Agree[Voi]Obs}, which incurs a single violation
+for each pair of adjacent obstruent consonants which do not have the same value
+for [\textsc{Voi}]. This constraint, if ranked such that it remains
+undominated, supplements the Positional Markedness account to correctly predict
+the behavior of more of the data:
+
+\begin{center}
+\begin{OTtableau}{4}
+	\OTdashes{1}
+	\OTsolids{2,3}
+	\OTtoprow[kaz-vorm]{
+		% \textsc{Ident[Voi]StopOnset},
+		\textsc{Agree[Voi]Obs},
+		\textsc{*VoiObsCoda},
+		\textsc{Ident[Voi]},
+		\textsc{*VoiObs}}
+	\OTcandrow           {kazvorm} {  ,*!,  ,**}
+	\OTcandrow           {kasvorm} {*!,  ,* , *}
+	\OTcandrow [\OThand] {kasform} {  ,  ,**, }
+	\OTcandrow           {kazform} {*!,  ,* , *}
+\end{OTtableau}
+\end{center}
+
+\noindent
+
+However, \textsc{Agree[Voi]} is not sufficient to patch our Positional
+Faithfulness account. If we merely add it as an undominated constraint, we
+consistently predict incorrect forms:
+
+\begin{center}
+% \resizebox{\columnwidth}{!}{
+% \centering
+\begin{OTtableau}{4}
+	% \OTdashes{1}
+	\OTsolids{1,2,3}
+	\OTtoprow[kaz-vorm]{
+		\textsc{Agree[Voi]},
+		\textsc{Ident[Voi]Onset},
+		\textsc{*VoiObs},
+		\textsc{Ident[Voi]}}
+	\OTcandrow [\OThand]  {kazvorm} {  ,  ,**,  }
+	\OTcandrow            {kasvorm} {*!,  , *, *}
+	\OTcandrow [\OTface*] {kasform} {  ,*!,  ,**}
+	\OTcandrow            {kazform} {*!,  , *, *}
+\end{OTtableau}
+% }
+\end{center}
+
+\noindent
+
+This does not appear to be an issue with the \textsc{Agree[Voi]} constraint,
+but rather a larger issue with the Positional Faithfulness account for Dutch.
+If we have a highly ranked constraint prohibiting a change in voicing in
+onsets, we would never expect to see regressive assimilation (and consequently
+forms like [kasform]) predicted correctly. In this case, at least, we ought to
+prefer the Positional Markedness account.
+
+\subsection{C. Obstruent Codas with Proceeding Stops}
+
+Even under Positional Markedness (and in rule-based formalisms), these
+additions fall short of explaining the behavior of stops. With the above rules
+and constraints, we erroneously expect that /kaz-bot/ should be realized as
+[kaspot]:
+
+\begin{minipage}{\textwidth}
+\begin{exe}
+	\ex \begin{tabbing}
+		COD \= /ka\=-\=bot/ \kill
+		UR  \> /kaz-bot/ \\
+		COD \> \>s \\
+		OVA \> \> \>p \\
+		SR \> [kaspot]
+		\end{tabbing}
+\end{exe}
+\end{minipage}
+
+\begin{center}
+\begin{OTtableau}{4}
+	\OTdashes{1}
+	\OTsolids{2,3}
+	\OTtoprow[kaz-bot]{
+		% \textsc{Ident[Voi]StopOnset},
+		\textsc{Agree[Voi]Obs},
+		\textsc{*VoiObsCoda},
+		\textsc{Ident[Voi]},
+		\textsc{*VoiObs}}
+	\OTcandrow [\OTface*] {kazbot} {  ,*!,  ,**}
+	\OTcandrow            {kasbot} {*!,  ,* , *}
+	\OTcandrow [\OThand]  {kaspot} {  ,  ,**, }
+	\OTcandrow            {kazpot} {*!,  ,* , *}
+\end{OTtableau}
+\end{center}
+
+In order to generate correct predictions under a rule-based formalism (and if
+we intend to maintain our rules from above), we are forced to introduce a rule
+or constraint specifically targeting stops:
+
+\begin{exe}
+	\ex Stop Voicing Assimilation (SVA) \\
+		\phonr{\phonfeat{- syl\\- son}}{\phonfeat{$\alpha$ voi}}{\phonfeat{- syl\\- son\\- cont}}
+\end{exe}
+
+\noindent
+
+If SVA is ordered after COD and before OVA, these rules adequately predict
+correct outputs:
+
+\begin{exe}
+	\ex \begin{tabbing}
+		COD \= /ka\=z-\=bot/ \kill
+		UR  \> /kaz-bot/ \\
+		COD \> \>s \\
+		SVA \> \>z \\
+		OVA \\
+		SR \> [kazbot]
+		\end{tabbing}
+\end{exe}
+
+\noindent
+
+However, we should probably be somewhat displeased with this account. Though it
+correctly predicts the data, it theoretically represents assimilation as
+\emph{progressive} except in particular cases, when we ought to expect
+assimilation to be a primarily regressive process. To achieve the correct
+outputs while still representing assimilation as regressive in the general case
+(and only happening progressively in particular, restricted cases), we must
+rewrite both rules:
+
+\begin{exe}
+	\ex Regressive Obstruent Voicing Assimilation (ROVA) \\
+		\phonr{\phonfeat{- syl\\- son}}{\phonfeat{$\alpha$ voi}}{\phonfeat{- syl\\- son\\$\alpha$ voi}}
+	\ex Fricative Voicing Assimilation (PFVA) \\
+		\phonl{\phonfeat{- syl\\- son\\- cont}}{\phonfeat{$\alpha$ voi}}{\phonfeat{- syl\\- son\\$\alpha$ voi}}
+\end{exe}
+
+\noindent
+
+These rules, properly ordered, produce equivalent, correct output:
+
+\begin{exe}
+	\ex \begin{tabbing}
+		ROVA \= /ka\=z-\=vorm/ \= /ka\=z-\=bot/ \kill
+		UR   \> /kaz-vorm/ \> \> \> /kaz-bot/ \\
+		COD  \>  \>s \> \> \>s \\
+		PFVA  \> \> \>f \\
+		ROVA \> \> \> \> \>z \\
+		UR \>[kasform] \> \> \>[kazbot]
+		\end{tabbing}
+\end{exe}
+
+Under Optimality Theory, we can capture the correct output by adding a single
+additional constraint. Above (in section C), we abandoned Positional
+Faithfulness as an account because it predicted progressive assimilation.
+Here, we must predict a particular case of progressive assimilation, so it will
+serve us to introduce a more restrictive Positional Faithfulness constraint to
+dominate our Positional Markedness constraint: \textsc{Ident[Voi]StopOnset},
+which incurs one violation for every stop in a syllable onset which changes its
+voicing.
+
+With this constraint added, our constraints can appropriately predict obstruent
+behavior in all environments:
+
+\begin{center}
+\resizebox{\columnwidth}{!}{
+% \centering
+\begin{OTtableau}{5}
+	\OTdashes{1}
+	\OTsolids{2,3,4}
+	\OTtoprow[rond]{
+		\textsc{Agree[Voi]},
+		\textsc{Ident[Voi]StopOnset},
+		\textsc{*VoiObsCoda},
+		\textsc{Ident[Voi]},
+		\textsc{*VoiObs}}
+	\OTcandrow           {rond} { , ,*!, ,*}
+	\OTcandrow [\OThand] {ront} { , ,  ,*, }
+\end{OTtableau}
+}
+
+\resizebox{\columnwidth}{!}{
+% \centering
+\begin{OTtableau}{5}
+	\OTdashes{1}
+	\OTsolids{2,3,4}
+	\OTtoprow[az-vat]{
+		\textsc{Agree[Voi]},
+		\textsc{Ident[Voi]StopOnset},
+		\textsc{*VoiObsCoda},
+		\textsc{Ident[Voi]},
+		\textsc{*VoiObs}}
+	\OTcandrow           {azvat} {  , ,*!,  ,**}
+	\OTcandrow           {asfat} {*!, ,  , *, *}
+	\OTcandrow [\OThand] {asfat} {  , ,  ,**,  }
+	\OTcandrow           {azfat} {*!, ,* ,* ,* }
+\end{OTtableau}
+}
+
+\resizebox{\columnwidth}{!}{
+% \centering
+\begin{OTtableau}{5}
+	\OTdashes{1}
+	\OTsolids{2,3,4}
+	\OTtoprow[op-druk]{
+		\textsc{Agree[Voi]},
+		\textsc{Ident[Voi]StopOnset},
+		\textsc{*VoiObsCoda},
+		\textsc{Ident[Voi]},
+		\textsc{*VoiObs}}
+	\OTcandrow           {opdruk} {*!,  ,  ,  , *}
+	\OTcandrow           {optruk} {  ,*!,  , *,  }
+	\OTcandrow [\OThand] {obdruk} {  ,  ,* ,* ,**}
+	\OTcandrow           {obtruk} {*!,* ,* ,**,* }
+\end{OTtableau}
+}
+\end{center}
+
+\section{II}
+
+In addition to these obstruent alternations, Dutch appears to optionally delete
+schwas when they are followed by a syllable which contains another schwa.
+Notably, when schwa deletion causes an obstruent (which was in a syllable
+onset) into  a coda, it does \emph{not} become devoiced:
+
+\begin{exe}
+	\ex \textipa{keG@l@n {\texttildelow} keGl@n}
+\end{exe}
+
+The proper behavior is trivially easy to capture in rule-based formalism. If we
+assume a rule Schwa Deletion (SD), ordered after all other rules, the output is
+exactly as expected:
+
+\begin{minipage}{\textwidth}
+\begin{exe}
+	\ex \begin{tabbing}
+		ROVA \= \textipa{/keG}\=\textipa{@l@n/} \kill
+		UR   \> \textipa{/keG@l@n/} \\
+		COD \\
+		PFVA \\
+		ROVA \\
+		SD \> \>\textipa{\st{@}} \\
+		SR \> [\textipa{keGl@n}]
+		\end{tabbing}
+\end{exe}
+\end{minipage}
+
+SD counter-feeds COD. If schwas deleted first, the relevant obstruents would be
+in syllable codas when COD applied, and they would be devoiced. Since this is
+not the case, the output is opaque, and provides a problem for optimality
+theory.
+
+If we suppose a constraint *\textipa{@}, which incurs a violation for every
+schwa which might be optionally deleted but is not,\footnote{How exactly we
+define this is unclear to me, but that is not among our currently relevant
+concerns.} we begin to see our opacity problem:
+
+\begin{center}
+\resizebox{\columnwidth}{!}{
+% \centering
+\begin{OTtableau}{6}
+	\OTdashes{1,2}
+	\OTsolids{3,4,5}
+	\OTtoprow[knab@l@n]{
+		\textipa{*@},
+		\textsc{Agree[Voi]},
+		\textsc{Ident[Voi]StopOnset},
+		\textsc{*VoiObsCoda},
+		\textsc{Ident[Voi]},
+		\textsc{*VoiObs}}
+	\OTcandrow            {knab@l@n} {*!, , ,  , ,*}
+	\OTcandrow [\OTface*] {knabl@n}  {  , , ,*!, ,*}
+	\OTcandrow [\OThand]  {knapl@n}  {  , , ,  ,*, }
+	\OTcandrow            {knap@l@n} {*!, , ,  ,*, }
+\end{OTtableau}
+}
+\end{center}
+
+\noindent
+
+Leaving aside the issue of optionality (as it is equally problematic in
+rule-based formalisms), we see that our tableau predicts an incorrect output.
+Our constraints do not protect the now-coda obstruents when, in fact, they
+should remain unchanged. We might be tempted to posit a constraint that allows
+for voicing to be protected by preceding sonorants, or else allow the obstruent
+to articulated as part of an onset cluster of the proceeding syllable
+(\phon{\textipa{/knab@l@n/}}{\textipa{[kna.bl@n]}}), but the data from Part A
+allows neither protection:
+
+\begin{minipage}{\textwidth}
+\begin{exe}
+	\ex \begin{tabbing}
+		ROVA ~ \= /har\=d/ ~ \= /hard-e/ ~ \= /har\=d-lopen/ \kill
+		UR   \> /hard/ \>  \> /hard-e/ \> /hard-lopen/ \\
+		COD  \> \>t \> \> \>t \\
+		PFVA \\
+		ROVA \\
+		SR \> [hart] \> \> [har.de] \> [hart.lopen]
+		\end{tabbing}
+\end{exe}
+\end{minipage}
+
+If /hard-lopen/ is to be realized [hart.lopen], the prospects of protecting the
+voicing of obstruents affected by Schwa Deletion seem grim. The only way I can
+find to properly account for the voicing of such obstruents is to make
+reference to intervening forms (as we do in ordering rules). Since classical OT
+does not allow for such reference, I am unable to construct tableaux to predict
+voicing when schwas are deleted.
+
+\section{Conclusion}
+
+Aside from cases of opacity (like SD), Optimality Theory seems to be an ideal
+tool for predicting output. In particular, its ability to here predict both
+regressive and progressive assimilation without multiple rules in opposite
+directions is appealing. Unfortunately, when there is opacity, Optimality
+Theory breaks down, even if the process is intuitively clear when we are able
+to refer to intervening forms.
+
+\end{document}

@@ -1,0 +1,434 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 
+%% This package was written by Nathan Sanders, copyright 2014, with code
+%% for XeLaTeX compatibility provided by Alan Munn.  Please send questions
+%% or comments to <nathansanders@gmx.com>.  Package and documentation
+%% (OTtablx-doc.pdf) are available for free download from
+%% <http://sanders.phonologist.org/OTtablx>.  Support is also available
+%% on Facebook at <http://www.facebook.com/OTtablx>.
+%%
+%% This package is free software: you can redistribute it and/or modify it
+%% under the terms of the GNU General Public License as published by the
+%% Free Software Foundation, either version 3 of the License, or (at your
+%% option) any later version.
+%%
+%% This package is distributed in the hope that it will be useful, but
+%% WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+%%
+%% For more information about your rights and responsibilities under the
+%% GNU General Public License, visit <http://www.gnu.org/licenses/>.
+%%
+%%
+%% History:
+%%
+%% v0.4      2014/07/27  added compatibility code for use with XeLaTeX
+%%                       added global/local options [ipa] and [noipa]
+%%
+%% v0.3.1.1  2012/12/16  added GNU General Public License information
+%%                       updated contact information and documentation
+%%                       no functional changes to the actual package
+%%
+%% v0.3.1    2006/12/01  fixed conflict with array package
+%%
+%% v0.3      2006/12/01  created global options [light], [medium], and [heavy]
+%%                       implimented local tableau options
+%%                       enabled most PSTricks options for \OTjagged
+%%                       fixed bug with \OTcandrow* inside OTcomparative
+%%                       significantly revised code
+%%                       found conflict with array package
+%%
+%% v0.2      2006/11/24  revised OTtableau environment and vertical separators
+%%                       created * versions of \OTtoprow and \OTcandrow
+%%                       enabled PSTricks options for \OTsolids and \OTdashed
+%%                       added comparative tableaux commands
+%%                       added macros for common constraint names
+%%                       fixed minor spacing issues
+%%
+%% v0.1      2006/11/19  initial beta version
+%%                       local tableau options not yet functional
+
+
+\NeedsTeXFormat{LaTeX2e}[1998/12/01]
+\ProvidesPackage{OTtablx}[2014/07/27 v0.4 Optimality Tableaux Formatting (Nathan Sanders)]
+\RequirePackage{pstricks}[1993/03/12]
+\RequirePackage{pst-node,pst-coil,calc,ifthen,pifont,wasysym}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% XeTeX compatibility: load Doulos SIL as the IPA font for
+% XeTeX; use TIPA otherwise.  Code by Alan Munn.
+% 
+\RequirePackage{ifxetex}
+\ifxetex
+   \RequirePackage{fontspec}
+   \newcommand*\DefineIPAfont[2][]{\newfontfamily\ipafont[#1]{#2}}
+   \DefineIPAfont{Doulos SIL}
+   \DeclareTextFontCommand{\textipa}{\ipafont}
+\else
+   \RequirePackage{tipa}
+   \newcommand*\DefineIPAfont[2][]
+   {\PackageWarning{OTtablx}{The command \protect\DefineIPAfont\space is for XeLaTeX only. Ignoring this command.}}
+\fi
+\let\OTx@textipa=\textipa
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% OTtablx lengths can be customized within the document using:
+%
+%     \makeatletter
+%         \setlength {\OTx@lengthname1} {newvalue}
+%         \setlength {\OTx@lengthname2} {newvalue}
+%     \makeatother
+%
+% In the preamble, this set of commands will override the settings
+% of the options [light/medium/heavy].  Inside the OTtableau
+% environment, this set of commands will only affect lines drawn
+% for that specific tableau.
+%
+% linewidths:
+%
+\newlength {\OTx@normal@lw}          % default
+\newlength {\OTx@border@lw}          % outside border
+\newlength {\OTx@double@lw}          % double separator
+\newlength {\OTx@dblmid@lw}          % double middle
+\setlength {\OTx@dblmid@lw} {1.5pt}  %
+\newlength {\OTx@rowsep@lw}          % candidate row separator
+\newlength {\OTx@cmpsep@lw}          % comparative row separator
+\newlength {\OTx@solids@lw}          % solid vertical separator
+\newlength {\OTx@dashes@lw}          % dashed vertical separator
+\newlength {\OTx@jagged@lw}          % jagged vertical separator
+\newlength {\OTx@jagmid@lw}          % jagged middle
+\newlength {\OTx@winsep@lw}          % winner row separator (comparative)
+\setlength {\OTx@winsep@lw} {1.5pt}  %
+
+% dashes:
+%
+\newlength {\OTx@dashes@dsh}         % dashed separator dash length
+\setlength {\OTx@dashes@dsh} {0.75ex}%
+\newlength {\OTx@dashes@spc}         % dashed separator space length
+\setlength {\OTx@dashes@spc} {0.75ex}%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% PSTricks styles cannot be directly altered without changing
+% the package itself.
+%
+\newpsstyle {OTx@normal@style}
+    {linewidth=\OTx@normal@lw,
+     doubleline=false,
+     nodesep=0pt,
+     linestyle=solid,
+     linecolor=black}
+
+\newpsstyle {OTx@solids@style} {style=OTx@normal@style}
+
+\newpsstyle {OTx@winsep@style}
+    {style=OTx@normal@style,
+     linewidth=\OTx@winsep@lw}
+
+\newpsstyle {OTx@dashes@style}
+    {style=OTx@normal@style,
+     linestyle=dashed,
+     dash=\OTx@dashes@dsh{} \OTx@dashes@spc}
+
+\newpsstyle {OTx@double@style}
+    {style=OTx@normal@style,
+     doubleline=true,
+     doublecolor=white,
+     doublesep=\OTx@dblmid@lw}
+
+\newpsstyle {OTx@dblmid@style}
+    {style=OTx@normal@style,
+     linecolor=white,
+     linewidth=\OTx@dblmid@lw,
+     arrows=C-C}
+
+\newpsstyle {OTx@jagged@style}
+    {style=OTx@double@style,
+     coilarm=0pt,
+     coilwidth=4pt,
+     coilheight=4}
+
+\newpsstyle {OTx@jagmid@style}
+   {style=OTx@jagged@style,
+    style=OTx@dblmid@style}
+
+\newpsstyle {OTx@border@style}
+    {style=OTx@normal@style,
+     linewidth=\OTx@border@lw,
+     linearc=\OTx@borderarc}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Package options for \usepackage[...]{OTtablx}
+%
+% border type:
+%
+\newcommand {\OTx@draw@border} {\psline[style=OTx@border@style](BD)(BR)(TR)(TL)(BL)(BD)}
+\newcommand {\OTx@draw@double}
+    {{\psset{style=OTx@double@style}\psline(LD)(RD)\psline(TD)(BD)}}
+\newcommand {\OTx@draw@dblmid}
+    {{\psset{style=OTx@dblmid@style}\psline(LD)(RD)\psline(TD)(BD)}}
+
+\newboolean {OTx@border}
+\newboolean {OTx@closed}
+
+\DeclareOption {closed}   {\setboolean{OTx@border}{true}\setboolean{OTx@closed}{true}}
+\DeclareOption {open}     {\setboolean{OTx@border}{true}\setboolean{OTx@closed}{false}}
+\DeclareOption {noborder} {\setboolean{OTx@border}{false}\setboolean{OTx@closed}{true}}
+
+% round/square corners:
+%
+\newcommand {\OTx@borderarc} {0}
+\DeclareOption {round}  {\renewcommand {\OTx@borderarc} {.1}}
+\DeclareOption {square} {\renewcommand {\OTx@borderarc} {0}}
+
+% candidate labels:
+%
+\newcounter {OTx@candidate}
+\DeclareOption {alpha}   {\renewcommand {\theOTx@candidate} {\alph{OTx@candidate}.~ }}
+\DeclareOption {roman}   {\renewcommand {\theOTx@candidate} {\roman{OTx@candidate}.~ }}
+\DeclareOption {arabic}  {\renewcommand {\theOTx@candidate} {\arabic{OTx@candidate}.~ }}
+\DeclareOption {nolabel} {\renewcommand {\theOTx@candidate} {}}
+
+% line thickness:
+%
+\DeclareOption {light}  {\setlength {\OTx@normal@lw} {0.5pt}}
+\DeclareOption {medium} {\setlength {\OTx@normal@lw} {0.75pt}}
+\DeclareOption {heavy}  {\setlength {\OTx@normal@lw} {1.0pt}}
+
+% use of IPA:
+%
+\DeclareOption {ipa}   {}
+\DeclareOption {noipa} {\let\OTx@textipa=\relax}
+
+% option handling:
+%
+\DeclareOption* {\PackageWarning {OTtablx} {Unknown option `\CurrentOption'}}
+\ExecuteOptions {closed,square,alpha,light,ipa}  % defaults
+\ProcessOptions*
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% separators:
+%
+\newcommand {\OTsolids} [2][style=OTx@solids@style]
+    {\gdef\OTx@draw@solids{\@for \xx := #2 \do
+        {\psline[style=OTx@solids@style,#1](T\xx)(B\xx)}}}
+
+\newcommand {\OTdashes} [2][style=OTx@dashes@style]
+    {\gdef\OTx@draw@dashes{\@for \xx := #2 \do
+        {\psline[style=OTx@dashes@style,#1](T\xx)(B\xx)}}}
+
+\newcommand {\OTjagged} [2][style=OTx@jagged@style]
+    {\gdef\OTx@draw@jagged{\@for \xx := #2 \do
+        {\pszigzag[style=OTx@jagged@style,#1](T\xx)(B\xx)
+        \pszigzag[style=OTx@jagmid@style](T\xx)(B\xx)}}}
+
+\newcommand {\OTx@draw@rowsep}
+    {\setcounter{OTx@xx}{1}%
+    \whiledo {\value{OTx@xx} < \value{OTx@candidate}}
+        {\psline[style=OTx@normal@style](L\arabic{OTx@xx})(R\arabic{OTx@xx})
+            \stepcounter{OTx@xx}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% internal row commands:
+% IPA text now uses internal \OTx@textipa -AM
+%
+\newcommand {\OTx@amp} {&}
+
+\newcommand {\OTx@toprow} [2][]
+    {\setcounter {OTx@candidate} {0}&&&\OTx@textipa{#1}&
+     \OTx@toprowbasic{#2}}
+
+\newcommand {\OTx@toprowstar} [2][]
+    {\setcounter {OTx@candidate} {0}&\multicolumn{3}{@{}c}{\OTx@textipa{#1}}&
+     \OTx@toprowbasic{#2}}
+
+\newcommand {\OTx@toprowbasic} [1]
+    {\@for \xx:=#1 \do {\expandafter\OTx@amp\xx\expandafter\OTx@amp}\\[-1.25ex]
+     \pnode{LD}&\multicolumn{\theOTx@specialcols}{@{}c@{}}{}&\pnode{RD}\\}
+
+\newcommand{\OTx@candmarker}{}
+
+\newcommand {\OTx@candrow} [3][\OTx@candmarker]
+    {&\stepcounter{OTx@candidate}\theOTx@candidate &#1~ 
+     \OTx@candrowbasic{#2}{#3}}
+
+\newcommand {\OTx@candrowstar} [3][\OTx@candmarker]
+    {&#1~ &\stepcounter{OTx@candidate}\theOTx@candidate 
+     \OTx@candrowbasic{#2}{#3}}
+
+\newcommand{\OTx@candrowbasic} [2]
+    {&\OTx@textipa{#1}&\setcounter{OTx@xx}{1}
+     \@for \xx :=#2 \do%
+         {\expandafter\OTx@amp\xx\expandafter\OTx@amp\stepcounter{OTx@xx} }\\[-1.5ex]%
+     \pnode{L\arabic{OTx@candidate}}&&&&\pnode{BD}
+     \setcounter {OTx@xx} {1}
+     \whiledo
+         {\value{OTx@xx} < \value{OTx@constraints}}
+         {\expandafter\OTx@amp\expandafter\OTx@amp\pnode{B\arabic{OTx@xx}}
+          \stepcounter{OTx@xx} }&
+     &\pnode{R\arabic{OTx@candidate}}\\}            
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% OTtableau environment:
+%
+\newcounter {OTx@xx}
+\newcounter {OTx@specialcols}
+\newcounter {OTx@constraints}
+
+\newenvironment {OTtableau} [2][]                      %
+    {\newcommand {\OTtoprow}                           % define \OTtoprow(*)
+         {\@ifstar {\OTx@toprowstar}  {\OTx@toprow}}%  %
+     \newcommand {\OTcandrow}                          % define \OTcandrow(*)
+         {\@ifstar {\OTx@candrowstar} {\OTx@candrow}}% %
+     \SpecialCoor                                      % allow nodes as coordinates
+     \gdef\OTx@draw@solids{}%                          % reset solids
+     \gdef\OTx@draw@dashes{}%                          % reset dashes
+     \gdef\OTx@draw@jagged{}%                          % reset jagged
+     \setcounter {OTx@constraints} {#2}%               %
+     \setcounter {OTx@specialcols} {2*#2 + 3}%         % special constraint columns
+     \OTx@localoptions{#1}%                            % process tableau options
+     \begin{tabular} [t] {@{}                          %
+         p{0pt}                                        % left node column
+         @{\hspace{0.5em}}r@{}r@{}l                    % label/marker/candidate column
+         @{\hspace{0.5em}}p{\OTx@dblmid@lw}            % double separator column
+         *{#2}                                         % special columns
+         {@{\hspace{0.5em}}c@{\hspace{0.5em}}          %     constraint column
+         p{0pt}}                                       %     constraint node column
+         @{}}\\[-4.75ex]                               %
+     \pnode{TL}&&&&\pnode{TD}&                         % top left and double nodes
+     \setcounter {OTx@xx} {1}                          %
+     \whiledo                                          %
+         {\theOTx@xx < #2}                             %
+         {\OTx@amp\pnode{T\theOTx@xx}\OTx@amp          % top constraint nodes
+          \stepcounter{OTx@xx} }                       %
+        &\pnode{TR}\\}                                 % top right node
+                                                       %%%%% ENDING OF OTtableau
+    {\rput(L\arabic{OTx@candidate}){\pnode{BL}}        % bottom left node
+     \rput(R\arabic{OTx@candidate}){\pnode{BR}}\\[-3ex]% bottom right node
+     \end{tabular}%                                    %
+     \OTx@draw@rowsep%                                 % row separators
+     \OTx@draw@solids%                                 % solid separators
+     \OTx@draw@dashes%                                 % dashed separators
+     \OTx@draw@double%                                 % double separators
+     \ifthenelse {\boolean{OTx@closed}}                % closed/no border
+         {\OTx@draw@dblmid%                            %     double middles
+          \ifthenelse {\boolean{OTx@border}}           %
+              {\OTx@draw@border}                       %     closed border
+              {}}                                      %
+         {\OTx@draw@border\OTx@draw@dblmid}%           % open border
+     \OTx@draw@jagged}                                 % jagged separators
+
+% processing local options for OTtableau:
+%
+\newcommand {\OTx@localoptions} [1]
+    {\@for \xx :=#1\do
+        {\ifthenelse {\equal{\xx}{square}}   {\renewcommand {\OTx@borderarc} {0}}%
+        {\ifthenelse {\equal{\xx}{round}}    {\renewcommand {\OTx@borderarc} {0.1}}%
+        {\ifthenelse {\equal{\xx}{closed}}   {\setboolean{OTx@border}{true}%
+                                              \setboolean{OTx@closed}{true}}%
+        {\ifthenelse {\equal{\xx}{open}}     {\setboolean{OTx@border}{true}%
+                                              \setboolean{OTx@closed}{false}}%
+        {\ifthenelse {\equal{\xx}{noborder}} {\setboolean{OTx@border}{false}%
+                                              \setboolean{OTx@closed}{true}}%
+        {\ifthenelse {\equal{\xx}{alpha}}    {\renewcommand {\theOTx@candidate}%
+                                                 {\alph{OTx@candidate}.~ }}%
+        {\ifthenelse {\equal{\xx}{arabic}}   {\renewcommand {\theOTx@candidate}%
+                                                 {\arabic{OTx@candidate}.~ }}%
+        {\ifthenelse {\equal{\xx}{roman}}    {\renewcommand {\theOTx@candidate}%
+                                                 {\roman{OTx@candidate}.~ }}%
+        {\ifthenelse {\equal{\xx}{nolabel}}  {\renewcommand {\theOTx@candidate} {}}%
+        {\ifthenelse {\equal{\xx}{light}}    {\setlength {\OTx@normal@lw} {0.5pt}}%
+        {\ifthenelse {\equal{\xx}{medium}}   {\setlength {\OTx@normal@lw} {0.75pt}}%
+        {\ifthenelse {\equal{\xx}{heavy}}    {\setlength {\OTx@normal@lw} {1.0pt}}%
+        {\ifthenelse {\equal{\xx}{ipa}}      {\let\OTx@textipa=\textipa}%
+        {\ifthenelse {\equal{\xx}{noipa}}    {\let\OTx@textipa=\relax}%
+            {}}}}}}}}}}}}}}}%
+        \setlength {\OTx@border@lw} {\OTx@normal@lw}%
+        \setlength {\OTx@double@lw} {\OTx@normal@lw}%
+        \setlength {\OTx@rowsep@lw} {\OTx@normal@lw}%
+        \setlength {\OTx@solids@lw} {\OTx@normal@lw}%
+        \setlength {\OTx@dashes@lw} {\OTx@normal@lw}%
+        \setlength {\OTx@jagged@lw} {\OTx@normal@lw}%
+        \setlength {\OTx@jagmid@lw} {\OTx@dblmid@lw}%
+        \setlength {\OTx@cmpsep@lw} {1.5\OTx@normal@lw}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% OTcomparative environment:
+%
+\newenvironment {OTcomparative} [2][]                      %
+    {\renewcommand {\OTx@candmarker} {$\sim$}%             % default candidate marker
+     \newcommand {\OTcompviol} [2][\rule{0pt}{1pt}]        % define \OTcompviol
+         {{}\rlap{\raisebox{-0.5ex}{{\scriptsize ##1}}}%   %
+         \hspace*{\fill} ~~##2~~ \hspace*{\fill}{}}%       %
+     \newcommand {\OTwinrow} [3][\OThand]                  % define \OTwinrow
+         {&&##1~                                           %
+          &\OTx@textipa{##2}&                              %
+          \setcounter {OTx@xx} {1}                         %
+          \@for \xx := ##3 \do                             %
+              {\expandafter\OTx@amp                        %
+               \xx\expandafter\OTx@amp                     %
+               \stepcounter{OTx@xx} }\\[-1.5ex]            %
+          \pnode{LW}&                                      %
+          &&&\pnode{BD}                                    %
+          \setcounter {OTx@xx} {1}                         %
+          \whiledo                                         %
+              {\value{OTx@xx} < \value{OTx@constraints}}   %
+              {\expandafter\OTx@amp                        %
+               \expandafter\OTx@amp                        %
+               \pnode{B\arabic{OTx@xx}}                    %
+               \stepcounter{OTx@xx} }&                     %
+           &\pnode{RW}\\}%                                 %
+     \begin{OTtableau}[#1]{#2}}                            % call beginning of OTtableau
+                                                           %%%%% ENDING OF OTcomparative
+     {\psline[style=OTx@winsep@style](LW)(RW)              % draw winner row separator
+      \end{OTtableau}}                                     % call ending of OTtableau
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Miscellaneous commands:
+%
+\providecommand {\Align}  {\textsc{Align}}
+\providecommand {\Anchor} {\textsc{Anchor}}
+\providecommand {\Con}    {\textsc{Con}}
+\providecommand {\Contig} {\textsc{Contig}}
+\providecommand {\Dep}    {\textsc{Dep}}
+\providecommand {\Eval}   {\textsc{Eval}}
+\providecommand {\Faith}  {\textsc{Faith}}
+\providecommand {\Fill}   {\textsc{Fill}}
+\providecommand {\Gen}    {\textsc{Gen}}
+\providecommand {\Ident}  {\textsc{Ident}}
+\providecommand {\Lin}    {\textsc{Lin}}
+\providecommand {\Max}    {\textsc{Max}}
+\providecommand {\Onset}  {\textsc{Onset}}
+\providecommand {\Parse}  {\textsc{Parse}}
+\providecommand {\Unif}   {\textsc{Unif}}
+
+\newcommand {\OThand} {\@ifstar {\psscalebox{-1 1}{\ding{43}}} {\ding{43}}}
+\newcommand {\OTface} {\@ifstar {\frownie}                     {\smiley}}
+\newcommand {\OTdom}  {\@ifstar {\ensuremath{\ll}}             {\ensuremath{\gg}}}
+\newcommand {\OTharm} {\@ifstar {\ensuremath{\prec}}           {\ensuremath{\succ}}}
+
+\endinput
