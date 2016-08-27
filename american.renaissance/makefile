@@ -14,10 +14,9 @@ sweep:
 	@$(LMAKE) -c
 
 machine: 1
-1: 1.pdf
-
 midterm: 2
-2: 2.pdf
-
 quiz: 3
+
+1: 1.pdf
+2: 2.pdf
 3: 3.pdf
