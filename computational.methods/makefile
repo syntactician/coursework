@@ -1,31 +1,16 @@
-# Flags for latexmk
-Q := -quiet
-R := -r ../latexmkrc
-S := -shell-escape
-T := -f texminted
+LMAKE := latexmk -r ../latexmkrc -silent
+QUIET := >/dev/null 2>/dev/null
 
-L := latexmk $Q $R
-P := pdflatex $S
-W := pweave $T
+%.pdf: %.tex
+	$(LMAKE) $*
+	$(MAKE) sweep
 
-all : responses homework presentation
+.PHONY: responses homework
 
-sweep:
-	@$L -c
+all: responses homework
 
-clean: sweep
-	@$L -C
-
-.PHONY: responses
 responses:
 	@$(MAKE) -C responses
-	@$(MAKE) -C responses sweep
 
-.PHONY : homework
 homework:
 	@$(MAKE) -C homework
-	@$(MAKE) -C homework sweep
-
-presentation :
-	@$L presentation
-	$(MAKE) sweep
