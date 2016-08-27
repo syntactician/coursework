@@ -11,7 +11,7 @@
 *.pdf
 *.swp
 *.ttt
-.~lock
+.~lock*
 test.*
 tmp.*
 ~$*
