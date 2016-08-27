@@ -1,49 +1,28 @@
-Q := -quiet
-R := -r ../../latexmkrc
-S := -shell-escape
-T := -f texminted
+LMAKE := latexmk -pdflatex='pdflatex -shell-escape' -r ../../latexmkrc -silent
+WEAVE := pweave -f texminted
+QUIET := >/dev/null 2>/dev/null
 
-L := latexmk $Q $R
-P := pdflatex $S
-W := pweave $T
+INTERMEDIATE := *.fff 3.tex 4.tex 5.tex _minted*/ figures/
+
+%.pdf: %.tex
+	$(LMAKE) $*
+	$(MAKE) sweep
+
+%.tex: %.texw
+	$(WEAVE) $<
 
 all : 1 2 3 4 5
 
 sweep:
-	@$L -c
-	@rm -rf *.fff matplotlibrc _minted*/ figures/ 3.py 3.tex 4.py 4.tex
+	$(LMAKE) -c
+	rm -rf $(INTERMEDIATE)
 
 clean: sweep
-	@$L -C
+	$(LMAKE) -C
+	rm -f *.pdf
 
-1: hw1
-hw1:
-	@$L 1
-	@$(MAKE) sweep
-
-2: hw2
-hw2:
-	@$L 2
-	@$(MAKE) sweep
-
-3: hw3
-hw3:
-	@echo 'figure.autolayout : True' > matplotlibrc
-	@$W 3.mdw
-	@$P 3
-	@$P 3
-	@$(MAKE) sweep
-
-4: hw4
-hw4:
-	@$W 4.mdw
-	@$P 4
-	@$P 4
-	@$(MAKE) sweep
-
-5: hw5
-hw5:
-	@$W 5.mdw
-	@$P 5
-	@$P 5
-	@$(MAKE) sweep
+1: 1.pdf
+2: 2.pdf
+3: 3.pdf
+4: 4.pdf
+5: 5.pdf
