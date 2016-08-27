@@ -1,19 +1,20 @@
-# Flags for latexmk
-P := pandoc
-Q := -quiet
-R := -r ../latexmkrc
-
-L := latexmk $R $Q
-
-all : responses presentation
-
-sweep :
-	# @$L -c
-
-clean : sweep
-	# @$L -C
+LMAKE := latexmk -r ../latexmkrc -silent
 
 .PHONY : homework
-responses :
+
+all: final
+
+clean: sweep
+	@$(LMAKE) -C
+
+sweep :
+	@$(LMAKE) -c
+	@rm -f *.dvi
+
+homework:
 	@$(MAKE) -C homework
-	@$(MAKE) -C homework sweep
+
+final:
+	@latex final
+	@dvipdf final
+	@$(MAKE) sweep
