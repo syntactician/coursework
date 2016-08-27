@@ -12,4 +12,5 @@
 *.swp
 *.ttt
 test.*
+tmp.*
 ~$*
