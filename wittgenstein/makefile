@@ -1,7 +1,7 @@
 LMAKE := latexmk -r ../latexmkrc -silent
 QUIET := >/dev/null 2>/dev/null
 
-%.pdf : %.tex
+%.pdf: %.tex
 	@$(LMAKE) $< $(QUIET)
 	@$(MAKE) sweep
 
@@ -14,19 +14,15 @@ sweep:
 	@$(LMAKE) -c
 
 1: propositions
-propositions: propositions.pdf
-
 2: augustine
-augustine: augustine.pdf
-
 3: rules
-rules: rules.pdf
-
 4: private.language
-private.language: private.language.pdf
-
 5: experience
-experience: experience.pdf
-
 6: certainty
+
+propositions: propositions.pdf
+augustine: augustine.pdf
+rules: rules.pdf
+private.language: private.language.pdf
+experience: experience.pdf
 certainty: certainty.pdf
