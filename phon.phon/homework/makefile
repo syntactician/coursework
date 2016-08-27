@@ -42,11 +42,11 @@ sweep:
 
 02.18: 4
 4: 4.pdf
-4.pdf: 4a.png 4b.png 4c.png 4d.png
+4.pdf: 4a.png 4b.png 4c.png 4d.png 4.tex
 	@$(LMAKE) 4 $(QUIET)
 	@$(MAKE) sweep
 
-4.mobi: 4a.png 4b.png 4c.png 4d.png
+4.mobi: 4a.png 4b.png 4c.png 4d.png 4.tex
 	@$(PDOC) -o 4.html 4.tex
 	@$(KGEN) 4.html $(QUIET) ;:
 	@$(MAKE) sweep
