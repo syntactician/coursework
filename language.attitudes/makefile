@@ -20,7 +20,7 @@ autobiography: 1
 08.31: hernandez.08.31.15.pdf
 
 2: 09.07
-09.07 : hernandez.09.07.15.pdf
+09.07: hernandez.09.07.15.pdf
 
 3: 09.14
 09.14: hernandez.09.14.15.pdf
