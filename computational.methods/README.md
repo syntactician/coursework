@@ -2,7 +2,7 @@
 ### Spring 2016 — Linguistics 380
 
 #### Course Description
-If a computer is smart en ough to beat humans at Jeopardy, drive a car,
+If a computer is smart enough to beat humans at Jeopardy, drive a car,
 and pen a haiku, does it mean that machines can think? Is it possible to
 predict the spread of the flu, or the success of Hollywood’s next film
 based on patterns in Google searches? Did Shakespeare really write that
