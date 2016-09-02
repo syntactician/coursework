@@ -6,10 +6,10 @@ QUIET := >/dev/null 2>/dev/null
 
 .SUFFIXES: .pdf .tex
 .tex.pdf:
-	$(LMAKE) $* $(QUIET)
+	$(LMAKE) $* # $(QUIET)
 	$(MAKE) sweep
 
-all : 1
+all : 1 2
 
 sweep:
 	$(LMAKE) -c
@@ -18,3 +18,4 @@ clean: sweep
 	$(LMAKE) -C
 
 1: 1.pdf
+2: 2.pdf
