@@ -9,7 +9,7 @@ QUIET := >/dev/null 2>/dev/null
 	$(LMAKE) $* # $(QUIET)
 	$(MAKE) sweep
 
-all : 1 2
+all : 1 2 3 4
 
 sweep:
 	$(LMAKE) -c
@@ -19,3 +19,5 @@ clean: sweep
 
 1: 1.pdf
 2: 2.pdf
+3: 3.pdf
+4: 4.pdf
