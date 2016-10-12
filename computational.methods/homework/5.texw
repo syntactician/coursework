@@ -1,6 +1,11 @@
 \documentclass[man,12pt,floatsintext]{apa6}
 \usepackage[colorlinks=true]{hyperref}
-\usepackage{amssymb,amsmath,times,minted,graphicx,gb4e}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{times}
+\usepackage{minted}
+\usepackage{graphicx}
+\usepackage{gb4e}
 \linespread{1.5}
 
 \graphicspath{./trees/}

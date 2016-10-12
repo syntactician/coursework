@@ -1,6 +1,10 @@
 \documentclass[man,12pt]{apa6}
 \usepackage[colorlinks=true]{hyperref}
-\usepackage{amssymb,amsmath,times,minted,gb4e}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{times}
+\usepackage{minted}
+\usepackage{gb4e}
 \linespread{1.5}
 
 \begin{document}
