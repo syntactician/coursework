@@ -1,34 +1,34 @@
 .POSIX:
 
-LMAKE := latexmk -r ../../latexmkrc -silent
 QUIET := >/dev/null 2>/dev/null
 
-SRC  = CombaheeRiverCollective77.tex Harper93.tex Morgan68.tex Stanton48.tex Terrell04.tex \
+SRC  = Morgan68.tex Stanton48.tex Terrell04.tex \
+	   CombaheeRiverCollective77.tex Harper93.tex \
 	   Lorde84.tex Rushin81.tex
+HTML = ${SRC:.tex=.html}
 MOBI = ${SRC:.tex=.mobi}
 PDF  = ${SRC:.tex=.pdf}
 
-.tex.mobi:
-	pandoc $< -s -o $*.html
-	kindlegen -c2 $*.html ${QUIET} ||:
-	rm $*.html
+.tex.html:
+	pandoc $< -so $@
+
+.html.mobi:
+	kindlegen -c2 $< ${QUIET} ||:
 
 .tex.pdf:
-	${LMAKE} $* ${QUIET}
-	${LMAKE} -c ${QUIET}
+	tectonic -c minimal $<
 
 all: pdf kindle
 
 clean: sweep
-	@${LMAKE} -C ${QUIET}
-	@rm -rf *.mobi
+	rm -f ${PDF} ${MOBI}
 
 sweep:
-	@${LMAKE} -c ${QUIET}
-	@rm -rf *.html
+	rm -f ${HTML}
 
 pdf:    ${PDF}
 kindle: ${MOBI}
 
+.INTERMEDIATE: ${HTML}
 .PHONY: all clean sweep pdf kindle
-.SUFFIXES: .mobi .pdf .tex
+.SUFFIXES: .html .mobi .pdf .tex
