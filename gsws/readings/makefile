@@ -3,7 +3,8 @@
 LMAKE := latexmk -r ../../latexmkrc -silent
 QUIET := >/dev/null 2>/dev/null
 
-SRC  = CombaheeRiverCollective77.tex Morgan68.tex Stanton48.tex
+SRC  = CombaheeRiverCollective77.tex Harper93.tex Morgan68.tex Stanton48.tex Terrell04.tex \
+	   Lorde84.tex Rushin81.tex
 MOBI = ${SRC:.tex=.mobi}
 PDF  = ${SRC:.tex=.pdf}
 
