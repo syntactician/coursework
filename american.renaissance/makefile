@@ -1,22 +1,16 @@
-LMAKE := latexmk -r ../latexmkrc -silent
-QUIET := >/dev/null 2>/dev/null
+.POSIX:
 
-%.pdf: %.tex
-	@$(LMAKE) $* $(QUIET)
-	@$(MAKE) sweep
+SRC  = 1.tex 2.tex 3.tex
+PDF  = ${SRC:.tex=.pdf}
 
-all: 1 2 3 | sweep
+.tex.pdf:
+	@echo "tectonic $<"
+	@tectonic -c minimal $<
 
-clean: sweep
-	@$(LMAKE) -C
+all: ${PDF}
 
-sweep:
-	@$(LMAKE) -c
+clean:
+	rm -f ${PDF}
 
-machine: 1
-midterm: 2
-quiz: 3
-
-1: 1.pdf
-2: 2.pdf
-3: 3.pdf
+.PHONY: all clean
+.SUFFIXES: .pdf .tex
