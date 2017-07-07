@@ -1,27 +1,35 @@
-LMAKE := latexmk -r ../../latexmkrc -silent
-QUIET := >/dev/null 2>/dev/null
+.POSIX:
 
-%.mobi : %.tex
-	@pandoc $< -s -o $*.html
-	@kindlegen -c2 $*.html $(QUIET) ||:
-	@rm $*.html
+QUIET = >/dev/null 2>/dev/null
 
-%.pdf : %.tex
-	@$(LMAKE) $* $(QUIET)
-	@$(LMAKE) -c $(QUIET)
+SRC  = Wittgenstein69.tex
+HTML = ${SRC:.tex=.html}
+MOBI = ${SRC:.tex=.mobi}
+PDF  = ${SRC:.tex=.pdf}
+
+.tex.html:
+	pandoc $< -so $@
+
+.html.mobi:
+	@echo "kindlegen $<"
+	@kindlegen -c2 $< ${QUIET} ||:
+
+.tex.pdf:
+	@echo "tectonic $<"
+	@tectonic -c minimal $<
 
 all: pdf kindle
 
-clean : sweep
-	@$(LMAKE) -C $(QUIET)
-	@rm -rf *.mobi
+clean: sweep
+	rm -f ${MOBI}
+	rm -f ${PDF}
 
-sweep :
-	@$(LMAKE) -c $(QUIET)
-	@rm -rf *.html
+sweep:
+	rm -f ${HTML}
 
-pdf: certainty
-certainty: Wittgenstein69.pdf
+pdf:    ${PDF}
+kindle: ${MOBI}
 
-kindle: certainty.k
-certainty.k: Wittgenstein69.mobi
+.INTERMEDIATE: ${HTML}
+.PHONY: all clean sweep pdf kindle
+.SUFFIXES: .html .mobi .pdf .tex

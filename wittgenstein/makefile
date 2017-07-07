@@ -1,28 +1,21 @@
-LMAKE := latexmk -r ../latexmkrc -silent
-QUIET := >/dev/null 2>/dev/null
+.POSIX:
 
-%.pdf: %.tex
-	@$(LMAKE) $< $(QUIET)
-	@$(MAKE) sweep
+SRC = propositions.tex \
+	  augustine.tex \
+	  rules.tex \
+	  private.language.tex \
+	  experience.tex \
+	  certainty.tex
+PDF = ${SRC:.tex=.pdf}
 
-all: 1 2 3 4 5 6 | sweep
+.tex.pdf:
+	@echo "tectonic $<"
+	@tectonic -c minimal $<
 
-clean: sweep
-	@$(LMAKE) -C
+all: ${PDF}
 
-sweep:
-	@$(LMAKE) -c
+clean:
+	rm -f ${PDF}
 
-1: propositions
-2: augustine
-3: rules
-4: private.language
-5: experience
-6: certainty
-
-propositions: propositions.pdf
-augustine: augustine.pdf
-rules: rules.pdf
-private.language: private.language.pdf
-experience: experience.pdf
-certainty: certainty.pdf
+.PHONY: all clean
+.SUFFIXES: .pdf .tex
