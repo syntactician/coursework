@@ -1,48 +1,32 @@
-LMAKE := latexmk -r ../latexmkrc -silent
-QUIET := >/dev/null 2>/dev/null
+.POSIX:
 
-%.pdf : %.tex
-	@$(LMAKE) $* $(QUIET)
-	@$(MAKE) sweep
+SRC = syllabus.tex \
+	   hernandez.08.31.15.tex \
+	   hernandez.09.07.15.tex \
+	   hernandez.09.14.15.tex \
+	   hernandez.09.28.15.tex \
+	   hernandez.10.05.15.tex \
+	   hernandez.10.19.15.tex \
+	   hernandez.10.26.15.tex \
+	   hernandez.11.09.15.tex \
+	   hernandez.11.16.15.tex
+PDF = ${SRC:.tex=.pdf}
 
-all: syllabus 1 2 3 5 6 7 8 9 10 | sweep
+.tex.pdf:
+	@echo "tectonic $<"
+	@tectonic -c minimal $<
 
-clean: sweep
-	@$(LMAKE) -C
+all: ${PDF}
 
-sweep:
-	@$(LMAKE) -c
+clean:
+	rm -f ${PDF}
 
-syllabus: syllabus.pdf
+syllabus:          syllabus.pdf
+autobiography:     hernandez.08.31.15.pdf
+action.plan:       hernandez.10.19.15.pdf
+midterm:           hernandez.10.26.15.pdf
+literature.review: hernandez.11.16.15.pdf
 
-1: 08.31
-autobiography: 1
-08.31: hernandez.08.31.15.pdf
-
-2: 09.07
-09.07: hernandez.09.07.15.pdf
-
-3: 09.14
-09.14: hernandez.09.14.15.pdf
-
-5: 09.28
-09.28: hernandez.09.28.15.pdf
-
-6: 10.05
-10.05: hernandez.10.05.15.pdf
-
-7: 10.19
-action.plan: 7
-10.19: hernandez.10.19.15.pdf
-
-8: 10.26
-midterm: 8
-10.26: hernandez.10.26.15.pdf
-
-9: 11.09
-11.09: hernandez.11.09.15.pdf
-
-10: 11.16
-lit.review: 10
-literature.review: 10
-11.16: hernandez.11.16.15.pdf
+.PHONY: all clean \
+	syllabus autobiography action.plan midterm literature.review
+.SUFFIXES: .pdf .tex
