@@ -1,4 +1,5 @@
 .POSIX:
+.SUFFIXES: .pdf .tex
 
 SRC  = 1.tex 2.tex 3.tex
 PDF  = ${SRC:.tex=.pdf}
@@ -13,4 +14,3 @@ clean:
 	rm -f ${PDF}
 
 .PHONY: all clean
-.SUFFIXES: .pdf .tex
