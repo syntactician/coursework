@@ -4,21 +4,24 @@ QUIET := >/dev/null 2>/dev/null
 
 SRC  = Morgan68.tex Stanton48.tex Terrell04.tex \
 	   CombaheeRiverCollective77.tex Harper93.tex \
-	   Lorde84.tex Rushin81.tex
+	   Lorde84.tex Rushin81.tex \
+	   Adewunmi14.tex Frye83.tex McIntosh90.tex
 HTML = ${SRC:.tex=.html}
 MOBI = ${SRC:.tex=.mobi}
 PDF  = ${SRC:.tex=.pdf}
 
+.html.mobi:
+	@echo "kindlegen $<"
+	@kindlegen -c2 $< ${QUIET} ||:
+
 .tex.html:
 	pandoc $< -so $@
 
-.html.mobi:
-	kindlegen -c2 $< ${QUIET} ||:
-
 .tex.pdf:
-	tectonic -c minimal $<
+	@echo "tectonic $<"
+	@tectonic -c minimal $<
 
-all: pdf kindle
+all: kindle pdf
 
 clean: sweep
 	rm -f ${PDF} ${MOBI}
@@ -26,8 +29,8 @@ clean: sweep
 sweep:
 	rm -f ${HTML}
 
-pdf:    ${PDF}
 kindle: ${MOBI}
+pdf:    ${PDF}
 
 .INTERMEDIATE: ${HTML}
 .PHONY: all clean sweep pdf kindle
