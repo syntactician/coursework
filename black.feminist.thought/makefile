@@ -1,20 +1,19 @@
-LMAKE := latexmk -r ../latexmkrc -silent
-QUIET := >/dev/null 2>/dev/null
+.POSIX:
+.SUFFIXES: .pdf .tex
 
-%.pdf : %.tex
-	@$(LMAKE) $* $(QUIET)
-	@$(MAKE) sweep
+SRC = proposal.tex bibliography.tex presentation.tex final.tex
+PDF = ${SRC:.tex=.pdf}
 
-all : proposal bibliography presentation final | sweep
+.tex.pdf:
+	@echo "tectonic $<"
+	@tectonic -c minimal $<
 
-clean : sweep
-	@$(LMAKE) -C
+all: ${PDF}
+
+clean: sweep
+	rm -f ${PDF}
 
 sweep:
-	@$(LMAKE) -c
-	@rm -f *.nav *.snm
+	rm -f presentation.toc
 
-proposal: proposal.pdf
-bibliography: bibliography.pdf
-presentation: presentation.pdf
-final: final.pdf
+.PHONY: all clean
