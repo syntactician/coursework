@@ -1,6 +1,5 @@
 .POSIX:
-
-QUIET := >/dev/null 2>/dev/null
+.SUFFIXES: .html .mobi .pdf .tex
 
 SRC  = Morgan68.tex Stanton48.tex Terrell04.tex \
 	   CombaheeRiverCollective77.tex Harper93.tex \
@@ -12,7 +11,7 @@ PDF  = ${SRC:.tex=.pdf}
 
 .html.mobi:
 	@echo "kindlegen $<"
-	@kindlegen -c2 $< ${QUIET} ||:
+	@kindlegen -c2 $< >/dev/null ||:
 
 .tex.html:
 	pandoc $< -so $@
@@ -34,4 +33,3 @@ pdf:    ${PDF}
 
 .INTERMEDIATE: ${HTML}
 .PHONY: all clean sweep pdf kindle
-.SUFFIXES: .html .mobi .pdf .tex
