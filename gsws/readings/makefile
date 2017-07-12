@@ -5,7 +5,8 @@ SRC  = Morgan68.tex Stanton48.tex Terrell04.tex \
 	   CombaheeRiverCollective77.tex Harper93.tex \
 	   Lorde84.tex Rushin81.tex \
 	   Adewunmi14.tex Frye83.tex McIntosh90.tex \
-	   Kincaid78.tex
+	   Kincaid78.tex \
+	   Mock11.tex
 HTML = ${SRC:.tex=.html}
 MOBI = ${SRC:.tex=.mobi}
 PDF  = ${SRC:.tex=.pdf}
