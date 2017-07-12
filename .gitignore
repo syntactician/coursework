@@ -10,6 +10,7 @@
 *.out
 *.pdf
 *.swp
+*.toc
 *.ttt
 .~lock*
 test.*
